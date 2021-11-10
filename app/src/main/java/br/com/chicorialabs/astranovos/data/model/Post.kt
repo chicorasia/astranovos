@@ -11,10 +11,11 @@ data class Post(
     val id: Int,
     val title: String,
     val url: String,
+    val imageUrl: String,
     val summary: String,
     val publishedAt: String,
     val updatedAt: String?,
-    val launches: Array<Launch> = emptyArray(),
+    val launches: Array<Launch> = emptyArray()
 ) {
     fun hasLaunch(): Boolean = launches.isEmpty()
 
