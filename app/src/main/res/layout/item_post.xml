@@ -63,7 +63,7 @@
                 tools:text="@sample/articles.json/data/summary" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/item_published_tv"
+                android:id="@+id/item_published_ch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/half_margin"
@@ -75,6 +75,24 @@
                 app:layout_constraintStart_toStartOf="@id/item_summary_tv"
                 app:layout_constraintTop_toBottomOf="@id/item_summary_tv"
                 tools:text="@sample/articles.json/data/publishedAt" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/item_launch_ch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/ic_rocket"
+                app:chipIconTint="@color/off_white"
+                android:paddingTop="@dimen/half_margin"
+                android:ellipsize="end"
+                android:fontFamily="@font/noto_serif"
+                android:textColor="@color/off_white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="@color/gradient_cherry_dark"
+                app:layout_constraintStart_toEndOf="@id/item_published_ch"
+                app:layout_constraintTop_toBottomOf="@id/item_summary_tv"
+                app:layout_constraintEnd_toStartOf="@id/item_favourite_btn"
+                />
+
 
             <ImageButton
                 android:id="@+id/item_favourite_btn"
