@@ -1,7 +1,7 @@
 package br.com.chicorialabs.astranovos
 
 import android.app.Application
-import br.com.chicorialabs.astranovos.presentation.ui.di.PresentationModule
+import br.com.chicorialabs.astranovos.presentation.di.PresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

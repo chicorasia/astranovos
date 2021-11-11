@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AstraNovos</string>
-    <string name="HomeToolbarTitle">Home Fragment</string>
+    <string name="HomeToolbarTitle">Latest news</string>
     <string name="home_fragment_placeholder">This is home fragment</string>
 </resources>

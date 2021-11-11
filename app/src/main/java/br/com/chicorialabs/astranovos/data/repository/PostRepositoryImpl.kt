@@ -57,6 +57,10 @@ object MockAPIService {
                 Launch(
                     id = "0d779392-1a36-4c1e-b0b8-ec11e3031ee6",
                     provider = "Launch Library 2"
+                ),
+                Launch(
+                    id = "0d779392-1a36-4c1e-b0b8-ec11e3031ee6",
+                    provider = "Launch Library 2"
                 )
             )
         ),

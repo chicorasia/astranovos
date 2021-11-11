@@ -10,6 +10,7 @@ import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.StringBuilder
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -31,6 +32,10 @@ class HomeViewModel : ViewModel() {
         fetchPosts()
     }
 
+    /**
+     * Esse método coleta o fluxo do repositorio e atribui
+     * o seu valor ao campo _listPost
+     */
     private fun fetchPosts() {
         viewModelScope.launch {
             repository.listPosts().collect {
@@ -39,8 +44,22 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    val helloText = "There are ${listPost.value?.size} posts!"
+    /**
+     * Posso configurar esse campo de texto para exibir mensagens
+     * caso não haja nenhum Post para ler.
+     */
+    val helloText = StringBuilder().apply{
+        _listPost.value?.let { list ->
+            append("There are ${list.size} posts:")
+            appendLine()
+            list.forEach { post ->
+                appendLine("--- start post ---")
+                append("${post.title}")
+                appendLine()
+                append("${post.summary}")
+                appendLine()
+            }
 
-
-
+        }
+    }
 }
