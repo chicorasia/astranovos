@@ -1,27 +1,32 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.chicorialabs.astranovos.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.dsl.module
+
+// Tarefas do PresentationModule
+// TODO 003: Criar um pacote di na camada de presentation
+// TODO 004: Criar um object PresentationModule dentro do pacote di
+// TODO 005: Criar uma função privada viewModelModule()
+// TODO 006: Criar uma função load()
+
+// Tarefas da classe App
+// TODO 007: Criar uma classe App
+// TODO 008: Adicionar o App ao manifest.xml
 
 /**
  * Essa classe representa o fragmento da tela Home.
  */
 class HomeFragment : Fragment() {
 
-    /**
-     * Usa o Koin para injetar a dependência do ViewModel
-     */
-    private val viewModel: HomeViewModel by viewModel()
+//    TODO 010: Usar o delegate Koin para injetar o HomeViewModel
+
+    private lateinit var viewModel: HomeViewModel
     private val binding: HomeFragmentBinding by lazy {
         HomeFragmentBinding.inflate(layoutInflater)
     }
@@ -30,6 +35,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+//        TODO 009: Eliminar essa inicialização manual do ViewModel
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initBinding()
         initRecyclerView()
