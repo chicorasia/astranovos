@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--    Esse XML representa um item da recyclerview; é um DataBindingLayout que recebe um objeto do
+        tipo Post e usa os BindingAdapters definidos no arquivo PostBindingAdapters para fazer
+        a conversão e exibição dos dados.
+-->
     <data>
         <variable
             name="post"
@@ -74,12 +78,14 @@
                     tools:text="@sample/articles.json/data/publishedAt"
                     style="@style/ChipText" />
 
+<!-- A visibilidade desse chip é controlada pelo BindingAdapter -->
                 <com.google.android.material.chip.Chip
                     android:id="@+id/item_launch_ch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:chipIcon="@drawable/ic_rocket"
                     app:chipIconTint="@color/off_white"
+                    tools:text="1 launch event(s)"
                     style="@style/ChipText"
                     app:chipBackgroundColor="@color/gradient_cherry_dark"
                     itemHasLaunch="@{post}"

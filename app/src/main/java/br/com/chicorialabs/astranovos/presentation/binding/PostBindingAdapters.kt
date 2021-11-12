@@ -43,6 +43,9 @@ fun TextView.setPostSummary(post: Post?) {
 fun ImageView.setImage(post: Post?) {
     post?.let {
 
+        /**
+         * Exibe uma progressBar circular enquanto carrega a imagem
+         */
         val circularProgressDrawable = CircularProgressDrawable(context)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
