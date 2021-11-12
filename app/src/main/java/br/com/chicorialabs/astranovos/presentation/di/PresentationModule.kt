@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.presentation.ui.di
+package br.com.chicorialabs.astranovos.presentation.di
 
 import br.com.chicorialabs.astranovos.presentation.ui.home.HomeViewModel
 import org.koin.core.context.loadKoinModules

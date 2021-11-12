@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/drawable/gradient_rectangle.xml" value="0.5708333333333333" />
-        <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/layout/activity_main.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/drawable/ic_rocket.xml" value="0.446875" />
+        <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/layout/activity_main.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/layout/gradient_toolbar.xml" value="0.5546875" />
         <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/layout/home_fragment.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/layout/item_post.xml" value="0.5546875" />
         <entry key="..\:/Users/chico/AndroidStudioProjects/AstraNovos/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24074074074074073" />
       </map>
     </option>

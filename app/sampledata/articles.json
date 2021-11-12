@@ -1,0 +1,168 @@
+{
+  "data": [
+    {
+      "id": 12783,
+      "title": "SpaceX ready for back to back astronaut, Starlink launches",
+      "url": "https://www.teslarati.com/spacex-back-to-back-starlink-astronaut-launches-crew-3/",
+      "imageUrl": "https://www.teslarati.com/wp-content/uploads/2021/11/Crew-3-Dragon-C210-F9-B1067-39A-110921-Richard-Angle-feature-2-c.jpg",
+      "newsSite": "Teslarati",
+      "summary": "Two SpaceX Falcon 9 rockets remain on track to attempt back-to-back astronaut and Starlink satellite launches later this week. Both SpaceX East...",
+      "publishedAt": "2021-11-10T10:07:44.000Z",
+      "updatedAt": "2021-11-10T10:08:01.340Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 12782,
+      "title": "Crew-3 mission cleared for launch",
+      "url": "https://spacenews.com/crew-3-mission-cleared-for-launch/",
+      "imageUrl": "https://spacenews.com/wp-content/uploads/2021/11/crew2-chutes.jpg",
+      "newsSite": "SpaceNews",
+      "summary": "NASA and SpaceX are ready to proceed with the launch of a commercial crew mission Nov. 10 after overcoming weather and astronaut health issues as well as concerns about the spacecraft’s parachutes.",
+      "publishedAt": "2021-11-10T09:27:02.000Z",
+      "updatedAt": "2021-11-10T09:38:23.654Z",
+      "featured": false,
+      "launches": [
+        {
+          "id": "0d779392-1a36-4c1e-b0b8-ec11e3031ee6",
+          "provider": "Launch Library 2"
+        }
+      ],
+      "events": []
+    },
+    {
+      "id": 12781,
+      "title": "NASA delays Moon landings, says Blue Origin legal tactics partly to blame",
+      "url": "https://arstechnica.com/science/2021/11/nasa-delays-moon-landings-says-blue-origin-legal-tactics-partly-to-blame/",
+      "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2021/10/51614473753_88c81a224f_k.jpg",
+      "newsSite": "Arstechnica",
+      "summary": "\"We've lost nearly seven months in litigation.\"",
+      "publishedAt": "2021-11-10T00:34:02.000Z",
+      "updatedAt": "2021-11-10T05:47:30.161Z",
+      "featured": false,
+      "launches": [
+        {
+          "id": "8034d81b-af96-460c-a7b7-5c8e7f1a1d86",
+          "provider": "Launch Library 2"
+        }
+      ],
+      "events": []
+    },
+    {
+      "id": 12780,
+      "title": "NASA Outlines Challenges, Progress for Artemis Moon Missions",
+      "url": "http://www.nasa.gov/press-release/nasa-outlines-challenges-progress-for-artemis-moon-missions",
+      "imageUrl": "https://www.nasa.gov/sites/default/files/thumbnails/image/as08-14-2506large.jpg?itok=qkzT2lJ8",
+      "newsSite": "NASA",
+      "summary": "In the first major Artemis update provided under the Biden-Harris Administration, NASA leadership discussed Tuesday the challenges and progress of America’s lunar exploration plans and reiterated a long-term commitment to exploring the Moon and sending astronauts to Mars.",
+      "publishedAt": "2021-11-09T23:37:00.000Z",
+      "updatedAt": "2021-11-10T05:47:43.064Z",
+      "featured": false,
+      "launches": [
+        {
+          "id": "65896761-b6ca-4df3-9699-e077a360c52a",
+          "provider": "Launch Library 2"
+        },
+        {
+          "id": "41699701-2ef4-4b0c-ac9d-6757820cde87",
+          "provider": "Launch Library 2"
+        },
+        {
+          "id": "8034d81b-af96-460c-a7b7-5c8e7f1a1d86",
+          "provider": "Launch Library 2"
+        }
+      ],
+      "events": []
+    },
+    {
+      "id": 12779,
+      "title": "SpaceX, NASA celebrate Blue Origin’s lunar lander lawsuit loss and get back to work",
+      "url": "https://www.teslarati.com/spacex-nasa-starship-moon-lander-back-to-work/",
+      "imageUrl": "https://www.teslarati.com/wp-content/uploads/2020/04/Lunar-Starship-Artemis-SpaceX-render-1-crop-c.jpg",
+      "newsSite": "Teslarati",
+      "summary": "In a November 9th press conference, NASA leaders have begun to publicly celebrate the end of seven months of Blue Origin litigation...",
+      "publishedAt": "2021-11-09T22:37:43.000Z",
+      "updatedAt": "2021-11-09T22:37:58.291Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 12778,
+      "title": "NASA delays human lunar landing to at least 2025",
+      "url": "https://spacenews.com/nasa-delays-human-lunar-landing-to-at-least-2025/",
+      "imageUrl": "https://spacenews.com/wp-content/uploads/2021/06/SpaceX-Starship-HLS-lander-on-moon.jpg",
+      "newsSite": "SpaceNews",
+      "summary": "NASA leadership has formally given up on the goal of returning humans to the moon by 2024, pushing back a landing by NASA astronauts on the lunar surface to at least 2025.",
+      "publishedAt": "2021-11-09T22:27:00.000Z",
+      "updatedAt": "2021-11-10T05:47:54.664Z",
+      "featured": false,
+      "launches": [
+        {
+          "id": "8034d81b-af96-460c-a7b7-5c8e7f1a1d86",
+          "provider": "Launch Library 2"
+        }
+      ],
+      "events": []
+    },
+    {
+      "id": 12776,
+      "title": "U.S. interagency panel to update R&D strategy to tackle orbital debris",
+      "url": "https://spacenews.com/u-s-interagency-panel-to-update-rd-strategy-to-tackle-orbital-debris/",
+      "imageUrl": "https://spacenews.com/wp-content/uploads/2016/05/Orbital_Debris_ESA-879x485.jpg",
+      "newsSite": "SpaceNews",
+      "summary": "The Biden administration plans to update an existing research-and-development plan aimed at combatting orbital debris.",
+      "publishedAt": "2021-11-09T21:57:00.000Z",
+      "updatedAt": "2021-11-09T21:57:00.333Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 12777,
+      "title": "Spaceflight to launch 13 payloads on first multi-orbit space tug mission",
+      "url": "https://spacenews.com/spaceflight-to-launch-13-payloads-on-first-multi-orbit-space-tug-mission/",
+      "imageUrl": "https://spacenews.com/wp-content/uploads/2021/11/LTC-scaled.jpg",
+      "newsSite": "SpaceNews",
+      "summary": "Launch services provider Spaceflight announced plans Nov. 9 to deliver 13 customer payloads across two distinct orbits for the first time next year with its new space tug.",
+      "publishedAt": "2021-11-09T21:57:00.000Z",
+      "updatedAt": "2021-11-09T21:57:00.335Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 12775,
+      "title": "China’s first female spacewalker helps outfit space station robotic arm",
+      "url": "https://spaceflightnow.com/2021/11/09/chinas-first-female-spacewalker-helps-outfit-space-station-robotic-arm/",
+      "imageUrl": "https://spaceflightnow.com/wp-content/uploads/2021/11/chinese_eva.jpg",
+      "newsSite": "Spaceflight Now",
+      "summary": "Astronauts Zhai Zhigang and Wang Yaping, the first Chinese woman to perform a spacewalk, stepped outside China’s space station Sunday for an excursion lasting more than six hours to ready the orbiting lab’s robotic arm for operations.",
+      "publishedAt": "2021-11-09T21:26:45.000Z",
+      "updatedAt": "2021-11-10T05:48:05.285Z",
+      "featured": false,
+      "launches": [],
+      "events": [
+        {
+          "id": 430,
+          "provider": "Launch Library 2"
+        }
+      ]
+    },
+    {
+      "id": 12774,
+      "title": "NASA Awards Contract for Information Technology Support Services",
+      "url": "http://www.nasa.gov/press-release/nasa-awards-contract-for-information-technology-support-services-0",
+      "imageUrl": "https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb_0.jpg?itok=mrBnB_c9",
+      "newsSite": "NASA",
+      "summary": "NASA has awarded a task order under the General Services Administration (GSA) One Acquisition Solution for Integrated Services (OASIS) contract to Halvik Corp. of Vienna, Virginia, to provide support to the agency’s Solutions for Enterprise-wide Procurement (SEWP) Program.",
+      "publishedAt": "2021-11-09T21:17:00.000Z",
+      "updatedAt": "2021-11-09T21:17:37.544Z",
+      "featured": false,
+      "launches": [],
+      "events": []
+    }
+  ]
+}
+
