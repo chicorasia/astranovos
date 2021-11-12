@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ChipText">
+        <item name="android:paddingTop">@dimen/half_margin</item>
+        <item name="android:fontFamily">@font/noto_serif</item>
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ItemTitle">
+        <item name="android:layout_margin">@dimen/margin</item>
+        <item name="android:fontFamily">@font/noto_serif_bold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
+    </style>
+
+    <style name="ItemBodyText">
+        <item name="android:layout_margin">@dimen/margin</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/noto_serif</item>
+        <item name="android:lines">3</item>
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

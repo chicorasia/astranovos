@@ -45,47 +45,34 @@
                     android:id="@+id/item_title_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:fontFamily="@font/noto_serif_bold"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:textSize="16sp"
                     tools:text="@sample/articles.json/data/title"
                     postTitle="@{post}"
                     app:layout_constraintTop_toBottomOf="@id/item_image_iv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/design_default_color_on_primary" />
+                    style="@style/ItemTitle" />
 
                 <TextView
                     android:id="@+id/item_summary_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
                     postSummary="@{post}"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/noto_serif"
-                    android:lines="3"
-                    android:textColor="@color/design_default_color_on_primary"
-                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/item_title_tv"
-                    tools:text="@sample/articles.json/data/summary" />
+                    tools:text="@sample/articles.json/data/summary"
+                    style="@style/ItemBodyText" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/item_published_ch"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/half_margin"
+                    android:layout_width="wrap_content"
                     postPublishedDate="@{post}"
-                    android:fontFamily="@font/noto_serif"
-                    android:textColor="@color/design_default_color_on_primary"
-                    android:textSize="12sp"
                     app:chipBackgroundColor="@color/gradient_cherry_dark"
                     app:layout_constraintStart_toStartOf="@id/item_summary_tv"
                     app:layout_constraintTop_toBottomOf="@id/item_summary_tv"
-                    tools:text="@sample/articles.json/data/publishedAt" />
+                    tools:text="@sample/articles.json/data/publishedAt"
+                    style="@style/ChipText" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/item_launch_ch"
@@ -93,10 +80,7 @@
                     android:layout_height="wrap_content"
                     app:chipIcon="@drawable/ic_rocket"
                     app:chipIconTint="@color/off_white"
-                    android:paddingTop="@dimen/half_margin"
-                    android:fontFamily="@font/noto_serif"
-                    android:textColor="@color/off_white"
-                    android:textSize="12sp"
+                    style="@style/ChipText"
                     app:chipBackgroundColor="@color/gradient_cherry_dark"
                     itemHasLaunch="@{post}"
                     app:layout_constraintStart_toEndOf="@id/item_published_ch"
