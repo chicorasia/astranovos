@@ -44,22 +44,4 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    /**
-     * Posso configurar esse campo de texto para exibir mensagens
-     * caso não haja nenhum Post para ler.
-     */
-    val helloText = StringBuilder().apply{
-        _listPost.value?.let { list ->
-            append("There are ${list.size} posts:")
-            appendLine()
-            list.forEach { post ->
-                appendLine("--- start post ---")
-                append("${post.title}")
-                appendLine()
-                append("${post.summary}")
-                appendLine()
-            }
-
-        }
-    }
 }
