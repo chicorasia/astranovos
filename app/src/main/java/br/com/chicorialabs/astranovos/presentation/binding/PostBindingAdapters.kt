@@ -51,14 +51,17 @@ fun ImageView.setImage(post: Post?) {
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
 
-        Glide.with(this).load(post.imageUrl).placeholder(circularProgressDrawable).into(this)
+        Glide.with(this).load(post.imageUrl)
+            .placeholder(circularProgressDrawable).into(this)
 
     }
 }
 
 /**
  * Esse adapter mostra o Chip se o post tiver um lançamento
- * associado; senão, oculta o Chip.
+ * associado; senão, oculta o Chip. O texto é formatado usando
+ * uma Plural String para selecionar o string correto (no singular
+ * ou no plural conforme a quantidade de lançamentos).
  */
 @BindingAdapter("itemHasLaunch")
 fun Chip.setHasLaunch(post: Post?) {
@@ -68,7 +71,8 @@ fun Chip.setHasLaunch(post: Post?) {
         } else {
             View.GONE
         }
-        this.text = "${post.getLaunchCount()} launch event(s)"
+        val count = post.getLaunchCount()
+        this.text = resources.getQuantityString(R.plurals.numberOfLaunchEvents, count, count)
     }
 }
 
@@ -81,7 +85,8 @@ fun Chip.setHasLaunch(post: Post?) {
 @RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("postPublishedDate")
 fun Chip.setUpdate(post: Post?) {
-    val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withZone(ZoneId.from(ZoneOffset.UTC))
+    val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
+        .withZone(ZoneId.from(ZoneOffset.UTC))
     with(formatter) {
         post?.let {
             val date = Instant.parse(post.publishedAt)
