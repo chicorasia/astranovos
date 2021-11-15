@@ -38,6 +38,7 @@ android {
 
 dependencies {
     def nav_version = "2.3.5"
+    def koin_version = "3.0.1"
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -53,7 +54,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Koin
-    //TODO 002: adicionar as dependências do Koin
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-ext:$koin_version"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

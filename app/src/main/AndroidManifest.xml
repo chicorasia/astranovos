@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.chicorialabs.astranovos">
 
-<!--    TODO 001: Adicionar permissões de internet-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-<!--    TODO 008: Adicionar a classe App-->
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
