@@ -2,6 +2,7 @@ package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.data.model.Launch
 import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
@@ -18,7 +19,8 @@ import java.io.IOException
  * usando um serviço mockado. Os dados são retornados na forma de um flow.
  */
 
-class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
+// TODO 013: Modificar a dependência de PostRepositoryImpl para receber um objeto SpaceFlightNewsService
+class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepository {
 
     /**
      * Essa função usa o construtor flow { } para emitir a lista de Posts
@@ -28,7 +30,12 @@ class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
      */
     override suspend fun listPosts(): Flow<List<Post>> = flow {
 
-        val postList = service.listPosts
+        //TODO 013a: Alterar para chamada de função listPosts()
+        //TODO 0xx: colocar a chamada num bloco try-catch para lidar com exceções
+        /**
+         * Recebe uma lista de Posts e emite como um flow<List<Post>>
+         */
+        val postList = service.listPosts()
         emit(postList)
 
     }
@@ -39,7 +46,6 @@ class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
  */
 
 object MockAPIService {
-
 
     val listPosts: List<Post> = listOf(
         Post(
