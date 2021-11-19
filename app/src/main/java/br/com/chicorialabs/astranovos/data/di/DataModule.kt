@@ -1,6 +1,5 @@
 package br.com.chicorialabs.astranovos.data.di
 
-import br.com.chicorialabs.astranovos.data.repository.MockAPIService
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
@@ -11,7 +10,6 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 
 /**
  * Esse object é responsável por instanciar e configurar os serviços web. Está com duas
@@ -24,6 +22,7 @@ object DataModule {
     private const val BASE_URL = "https://api.spaceflightnewsapi.net/v3/"
 
     //TODO 007: Criar uma função pública load()
+    //TODO 019: Adicionar o networkModule() à função load()
     fun load() {
         loadKoinModules(postsModule() + networkModule())
     }
@@ -35,19 +34,22 @@ object DataModule {
         }
     }
 
+    // TODO 015: Criar uma função privada networkModule()
     /**
      * Cria um módulo de rede
      */
     private fun networkModule() : Module {
         return module {
 
+            // TODO 016: Criar uma converter factory usando o Moshi
             /**
              * Instancia uma factory do Moshi
              */
             single {
-                Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+                Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             }
 
+            // TODO 018: Usar a função createService para obter o SpaceFlightNewsService
             /**
              * Cria o serviço de rede usando o Retrofit
              */
@@ -57,6 +59,8 @@ object DataModule {
 
         }
     }
+
+    //TODO 017: Criar uma função createService() que retorna um SpaceFlightNewsService
     /**
      * Essa função usa o Retrofit para criar um SpaceFlightNewsService
      */
