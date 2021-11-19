@@ -15,14 +15,9 @@ import java.lang.StringBuilder
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
-class HomeViewModel : ViewModel() {
 
-    /**
-     * Instancia um PostRepository. Somente para teste, será
-     * substituído por uma solução de injeção de dependência
-     * usando Koin.
-     */
-    val repository : PostRepository = PostRepositoryImpl(MockAPIService)
+// TODO 003: Modificar o construtor de HomeViewModel passando um PostRepository como parâmetro
+class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>
@@ -54,9 +49,9 @@ class HomeViewModel : ViewModel() {
             appendLine()
             list.forEach { post ->
                 appendLine("--- start post ---")
-                append("${post.title}")
+                append(post.title)
                 appendLine()
-                append("${post.summary}")
+                append(post.summary)
                 appendLine()
             }
 

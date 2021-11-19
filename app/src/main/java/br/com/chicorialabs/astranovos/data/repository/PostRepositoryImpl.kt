@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
+// TODO 004: Criar um pacote di na camada data
+// TODO 005: Criar um object DataModule no pacote data.di
 
 /**
  * Essa classe implementa a interface PostRepository, inicialmente
