@@ -34,14 +34,14 @@ object DataModule {
         }
     }
 
-    // TODO 015: Criar uma função privada networkModule()
+    // TODO 016: Criar uma função privada networkModule()
     /**
      * Cria um módulo de rede
      */
     private fun networkModule() : Module {
         return module {
 
-            // TODO 016: Criar uma converter factory usando o Moshi
+            // TODO 017: Criar uma converter factory usando o Moshi
             /**
              * Instancia uma factory do Moshi
              */
@@ -54,24 +54,26 @@ object DataModule {
              * Cria o serviço de rede usando o Retrofit
              */
             single {
-                createService(get())
+                createService<SpaceFlightNewsService>(get())
             }
 
         }
     }
 
-    //TODO 017: Criar uma função createService() que retorna um SpaceFlightNewsService
+    //TODO 015: Criar uma função createService() que retorna um SpaceFlightNewsService
+    //TODO 020: Refatorar a função createService para usar generics
+
     /**
      * Essa função usa o Retrofit para criar um SpaceFlightNewsService
      */
-    private inline fun createService(
+    private inline fun <reified T> createService(
         factory: Moshi,
-    ) : SpaceFlightNewsService {
+    ) : T {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(factory))
             .build()
-            .create(SpaceFlightNewsService::class.java)
+            .create(T::class.java)
     }
 
 }

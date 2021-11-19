@@ -31,7 +31,6 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
     override suspend fun listPosts(): Flow<List<Post>> = flow {
 
         //TODO 013a: Alterar para chamada de função listPosts()
-        //TODO 0xx: colocar a chamada num bloco try-catch para lidar com exceções
         /**
          * Recebe uma lista de Posts e emite como um flow<List<Post>>
          */
@@ -41,6 +40,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
     }
 }
 
+//TODO 021: Eliminar o object MockApiService
 /**
  * Um serviço com dados mockados só para apoio durante o desenvolvimento.
  */
