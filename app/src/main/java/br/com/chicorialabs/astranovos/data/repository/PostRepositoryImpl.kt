@@ -9,6 +9,10 @@ import java.io.IOException
 // TODO 004: Criar um pacote di na camada data
 // TODO 005: Criar um object DataModule no pacote data.di
 
+// TODO 010: Criar um pacote services na camada data
+// TODO 011: Criar uma interface SpaceFlightNewsService no pacote data.services
+// TODO 012: Adicionar o endpoint '/articles' ao SpaceFlightNewsService
+
 /**
  * Essa classe implementa a interface PostRepository, inicialmente
  * usando um serviço mockado. Os dados são retornados na forma de um flow.
