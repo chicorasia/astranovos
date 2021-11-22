@@ -23,11 +23,13 @@ object PresentationModule {
     }
 
     /**
-     * Instancia os Viewmodels da camada de apresentação
+     * Instancia os Viewmodels da camada de apresentação.
+     * A função get() indica ao Koin que ele precisa buscar uma
+     * dependência (nesse caso, do DataModule)
      */
     private fun viewModelModule() : Module {
         return module {
-            factory { HomeViewModel() }
+            factory { HomeViewModel(get()) }
         }
     }
 

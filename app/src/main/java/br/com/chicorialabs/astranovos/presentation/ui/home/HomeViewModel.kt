@@ -14,15 +14,17 @@ import java.lang.StringBuilder
 
 /**
  * Essa classe dá suporte à tela principal (Home).
+ * Recebe uma interface PostRepository como dependência,
+ * resolvida por meio do DataModule do Koin.
  */
-class HomeViewModel : ViewModel() {
+
+class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     /**
      * Instancia um PostRepository. Somente para teste, será
      * substituído por uma solução de injeção de dependência
      * usando Koin.
      */
-    val repository : PostRepository = PostRepositoryImpl(MockAPIService)
 
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>
