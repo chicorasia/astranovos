@@ -20,12 +20,6 @@ import java.lang.StringBuilder
 
 class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
-    /**
-     * Instancia um PostRepository. Somente para teste, será
-     * substituído por uma solução de injeção de dependência
-     * usando Koin.
-     */
-
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>
         get() = _listPost

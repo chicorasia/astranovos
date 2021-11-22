@@ -11,7 +11,7 @@ import java.io.IOException
  * Essa classe implementa a interface PostRepository, inicialmente
  * usando um serviço mockado. Os dados são retornados na forma de um flow.
  */
-
+// TODO 006: Modificar a dependência para receber um objeto SpaceFlightNewsService
 class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
 
     /**
@@ -22,12 +22,14 @@ class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
      */
     override suspend fun listPosts(): Flow<List<Post>> = flow {
 
+//TODO 007: Alterar para chamada de função listPosts()
         val postList = service.listPosts
         emit(postList)
 
     }
 }
 
+// TODO 008: Eliminar o MockApiService
 /**
  * Um serviço com dados mockados só para apoio durante o desenvolvimento.
  */

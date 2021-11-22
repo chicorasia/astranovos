@@ -67,6 +67,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
     //Retrofit & OkHttp
-
+    //TODO 001: adicionar dependências do Retrofit e OkHttp
     //Moshi (JSON mapping)
+    //TODO 002: adicionar dependências do Moshi
+
 }
