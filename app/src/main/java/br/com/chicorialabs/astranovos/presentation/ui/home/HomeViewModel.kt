@@ -18,13 +18,23 @@ import java.lang.StringBuilder
  * resolvida por meio do DataModule do Koin.
  */
 
-class HomeViewModel(private val repository: PostRepository) : ViewModel() {
+// TODO 002: Criar um pacote di na camada data
+// TODO 003: Criar um object DataModule no pacote data.di
+
+// Tarefas do DataModule
+// TODO 004: Criar uma função postsModule para instanciar o PostRepository
+// TODO 005: Criar uma função pública load()
+
+
+// TODO 001: Modificar o construtor de HomeViewModel passando um PostRepository como parâmetro
+class HomeViewModel : ViewModel() {
 
     /**
      * Instancia um PostRepository. Somente para teste, será
      * substituído por uma solução de injeção de dependência
      * usando Koin.
      */
+    private val repository = PostRepositoryImpl(MockAPIService)
 
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>

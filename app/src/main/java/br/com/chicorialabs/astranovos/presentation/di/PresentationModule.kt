@@ -27,9 +27,10 @@ object PresentationModule {
      * A função get() indica ao Koin que ele precisa buscar uma
      * dependência (nesse caso, do DataModule)
      */
+    // TODO 006: Adicionar a dependência do HomeViewModel com get()
     private fun viewModelModule() : Module {
         return module {
-            factory { HomeViewModel(get()) }
+            factory { HomeViewModel() }
         }
     }
 
