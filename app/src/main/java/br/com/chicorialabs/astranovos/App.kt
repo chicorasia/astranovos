@@ -26,8 +26,6 @@ class App : Application() {
          * (Outros módulos devem ser adicionados aqui)
          */
         PresentationModule.load()
-
-        //TODO 008: Inicializar o DataModule
         DataModule.load()
     }
 }

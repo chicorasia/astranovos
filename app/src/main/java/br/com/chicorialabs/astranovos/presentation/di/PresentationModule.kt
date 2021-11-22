@@ -25,7 +25,6 @@ object PresentationModule {
     /**
      * Instancia os Viewmodels da camada de apresentação
      */
-    // TODO 009: Adicionar a dependência do HomeViewModel com get()
     private fun viewModelModule() : Module {
         return module {
             factory { HomeViewModel(get()) }

@@ -6,7 +6,6 @@ import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.context.loadKoinModules
@@ -22,32 +21,25 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  */
 object DataModule {
 
-    // TODO 014: Adicionar uma constante BASE_URL
-    // TODO 020: Adicionar uma constante OK_HTTP
     private const val BASE_URL = "https://api.spaceflightnewsapi.net/v3/"
     private const val OK_HTTP = "Ok Http"
 
-    //TODO 007: Criar uma função pública load()
-    //TODO 019: Adicionar o networkModule() à função load()
     fun load() {
         loadKoinModules(postsModule() + networkModule())
     }
 
-    //TODO 006: Criar uma função privada postsModule() para instanciar o PostRepository
     private fun postsModule() : Module {
         return module {
             single<PostRepository> { PostRepositoryImpl(get()) }
         }
     }
 
-    // TODO 016: Criar uma função privada networkModule()
     /**
      * Cria um módulo de rede
      */
     private fun networkModule() : Module {
         return module {
 
-            //TODO 021: Criar um logging interceptor usando o OkHttp3
             /**
              * Criar um logging interceptor usando o OkHttp3
              */
@@ -62,7 +54,6 @@ object DataModule {
                     .build()
             }
 
-            // TODO 017: Criar uma converter factory usando o Moshi
             /**
              * Instancia uma factory do Moshi
              */
@@ -70,7 +61,6 @@ object DataModule {
                 Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             }
 
-            // TODO 018: Usar a função createService para obter o SpaceFlightNewsService
             /**
              * Cria o serviço de rede usando o Retrofit
              */
@@ -80,10 +70,6 @@ object DataModule {
 
         }
     }
-
-    //TODO 015: Criar uma função createService() que retorna um SpaceFlightNewsService
-    //TODO 022: Adicionar o parâmetro OkHttpClient ao createService()
-    //TODO 023: Refatorar a função createService para usar generics
 
     /**
      * Essa função usa o Retrofit para criar um SpaceFlightNewsService.

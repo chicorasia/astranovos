@@ -16,7 +16,6 @@ import java.lang.StringBuilder
  * Essa classe dá suporte à tela principal (Home).
  */
 
-// TODO 003: Modificar o construtor de HomeViewModel passando um PostRepository como parâmetro
 class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     private val _listPost = MutableLiveData<List<Post>>()
