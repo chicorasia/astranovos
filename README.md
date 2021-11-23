@@ -20,6 +20,4 @@ Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGv
 
 ![Screnshot_1](Screenshot_1.png)
 
-
-
 :computer: chicorialabs.com.br/blog

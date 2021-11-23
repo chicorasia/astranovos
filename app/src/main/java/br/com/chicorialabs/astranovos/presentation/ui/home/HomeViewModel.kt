@@ -5,12 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.repository.MockAPIService
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
-import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 /**
  * Essa classe dá suporte à tela principal (Home).
