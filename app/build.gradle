@@ -67,8 +67,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
     //Retrofit & OkHttp
-    //TODO 001: adicionar dependências do Retrofit e OkHttp
-    //Moshi (JSON mapping)
-    //TODO 002: adicionar dependências do Moshi
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
+    //Moshi (JSON mapping)
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 }
