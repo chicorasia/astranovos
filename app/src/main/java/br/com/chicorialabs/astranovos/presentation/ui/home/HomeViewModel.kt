@@ -1,9 +1,6 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
@@ -69,6 +66,14 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      * Posso configurar esse campo de texto para exibir mensagens
      * caso não haja nenhum Post para ler.
      */
-    val helloText = StringBuilder()
+    val helloText = Transformations.map(listPost) {
+        listPost.let {
+            when(it.value) {
+                State.Loading -> { "🚀 Loading latest news..."}
+                is State.Error -> { "Could not load news. Sorry :'("}
+                else -> {""}
+            }
+        }
+    }
 
 }
