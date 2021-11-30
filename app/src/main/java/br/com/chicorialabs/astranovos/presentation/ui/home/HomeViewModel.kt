@@ -63,8 +63,8 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
     }
 
     /**
-     * Posso configurar esse campo de texto para exibir mensagens
-     * caso não haja nenhum Post para ler.
+     * Esse campo exibe uma mensagem na tela inicial conforme o estado
+     * de listPost.
      */
     val helloText = Transformations.map(listPost) {
         listPost.let {
