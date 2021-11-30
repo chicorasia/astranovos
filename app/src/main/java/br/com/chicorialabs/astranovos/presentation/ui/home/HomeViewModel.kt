@@ -1,16 +1,13 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.repository.MockAPIService
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
-import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -18,8 +15,27 @@ import java.lang.StringBuilder
 
 class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
-    private val _listPost = MutableLiveData<List<Post>>()
-    val listPost: LiveData<List<Post>>
+    /**
+    * Esse campo e as respectivas funções controlam a visibilidade
+    * da ProgressBar
+    */
+    private val _progressBarVisible = MutableLiveData<Boolean>(false)
+    val progressBarVisible: LiveData<Boolean>
+        get() = _progressBarVisible
+
+    fun showProgressBar() {
+        _progressBarVisible.value = true
+    }
+
+    fun hideProgressBar() {
+        _progressBarVisible.value = false
+    }
+
+    /**
+     * O campo _listPost agora recebe um objeto do tipo State<List<Post>>
+     */
+    private val _listPost = MutableLiveData<State<List<Post>>>()
+    val listPost: LiveData<State<List<Post>>>
         get() = _listPost
 
     init {
@@ -28,32 +44,36 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui
-     * o seu valor ao campo _listPost
+     * o seu valor ao campo _listPost.
+     * Simplesmente adicionar a chave catch { } já evita os crashes
+     * da aplicação quando em modo avião.
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            repository.listPosts().collect {
-                _listPost.value = it
-            }
+            repository.listPosts()
+                .onStart {
+                    _listPost.postValue(State.Loading)
+                }.catch {
+                    _listPost.postValue(State.Error(it))
+                }
+                .collect {
+                    _listPost.postValue(State.Success(it))
+                }
         }
     }
 
     /**
-     * Posso configurar esse campo de texto para exibir mensagens
-     * caso não haja nenhum Post para ler.
+     * Esse campo exibe uma mensagem na tela inicial conforme o estado
+     * de listPost.
      */
-    val helloText = StringBuilder().apply{
-        _listPost.value?.let { list ->
-            append("There are ${list.size} posts:")
-            appendLine()
-            list.forEach { post ->
-                appendLine("--- start post ---")
-                append(post.title)
-                appendLine()
-                append(post.summary)
-                appendLine()
+    val helloText = Transformations.map(listPost) {
+        listPost.let {
+            when(it.value) {
+                State.Loading -> { "🚀 Loading latest news..."}
+                is State.Error -> { "Could not load news. Sorry :'("}
+                else -> {""}
             }
-
         }
     }
+
 }

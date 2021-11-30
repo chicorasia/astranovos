@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.chicorialabs.astranovos.R
+import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 
@@ -29,7 +31,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         initBinding()
         initRecyclerView()
@@ -41,8 +43,25 @@ class HomeFragment : Fragment() {
         val adapter = PostListAdapter()
         binding.homeRv.adapter = adapter
 
+        /**
+         * Observa o campo listPost do HomeViewModel e modifica a
+         * UI conforme o seu estado.
+         */
         viewModel.listPost.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            when(it) {
+                State.Loading -> {
+                    viewModel.showProgressBar()
+                }
+                is State.Error -> {
+                    viewModel.hideProgressBar()
+                    Snackbar.make(binding.root, it.error.message.toString(),
+                        Snackbar.LENGTH_LONG).show()
+                }
+                is State.Success -> {
+                    viewModel.hideProgressBar()
+                    adapter.submitList(it.result)
+                }
+            }
         }
 
 
