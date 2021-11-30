@@ -44,14 +44,7 @@ object DataModule {
              * Criar um logging interceptor usando o OkHttp3
              */
             single {
-                val interceptor = HttpLoggingInterceptor {
-                    Log.e(OK_HTTP, it, )
-                }
-                interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-                OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    .build()
+                createOkHttpClient()
             }
 
             /**
@@ -69,6 +62,21 @@ object DataModule {
             }
 
         }
+    }
+
+    /**
+     * Essa função cria um OkHttpClient com um interceptor
+     * para logar as respostas do servidor.
+     */
+    private fun createOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor {
+            Log.e(OK_HTTP, it)
+        }
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
     }
 
     /**
