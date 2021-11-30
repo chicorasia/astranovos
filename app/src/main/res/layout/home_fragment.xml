@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="br.com.chicorialabs.astranovos.presentation.ui.home.HomeViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout
@@ -51,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:visibility="visible"
-                android:visibility="gone"
+                android:visibility="@{viewModel.progressBarVisible ? View.VISIBLE : View.GONE}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
