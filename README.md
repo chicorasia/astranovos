@@ -17,6 +17,8 @@ Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGv
 ### Screenshots:
 
 ![Screnshot_1](Screenshot_1.png)
+![Screnshot_2](Screenshot_2.png)
+![Screnshot_3](Screenshot_3.png)
 
 
 
