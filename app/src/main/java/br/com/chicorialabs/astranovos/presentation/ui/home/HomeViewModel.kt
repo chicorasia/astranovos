@@ -1,9 +1,11 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
+import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -32,6 +34,21 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
     }
 
     /**
+     * Esse campo controla a exibição de um snackbar com mensagem de erro na
+     * tela do HomeFragment.
+     */
+    private val _snackbar = MutableLiveData<String?>(null)
+    val snackbar: LiveData<String?>
+        get() = _snackbar
+
+    /**
+     * Reseta o valor de _snackbar após a mensagem ter sido exibida
+     */
+    fun onSnackBarShown() {
+        _snackbar.value = null
+    }
+
+    /**
      * O campo _listPost agora recebe um objeto do tipo State<List<Post>>
      */
     private val _listPost = MutableLiveData<State<List<Post>>>()
@@ -53,8 +70,12 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
             repository.listPosts()
                 .onStart {
                     _listPost.postValue(State.Loading)
+                    delay(800) //apenas cosmético
                 }.catch {
-                    _listPost.postValue(State.Error(it))
+                    with(RemoteException("Could not connect to SpaceFlightNews API")) {
+                        _listPost.postValue(State.Error(this))
+                        _snackbar.value = this.message
+                    }
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
@@ -70,7 +91,7 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
         listPost.let {
             when(it.value) {
                 State.Loading -> { "🚀 Loading latest news..."}
-                is State.Error -> { "Could not load news. Sorry :'("}
+                is State.Error -> { "Houston, we've had a problem! :'("}
                 else -> {""}
             }
         }

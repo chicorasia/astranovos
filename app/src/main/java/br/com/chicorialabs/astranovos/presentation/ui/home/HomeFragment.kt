@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -34,8 +35,23 @@ class HomeFragment : Fragment() {
     ): View {
 
         initBinding()
+        initSnackbar()
         initRecyclerView()
+
+
         return binding.root
+    }
+
+    private fun initSnackbar() {
+        viewModel.snackbar.observe(viewLifecycleOwner) {
+            it?.let { errorMessage ->
+                Snackbar.make(
+                    binding.root, errorMessage,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                viewModel.onSnackBarShown()
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -54,8 +70,6 @@ class HomeFragment : Fragment() {
                 }
                 is State.Error -> {
                     viewModel.hideProgressBar()
-                    Snackbar.make(binding.root, it.error.message.toString(),
-                        Snackbar.LENGTH_LONG).show()
                 }
                 is State.Success -> {
                     viewModel.hideProgressBar()
@@ -63,7 +77,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
 
     }
 

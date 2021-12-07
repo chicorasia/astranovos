@@ -29,7 +29,7 @@
                 android:fontFamily="@font/noto_serif_bold"
                 android:textSize="20sp"
                 android:text="@{viewModel.helloText}"
-                android:visibility="@{viewModel.helloText.length() == 0 ? View.GONE : View.VISIBLE}"
+                android:visibility="@{viewModel.helloText.empty ? View.GONE : View.VISIBLE}"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
