@@ -13,7 +13,7 @@ sealed class State<out T: Any> {
     object Loading : State<Nothing>()
 
     /**
-     * Os casos de Success e Failure possuem atributos, então é necessário
+     * Os casos de Success e Error possuem atributos, então é necessário
      * criá-los como data classes. O atributo é modificado conforme o estado:
      * uma List<Repo> no caso de sucesso e um Throwable no caso de falha.
      * @param result O objeto esperado da consulta ao endpoint

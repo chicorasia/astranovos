@@ -42,6 +42,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Essa função inicializa o Snackbar. O método onSnackBarShown()
+     * reseta o valor do campo do ViewModel após a mensagem ter sido
+     * exibida.
+     */
     private fun initSnackbar() {
         viewModel.snackbar.observe(viewLifecycleOwner) {
             it?.let { errorMessage ->
