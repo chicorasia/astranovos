@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,7 @@ class HomeFragment : Fragment() {
         binding.homeRv.adapter = adapter
 
         // TODO 008: Modificar o observer de listPost para usar os States
+        // TODO 015:
         /**
          * Observar o campo listPost e manipular a UI conforme
          * o seu estado

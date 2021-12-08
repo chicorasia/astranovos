@@ -40,13 +40,14 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
     }
 
     // TODO 004: Modificar o campo _listPost para usar a classe State
+    // TODO 014: Modificar o tipo do campo _listPost para usar a classe State<List<Post>>
     /**
      * Agora o campo _listPost espera um objeto do tipo State
      * (sendo que esse objeto carrega dentro de si um resultado
      * do tipo List<Post>>)
      */
-    private val _listPost = MutableLiveData<State>()
-    val listPost: LiveData<State>
+    private val _listPost = MutableLiveData<State<List<Post>>>()
+    val listPost: LiveData<State<List<Post>>>
         get() = _listPost
 
     init {
