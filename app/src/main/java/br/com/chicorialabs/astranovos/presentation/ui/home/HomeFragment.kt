@@ -1,17 +1,15 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.chicorialabs.astranovos.R
+import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.dsl.module
 
 /**
  * Essa classe representa o fragmento da tela Home.
@@ -34,9 +32,28 @@ class HomeFragment : Fragment() {
         initBinding()
 
         // TODO 009: Criar um observer para o Snackbar
-        
+        initSnackbar()
         initRecyclerView()
         return binding.root
+    }
+
+    /**
+     * Essa função configura um observer para o campo snackbar
+     * e exibe uma mensagem na parte de baixo da tela quando o campo
+     * não é nulo.
+     * Depois, chama a função onSnackBarShown() para resetar o valor
+     * do campo.
+     */
+    private fun initSnackbar() {
+        viewModel.snackbar.observe(viewLifecycleOwner) {
+            it?.let { errorMessage ->
+                Snackbar.make(
+                    binding.root, errorMessage,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                viewModel.onSnackBarShown()
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -45,8 +62,23 @@ class HomeFragment : Fragment() {
         binding.homeRv.adapter = adapter
 
         // TODO 008: Modificar o observer de listPost para usar os States
+        /**
+         * Observar o campo listPost e manipular a UI conforme
+         * o seu estado
+         */
         viewModel.listPost.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            when(it) {
+                State.Loading -> {
+                    viewModel.showProgressBar() //mostra a ProgressBar
+                }
+                is State.Error -> {
+                    viewModel.hideProgressBar() //oculta a ProgressBar
+                }
+                is State.Success -> {
+                    viewModel.hideProgressBar() // oculta a ProgressBar
+                    adapter.submitList(it.result) //submete a lista vinculada ao State
+                }
+            }
         }
 
 

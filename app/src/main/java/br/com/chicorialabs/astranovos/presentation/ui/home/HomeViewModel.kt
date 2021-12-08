@@ -1,12 +1,14 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 /**
@@ -16,11 +18,35 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     // TODO 005: Criar um campo _progressBarVisible
+    private val _progressBarVisible = MutableLiveData<Boolean>(false)
+    val progressBarVisible: LiveData<Boolean>
+        get() = _progressBarVisible
+
+    fun showProgressBar() {
+        _progressBarVisible.value = true
+    }
+
+    fun hideProgressBar() {
+        _progressBarVisible.value = false
+    }
+
     // TODO 006: Criar um campo _snackbar
+    private val _snackbar = MutableLiveData<String?>(null)
+    val snackbar: LiveData<String?>
+        get() = _snackbar
+
+    fun onSnackBarShown() {
+        _snackbar.value = null
+    }
 
     // TODO 004: Modificar o campo _listPost para usar a classe State
-    private val _listPost = MutableLiveData<List<Post>>()
-    val listPost: LiveData<List<Post>>
+    /**
+     * Agora o campo _listPost espera um objeto do tipo State
+     * (sendo que esse objeto carrega dentro de si um resultado
+     * do tipo List<Post>>)
+     */
+    private val _listPost = MutableLiveData<State>()
+    val listPost: LiveData<State>
         get() = _listPost
 
     init {
@@ -28,15 +54,30 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
     }
 
     /**
-     * Esse método coleta o fluxo do repositorio e atribui
-     * o seu valor ao campo _listPost
+     * Esse método inicia a chamada à API via repository e
+     * modifica o valor de _listPost conforme o estado da requisição.
+     * Como estou trabalhando com um Flow<T>, temos três situações
+     * para lidar:
+     * - onStart{ } : inicia a conexão
+     * - catch{ } : faz o tratamento de exceções
+     * - collect { }: coleta os dados quando a conexão é bem-sucedida
      */
     // TODO 007: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
-            repository.listPosts().collect {
-                _listPost.value = it
-            }
+            repository.listPosts()
+                .onStart {
+                    _listPost.postValue(State.Loading)
+                    delay(800) // apenas para efeito cosmético
+                }
+                .catch {
+                    val exception = RemoteException("Unable to connect to SpaceFlight News API")
+                    _listPost.postValue(State.Error(exception))
+                    _snackbar.postValue(exception.message)
+                }
+                .collect {
+                    _listPost.postValue(State.Success(it))
+                }
         }
     }
 
@@ -45,18 +86,11 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      * caso não haja nenhum Post para ler.
      */
 //    TODO 011: Usar uma transformação para modificar o campo helloText
-    val helloText = StringBuilder().apply{
-        _listPost.value?.let { list ->
-            append("There are ${list.size} posts:")
-            appendLine()
-            list.forEach { post ->
-                appendLine("--- start post ---")
-                append(post.title)
-                appendLine()
-                append(post.summary)
-                appendLine()
-            }
-
+    val helloText = Transformations.map(listPost) {
+        when(it) {
+            State.Loading -> { "🚀 Loading latest news..."}
+            is State.Error -> { "Houston, we've had a problem! :'("}
+            else -> {""} //uma string vazia
         }
     }
 }

@@ -10,6 +10,7 @@
         <variable
             name="viewModel"
             type="br.com.chicorialabs.astranovos.presentation.ui.home.HomeViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout
@@ -29,7 +30,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_serif_bold"
+                android:textSize="20dp"
                 android:text="@{viewModel.helloText}"
+                android:visibility="@{viewModel.helloText.empty ? View.GONE : View.VISIBLE}"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +57,7 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="@{viewModel.progressBarVisible ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

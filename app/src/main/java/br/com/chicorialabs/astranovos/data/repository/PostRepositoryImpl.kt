@@ -1,9 +1,11 @@
 package br.com.chicorialabs.astranovos.data.repository
 
+import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 
 /**
  * Essa classe implementa a interface PostRepository, inicialmente
@@ -23,8 +25,12 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
         /**
          * Recebe uma lista de Posts e emite como um flow<List<Post>>
          */
-        val postList = service.listPosts()
-        emit(postList)
+        try {
+            val postList = service.listPosts()
+            emit(postList)
+        } catch (ex: HttpException) {
+            throw RemoteException("Unable to connect to SpaceFlight News API")
+        }
 
     }
 }
