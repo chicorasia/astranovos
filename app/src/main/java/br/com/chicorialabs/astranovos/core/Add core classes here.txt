@@ -1,0 +1,3 @@
+TODO 001: Criar uma classe RemoteException no pacote core
+TODO 003: Criar uma classe selada State
+TODO 013: Modificar a classe State para receber qualquer tipo de resultado

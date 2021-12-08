@@ -32,6 +32,9 @@ class HomeFragment : Fragment() {
     ): View? {
 
         initBinding()
+
+        // TODO 009: Criar um observer para o Snackbar
+        
         initRecyclerView()
         return binding.root
     }
@@ -41,6 +44,7 @@ class HomeFragment : Fragment() {
         val adapter = PostListAdapter()
         binding.homeRv.adapter = adapter
 
+        // TODO 008: Modificar o observer de listPost para usar os States
         viewModel.listPost.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }

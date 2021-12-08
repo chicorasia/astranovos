@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--    TODO 010: Modificar a visibilidade da ProgressBar usando o campo showProgressBar-->
+<!--    TODO 010a: Importar a classe View -->
     <data>
         <!--    Essa variável permite vincular campos do ViewModel a elementos da UI -->
         <variable
@@ -21,6 +23,7 @@
             android:layout_height="match_parent"
             android:background="@color/medium_gray">
 
+<!--         TODO 012: Alternar a visibilidade do campo helloText conforme o tamanho da string de texto   -->
             <TextView
                 android:id="@+id/home_hello_text"
                 android:layout_width="wrap_content"
@@ -47,15 +50,16 @@
                 app:layout_constraintVertical_bias="0.0"
                 tools:listitem="@layout/item_post" />
 
+<!--            TODO 010b: Modificar a visibilidade da ProgressBar usando o operador ternário-->
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:visibility="visible"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_hello_text"
+                tools:visibility="visible" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

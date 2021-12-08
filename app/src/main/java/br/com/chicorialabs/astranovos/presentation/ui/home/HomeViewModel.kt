@@ -15,6 +15,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
+    // TODO 005: Criar um campo _progressBarVisible
+    // TODO 006: Criar um campo _snackbar
+
+    // TODO 004: Modificar o campo _listPost para usar a classe State
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>
         get() = _listPost
@@ -27,6 +31,7 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      * Esse método coleta o fluxo do repositorio e atribui
      * o seu valor ao campo _listPost
      */
+    // TODO 007: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
             repository.listPosts().collect {
@@ -39,6 +44,7 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      * Posso configurar esse campo de texto para exibir mensagens
      * caso não haja nenhum Post para ler.
      */
+//    TODO 011: Usar uma transformação para modificar o campo helloText
     val helloText = StringBuilder().apply{
         _listPost.value?.let { list ->
             append("There are ${list.size} posts:")
