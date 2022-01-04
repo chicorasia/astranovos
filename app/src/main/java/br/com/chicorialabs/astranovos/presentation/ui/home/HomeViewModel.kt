@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.repository.PostRepository
+import br.com.chicorialabs.astranovos.domain.ListPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * Essa classe dá suporte à tela principal (Home).
  */
 
-class HomeViewModel(private val repository: PostRepository) : ViewModel() {
+class HomeViewModel(private val listPostUseCase: ListPostsUseCase) : ViewModel() {
 
     /**
     * Esse campo e as respectivas funções controlam a visibilidade
@@ -67,7 +67,7 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            repository.listPosts()
+            listPostUseCase.execute()
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético
