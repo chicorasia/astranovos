@@ -9,6 +9,7 @@ A SpaceFlightNews API client for Android. It was created for a series of instruc
 - **Cyrillic, Latin and Greek support**. Use of a font family with support for different character sets.
 - **Coroutines**. Extensive use of coroutines for remote data access and other operations.
 - **Flow**. Use of flows instead of LiveData.
+- **Automated Testing & TDD**. Automated unit and integration tests using JUnit4 and KoinTest.
 - **Dependency injection with Koin**. 
 - **Fragment-based navigation**.
 
