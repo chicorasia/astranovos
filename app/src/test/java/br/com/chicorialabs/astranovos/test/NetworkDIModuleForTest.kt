@@ -10,17 +10,13 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-fun configureNetworkModuleForTest(baseApi: String) = module {
-    single {
+fun configureNetworkModuleForTest(baseUrl: String) = module {
+    single<SpaceFlightNewsService> {
 
         val factory = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
-        Retrofit.Builder()
-            .baseUrl(baseApi)
-            .addConverterFactory(MoshiConverterFactory.create(factory))
-            .build()
+        createServiceForTest(factory = factory, baseUrl = baseUrl)
     }
-    factory { get<Retrofit>().create(SpaceFlightNewsService::class.java) }
+
     single<PostRepository> { PostRepositoryImpl(get()) }
 
 }
@@ -29,3 +25,19 @@ fun configureUseCaseForTest() = module {
     factory<ListPostsUseCase> { ListPostsUseCase(get()) }
 }
 
+/**
+ * Essa é uma versão simplificada do método createService()
+ * presente no DataModule.
+ * @param factory Fábrica de conversor/parseador
+ * @param baseUrl Endereço base da API no formato "http://..."
+ */
+private inline fun <reified T> createServiceForTest(
+    factory: Moshi,
+    baseUrl: String
+) : T {
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .addConverterFactory(MoshiConverterFactory.create(factory))
+        .build()
+        .create(T::class.java)
+}

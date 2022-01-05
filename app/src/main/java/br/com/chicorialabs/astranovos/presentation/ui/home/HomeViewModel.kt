@@ -67,7 +67,7 @@ class HomeViewModel(private val listPostUseCase: ListPostsUseCase) : ViewModel()
      */
     private fun fetchPosts() {
         viewModelScope.launch {
-            listPostUseCase.execute()
+            listPostUseCase()
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético

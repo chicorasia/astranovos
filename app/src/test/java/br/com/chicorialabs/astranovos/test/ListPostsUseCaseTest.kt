@@ -1,7 +1,6 @@
 package br.com.chicorialabs.astranovos.test
 
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import br.com.chicorialabs.astranovos.domain.ListPostsUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -18,7 +17,6 @@ import kotlin.test.assertTrue
 
 class ListPostsUseCaseTest : KoinTest{
 
-    val mAPIService : SpaceFlightNewsService by inject()
     val listPostsUseCase: ListPostsUseCase by inject()
 
 
@@ -38,7 +36,7 @@ class ListPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
-            val result = listPostsUseCase.execute()
+            val result = listPostsUseCase()
 
             println(result.first().size)
 
@@ -51,9 +49,31 @@ class ListPostsUseCaseTest : KoinTest{
     }
 
     @Test
+    fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
+        runBlocking {
+            val result = listPostsUseCase()
+
+            println(result.first().size)
+            assertTrue(result is Flow<List<Post>>)
+        }
+    }
+
+    @Test
+    fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio()  {
+        runBlocking {
+            val result = listPostsUseCase()
+
+            println(result.first().size)
+
+            assertFalse(result.first().isEmpty())
+        }
+
+    }
+
+    @Test
     fun deve_ParsearCorretamente_UmObjetoRecebido() {
         runBlocking {
-            val response = listPostsUseCase.execute()
+            val response = listPostsUseCase()
             val result = response.first().first()
 
             assertTrue(result is Post)
