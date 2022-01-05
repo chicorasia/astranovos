@@ -10,7 +10,10 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-fun configureNetworkModuleForTest(baseUrl: String) = module {
+/**
+ * Esse método cria os módulos da camada de dados para teste
+ */
+fun configureDataModuleForTest(baseUrl: String) = module {
     single<SpaceFlightNewsService> {
 
         val factory = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -21,7 +24,10 @@ fun configureNetworkModuleForTest(baseUrl: String) = module {
 
 }
 
-fun configureUseCaseForTest() = module {
+/**
+ * Essa função configura os módulos da camada de domíno para teste
+ */
+fun configureDomainModuleForTest() = module {
     factory<ListPostsUseCase> { ListPostsUseCase(get()) }
 }
 
