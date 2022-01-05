@@ -55,6 +55,9 @@ dependencies {
     //Koin
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-android-ext:$koin_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -74,4 +77,6 @@ dependencies {
     //Moshi (JSON mapping)
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+
 }
