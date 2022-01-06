@@ -3,7 +3,7 @@ package br.com.chicorialabs.astranovos.test
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
-import br.com.chicorialabs.astranovos.domain.ListPostsUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.dsl.module
@@ -28,7 +28,7 @@ fun configureDataModuleForTest(baseUrl: String) = module {
  * Essa função configura os módulos da camada de domíno para teste
  */
 fun configureDomainModuleForTest() = module {
-    factory<ListPostsUseCase> { ListPostsUseCase(get()) }
+    factory<GetLatestPostsUseCase> { GetLatestPostsUseCase(get()) }
 }
 
 /**
