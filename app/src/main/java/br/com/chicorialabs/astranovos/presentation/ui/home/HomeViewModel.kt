@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.repository.PostRepository
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
  * Essa classe dá suporte à tela principal (Home).
  */
 
-class HomeViewModel(private val repository: PostRepository) : ViewModel() {
+// TODO 015: Modificar a dependência do HomeViewModel
+
+class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : ViewModel() {
 
     /**
     * Esse campo e as respectivas funções controlam a visibilidade
@@ -65,9 +67,10 @@ class HomeViewModel(private val repository: PostRepository) : ViewModel() {
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
+//    TODO 016: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
-            repository.listPosts()
+            getLatestPostsUseCase.execute()
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético

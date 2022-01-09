@@ -2,11 +2,12 @@ package br.com.chicorialabs.astranovos
 
 import android.app.Application
 import br.com.chicorialabs.astranovos.data.di.DataModule
+import br.com.chicorialabs.astranovos.domain.DomainModule
 import br.com.chicorialabs.astranovos.presentation.di.PresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-
+// TODO 014: Incluir o DomainModule na classe App
 /**
  * Essa classe representa um ponto de entrada no aplicativo.
  * Sua principal função é inicializar o Koin e carregar os
@@ -27,5 +28,6 @@ class App : Application() {
          */
         PresentationModule.load()
         DataModule.load()
+        DomainModule.load()
     }
 }

@@ -1,0 +1,7 @@
+TODO 002:  Criar uma classe abstrata UseCase no pacote core
+TODO 003: Criar um método abstrato execute()
+TODO 004: Criar uma classe GetLatestPostsUseCase no pacote domain
+TODO 005: Criar uma classe GetLatestPostsUseCaseTest
+TODO 011: Implementar o método execute() e testar até dar verde
+TODO 012: Criar um pacote di no pacote domain
+TODO 013: Criar um object DomainModule no pacote domain.di
