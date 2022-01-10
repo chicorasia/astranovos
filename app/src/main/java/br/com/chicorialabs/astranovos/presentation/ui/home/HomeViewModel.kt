@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 
 /**
  * Essa classe dá suporte à tela principal (Home).
+ * Os use cases a que ela deve ter acesso são passados
+ * como dependência.
  */
 
-// TODO 015: Modificar a dependência do HomeViewModel
 
 class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : ViewModel() {
 
@@ -67,7 +68,6 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-//    TODO 016: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
             getLatestPostsUseCase.execute()

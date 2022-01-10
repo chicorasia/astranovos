@@ -7,7 +7,6 @@ import br.com.chicorialabs.astranovos.presentation.di.PresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-// TODO 014: Incluir o DomainModule na classe App
 /**
  * Essa classe representa um ponto de entrada no aplicativo.
  * Sua principal função é inicializar o Koin e carregar os

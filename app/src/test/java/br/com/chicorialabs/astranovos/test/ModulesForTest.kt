@@ -10,6 +10,9 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+/**
+ * Esse arquivo configura os módulos do Koin para o ambiente de teste.
+ */
 fun configureDomainModuleForTest() = module {
     factory<GetLatestPostsUseCase> { GetLatestPostsUseCase(get()) }
 }
