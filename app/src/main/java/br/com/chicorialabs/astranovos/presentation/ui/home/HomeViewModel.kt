@@ -16,8 +16,6 @@ import kotlinx.coroutines.launch
  * Os use cases a que ela deve ter acesso são passados
  * como dependência.
  */
-
-
 class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : ViewModel() {
 
     /**
@@ -67,11 +65,15 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      * o seu valor ao campo _listPost.
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
+     *
+     * Como o UseCase tem uma função operator invoke() eu posso
+     * passar o nome da classe como uma função que ele executa
+     * imediatamente.
      */
 //    TODO 009: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
-            getLatestPostsUseCase.execute()
+            getLatestPostsUseCase()
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético

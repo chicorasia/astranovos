@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
  */
 //TODO 005: Modificar  GetLatestPostsUseCase para implementar NoParam<List<Post>>
 
-class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase<List<Post>>() {
+class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase.NoParam<List<Post>>() {
 
     override suspend fun execute(): Flow<List<Post>> = repository.listPosts()
 
