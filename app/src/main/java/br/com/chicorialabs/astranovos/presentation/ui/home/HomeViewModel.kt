@@ -68,6 +68,7 @@ class HomeViewModel(private val getLatestPostsUseCase: GetLatestPostsUseCase) : 
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
+//    TODO 009: Modificar o método fetchPosts()
     private fun fetchPosts() {
         viewModelScope.launch {
             getLatestPostsUseCase.execute()

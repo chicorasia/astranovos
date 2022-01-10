@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.Flow
  * PostRepository como dependência. Sua finalidade é implementar
  * a função de buscar os últimos posts no repositório.
  */
+//TODO 005: Modificar  GetLatestPostsUseCase para implementar NoParam<List<Post>>
+
 class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase<List<Post>>() {
 
     override suspend fun execute(): Flow<List<Post>> = repository.listPosts()

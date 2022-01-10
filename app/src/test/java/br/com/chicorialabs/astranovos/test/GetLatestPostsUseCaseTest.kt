@@ -48,6 +48,7 @@ class GetLatestPostsUseCaseTest : KoinTest {
     /**
      * Aqui são nossos testes.
      */
+//    TODO 008: Modificar os testes para invocar diretamente o UseCase
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
