@@ -1,0 +1,5 @@
+TODO 006: Criar um arquivo ModulesForTest.kt no diretório test
+TODO 007: Criar um arquivo MainDIComponentForTest
+TODO 008: Instanciar um objeto GetLatestPostsUseCase com inject
+TODO 009: Inicializar a Koin Application na classe de teste
+TODO 010: Escrever os testes
