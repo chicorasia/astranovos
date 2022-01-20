@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.test
+package br.com.chicorialabs.astranovos
 
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin

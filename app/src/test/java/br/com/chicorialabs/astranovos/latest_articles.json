@@ -1,0 +1,157 @@
+[
+    {
+        "id": 13527,
+        "title": "Arianespace looks to transitions of vehicles and business in 2022",
+        "url": "https://spacenews.com/arianespace-looks-to-transitions-of-vehicles-and-business-in-2022/",
+        "imageUrl": "https://spacenews.com/wp-content/uploads/2022/01/a5-jwst-2.jpg",
+        "newsSite": "SpaceNews",
+        "summary": "After its most active year in two decades capped by the launch of the James Webb Space Telescope for NASA, Arianespace is heading into a period of transition in 2022 marked by the introduction of new vehicles and a changing mix of customers.",
+        "publishedAt": "2022-01-07T13:12:45.000Z",
+        "updatedAt": "2022-01-07T13:12:45.636Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    },
+    {
+        "id": 13525,
+        "title": "Rocket Report: SpaceX raises more cash, Buy your own New Glenn",
+        "url": "https://arstechnica.com/science/2022/01/rocket-report-faa-delays-texas-spaceport-review-sls-slips-to-late-spring/",
+        "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2022/01/53101_A4.jpg",
+        "newsSite": "Arstechnica",
+        "summary": "\"SpaceX ... is currently drafting responses for the over 18,000 public comments.\"",
+        "publishedAt": "2022-01-07T12:00:20.000Z",
+        "updatedAt": "2022-01-07T12:16:53.175Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    },
+    {
+        "id": 13520,
+        "title": "SpaceX kicks off jam-packed new year with Starlink launch and Falcon landing",
+        "url": "https://www.teslarati.com/spacex-aces-first-starlink-launch-2022/",
+        "imageUrl": "https://www.teslarati.com/wp-content/uploads/2022/01/Starlink-4-5-F9-B1062-39A-010622-webcast-SpaceX-launch-landing-1.jpg",
+        "newsSite": "Teslarati",
+        "summary": "SpaceX has successfully completed its first launch – a Starlink mission – of 2022, kicking off the most ambitious annual launch manifest...",
+        "publishedAt": "2022-01-06T22:37:03.000Z",
+        "updatedAt": "2022-01-07T07:07:08.700Z",
+        "featured": false,
+        "launches": [
+            {
+                "id": "3ddb1934-2b57-489b-b5d2-31d4990604eb",
+                "provider": "Launch Library 2"
+            }
+        ],
+        "events": []
+    },
+    {
+        "id": 13519,
+        "title": "Space Force to use navigation data from LEO constellations to detect electronic interference",
+        "url": "https://spacenews.com/space-force-to-use-navigation-data-from-leo-constellations-to-detect-electronic-interference/",
+        "imageUrl": "https://spacenews.com/wp-content/uploads/2022/01/OneWeb-constellation-screenshot.jpg",
+        "newsSite": "SpaceNews",
+        "summary": "Under a $2 million contract from the U.S. Space Force, Slingshot Aerospace will develop an analytics tool that uses location data from commercial satellites in low Earth orbit to identify potential sources of electronic interference on the ground.",
+        "publishedAt": "2022-01-06T22:16:45.000Z",
+        "updatedAt": "2022-01-06T22:16:45.938Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    },
+    {
+        "id": 13518,
+        "title": "NASA to Host Coverage, Briefing for Webb Telescope’s Final Unfolding",
+        "url": "http://www.nasa.gov/press-release/nasa-to-host-coverage-briefing-for-webb-telescope-s-final-unfolding",
+        "imageUrl": "https://www.nasa.gov/sites/default/files/thumbnails/image/james_webb_space_telescope.jpg?itok=ZdlLrwkD",
+        "newsSite": "NASA",
+        "summary": "NASA will provide live coverage and host a media briefing Saturday, Jan. 8, for the conclusion of the James Webb Space Telescope’s major spacecraft deployments.",
+        "publishedAt": "2022-01-06T22:06:00.000Z",
+        "updatedAt": "2022-01-07T07:07:28.119Z",
+        "featured": false,
+        "launches": [
+            {
+                "id": "d0fa4bb2-80ea-4808-af08-7785dde53bf6",
+                "provider": "Launch Library 2"
+            }
+        ],
+        "events": [
+            {
+                "id": 485,
+                "provider": "Launch Library 2"
+            }
+        ]
+    },
+    {
+        "id": 13517,
+        "title": "SpaceX conducts first orbital launch of 2022 with Starlink Group 4-5",
+        "url": "https://www.nasaspaceflight.com/2022/01/starlink-4-5/",
+        "imageUrl": "https://www.nasaspaceflight.com/wp-content/uploads/2022/01/NSF-2022-01-06-23-15-15-220.jpg",
+        "newsSite": "NASA Spaceflight",
+        "summary": "SpaceX launched another batch of Starlink satellites to the fourth shell of the constellation for the first global orbital launch attempt of the year.",
+        "publishedAt": "2022-01-06T19:04:31.000Z",
+        "updatedAt": "2022-01-06T23:26:48.514Z",
+        "featured": false,
+        "launches": [
+            {
+                "id": "3ddb1934-2b57-489b-b5d2-31d4990604eb",
+                "provider": "Launch Library 2"
+            }
+        ],
+        "events": []
+    },
+    {
+        "id": 13516,
+        "title": "SpaceX Falcon 9 rocket ready for first of dozens of launches in 2022",
+        "url": "https://www.teslarati.com/spacex-falcon-9-ready-first-launch-2022/",
+        "imageUrl": "https://www.teslarati.com/wp-content/uploads/2022/01/GPS-III-SV05-Falcon-9-B1062-JRTI-recovery-062121-Richard-Angle-1-edit-c.jpg",
+        "newsSite": "Teslarati",
+        "summary": "Teams have rolled a Falcon 9 out of its integration hangar and raised the rocket vertical at Kennedy Space Center (KSC) Pad...",
+        "publishedAt": "2022-01-06T18:57:06.000Z",
+        "updatedAt": "2022-01-06T20:29:14.217Z",
+        "featured": false,
+        "launches": [
+            {
+                "id": "3ddb1934-2b57-489b-b5d2-31d4990604eb",
+                "provider": "Launch Library 2"
+            }
+        ],
+        "events": []
+    },
+    {
+        "id": 13515,
+        "title": "Loft Orbital orders more LeoStella satellite buses",
+        "url": "https://spacenews.com/loft-orbital-orders-more-leostella-satellite-buses/",
+        "imageUrl": "https://spacenews.com/wp-content/uploads/2020/12/rsz_1yam-3_in_space_2.png",
+        "newsSite": "SpaceNews",
+        "summary": "Condosat operator Loft Orbital has ordered another batch of small satellite buses from LeoStella after securing undisclosed customers looking to fly payloads in 2023.",
+        "publishedAt": "2022-01-06T17:26:43.000Z",
+        "updatedAt": "2022-01-06T17:26:43.394Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    },
+    {
+        "id": 13512,
+        "title": "Leidos signs on as HawkEye 360 investor and strategic partner",
+        "url": "https://spacenews.com/leidos-invests-in-hawkeye-360/",
+        "imageUrl": "https://spacenews.com/wp-content/uploads/2019/12/HawkEye-360-Global-Signals-1030x433-Nov-2019.jpg",
+        "newsSite": "SpaceNews",
+        "summary": "Hawkeye 360 extended its Series D funding round to $150 million with a $5 million investment from Leidos.",
+        "publishedAt": "2022-01-06T16:26:45.000Z",
+        "updatedAt": "2022-01-06T16:26:45.821Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    },
+    {
+        "id": 13513,
+        "title": "Report finds that US accounts for more than half of global space spending",
+        "url": "https://arstechnica.com/science/2022/01/report-finds-that-us-accounts-for-more-than-half-of-global-space-spending/",
+        "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2022/01/image003-3.jpg",
+        "newsSite": "Arstechnica",
+        "summary": "Nations around the world spent $92 billion on the \"space sector\" in 2021.",
+        "publishedAt": "2022-01-06T14:35:24.000Z",
+        "updatedAt": "2022-01-06T14:46:50.838Z",
+        "featured": false,
+        "launches": [],
+        "events": []
+    }
+]

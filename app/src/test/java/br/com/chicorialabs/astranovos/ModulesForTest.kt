@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.test
+package br.com.chicorialabs.astranovos
 
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl

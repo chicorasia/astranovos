@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.test
+package br.com.chicorialabs.astranovos
 
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
