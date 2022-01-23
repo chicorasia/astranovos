@@ -2,6 +2,7 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.core.SpaceFlightNewsFilter
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
@@ -56,7 +57,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         get() = _listPost
 
     init {
-        fetchPosts()
+        fetchPosts("articles")
     }
 
     /**
@@ -65,9 +66,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-    private fun fetchPosts() {
+    private fun fetchPosts(param: String) {
         viewModelScope.launch {
-            getLatestPostUseCase()
+            getLatestPostUseCase(param)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético
@@ -81,6 +82,10 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
                     _listPost.postValue(State.Success(it))
                 }
         }
+    }
+
+    fun fetchLatest(filter: SpaceFlightNewsFilter) {
+        fetchPosts(filter.value)
     }
 
     /**

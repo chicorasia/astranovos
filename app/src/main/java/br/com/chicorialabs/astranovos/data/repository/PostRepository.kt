@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PostRepository {
 
-    suspend fun listPosts() : Flow<List<Post>>
+    suspend fun listPosts(type: String) : Flow<List<Post>>
 }

@@ -18,6 +18,7 @@ import kotlin.test.assertTrue
 class GetLatestPostsUseCaseTest : KoinTest{
 
     val getLatestPostsUseCase: GetLatestPostsUseCase by inject()
+    val ARTICLES = "articles"
 
     companion object {
 
@@ -40,7 +41,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase()
+            val result = getLatestPostsUseCase(ARTICLES)
 
             println(result.first().size)
 
@@ -55,7 +56,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsUseCase()
+            val result = getLatestPostsUseCase(ARTICLES)
 
             println(result.first().size)
             assertTrue(result is Flow<List<Post>>)
@@ -65,7 +66,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase()
+            val result = getLatestPostsUseCase(ARTICLES)
 
             println(result.first().size)
 
@@ -77,7 +78,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_ParsearCorretamente_UmObjetoRecebido() {
         runBlocking {
-            val response = getLatestPostsUseCase()
+            val response = getLatestPostsUseCase(ARTICLES)
             val result = response.first().first()
 
             assertTrue(result is Post)

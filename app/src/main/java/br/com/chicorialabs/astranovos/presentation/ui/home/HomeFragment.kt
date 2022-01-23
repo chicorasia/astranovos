@@ -1,20 +1,17 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
+import br.com.chicorialabs.astranovos.core.SpaceFlightNewsFilter
 import br.com.chicorialabs.astranovos.core.State
-import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.dsl.module
 
 /**
  * Essa classe representa o fragmento da tela Home.
@@ -29,6 +26,14 @@ class HomeFragment : Fragment() {
         HomeFragmentBinding.inflate(layoutInflater)
     }
 
+    /**
+     * Inicializa o option menu no momento da criação do Fragment
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initOptionMenu()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +42,33 @@ class HomeFragment : Fragment() {
         initBinding()
         initSnackbar()
         initRecyclerView()
-
-
         return binding.root
+    }
+
+    /**
+     * Infla o options menu
+     */
+    fun initOptionMenu() {
+        with(binding.homeToolbar) {
+            inflateMenu(R.menu.options_menu)
+
+            menu.findItem(R.id.action_get_articles).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsFilter.ARTICLES)
+                true
+            }
+
+            menu.findItem(R.id.action_get_blogs).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsFilter.BLOGS)
+                true
+            }
+
+            menu.findItem(R.id.action_get_reports).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsFilter.REPORTS)
+                true
+            }
+
+
+        }
     }
 
     /**
