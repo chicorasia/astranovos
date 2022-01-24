@@ -2,7 +2,7 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
-import br.com.chicorialabs.astranovos.core.SpaceFlightNewsFilter
+import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
@@ -84,7 +84,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         }
     }
 
-    fun fetchLatest(filter: SpaceFlightNewsFilter) {
+    fun fetchLatest(filter: SpaceFlightNewsCategory) {
         fetchPosts(filter.value)
     }
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
-import br.com.chicorialabs.astranovos.core.SpaceFlightNewsFilter
+import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
@@ -27,7 +27,8 @@ class HomeFragment : Fragment() {
     }
 
     /**
-     * Inicializa o option menu no momento da criação do Fragment
+     * Inicializa e infla o option menu no momento
+     * da criação do fragmento.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,28 +47,29 @@ class HomeFragment : Fragment() {
     }
 
     /**
-     * Infla o options menu
+     * Esse método infla o options menu dentro da Toolbar.
+     * Cada item dispara uma chamada ao método fetchLatest()
+     * do ViewModel para atualizar a lista com as postagems
+     * da categoria escolhida.
      */
     fun initOptionMenu() {
         with(binding.homeToolbar) {
             inflateMenu(R.menu.options_menu)
 
             menu.findItem(R.id.action_get_articles).setOnMenuItemClickListener {
-                viewModel.fetchLatest(SpaceFlightNewsFilter.ARTICLES)
+                viewModel.fetchLatest(SpaceFlightNewsCategory.ARTICLES)
                 true
             }
 
             menu.findItem(R.id.action_get_blogs).setOnMenuItemClickListener {
-                viewModel.fetchLatest(SpaceFlightNewsFilter.BLOGS)
+                viewModel.fetchLatest(SpaceFlightNewsCategory.BLOGS)
                 true
             }
 
             menu.findItem(R.id.action_get_reports).setOnMenuItemClickListener {
-                viewModel.fetchLatest(SpaceFlightNewsFilter.REPORTS)
+                viewModel.fetchLatest(SpaceFlightNewsCategory.REPORTS)
                 true
             }
-
-
         }
     }
 
