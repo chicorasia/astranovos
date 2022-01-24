@@ -30,7 +30,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/gradient_rectangle"
-                app:title="@string/HomeToolbarTitle" />
+                app:title="@{viewModel.toolbarTitle}"
+                tools:text="Latest news"/>
 
             <TextView
                 android:id="@+id/home_hello_text"

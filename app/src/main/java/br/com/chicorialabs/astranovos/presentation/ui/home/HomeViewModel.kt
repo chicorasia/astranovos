@@ -35,6 +35,26 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     }
 
     /**
+     * Esse campo armazena a categoria atual.
+     * É inicializado com a categoria "articles" como padrão.
+     */
+    private val _category = MutableLiveData<SpaceFlightNewsCategory>().apply {
+        value = SpaceFlightNewsCategory.ARTICLES
+    }
+    private val category: LiveData<SpaceFlightNewsCategory>
+        get() = _category
+
+    /**
+     * Esse campo usa uma transformação para gerar o título
+     * da toolbar concatenando Latest e a descrição
+     * da categoria.
+     * TODO: extrair a string hardcoded para um resource
+     */
+    val toolbarTitle = Transformations.map(category){
+        "Latest ${it.description}"
+    }
+
+    /**
      * Esse campo controla a exibição de um snackbar com mensagem de erro na
      * tela do HomeFragment.
      */
@@ -84,8 +104,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         }
     }
 
-    fun fetchLatest(filter: SpaceFlightNewsCategory) {
-        fetchPosts(filter.value)
+    fun fetchLatest(category: SpaceFlightNewsCategory) {
+        fetchPosts(category.value)
+        _category.value = category
     }
 
     /**
