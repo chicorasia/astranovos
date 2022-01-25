@@ -2,6 +2,7 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
@@ -34,6 +35,26 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     }
 
     /**
+     * Esse campo armazena a categoria atual.
+     * É inicializado com a categoria "articles" como padrão.
+     */
+    private val _category = MutableLiveData<SpaceFlightNewsCategory>().apply {
+        value = SpaceFlightNewsCategory.ARTICLES
+    }
+    private val category: LiveData<SpaceFlightNewsCategory>
+        get() = _category
+
+    /**
+     * Esse campo usa uma transformação para gerar o título
+     * da toolbar concatenando Latest e a descrição
+     * da categoria.
+     * TODO: extrair a string hardcoded para um resource
+     */
+    val toolbarTitle = Transformations.map(category){
+        "Latest ${it.description}"
+    }
+
+    /**
      * Esse campo controla a exibição de um snackbar com mensagem de erro na
      * tela do HomeFragment.
      */
@@ -56,7 +77,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         get() = _listPost
 
     init {
-        fetchPosts()
+        fetchPosts("articles")
     }
 
     /**
@@ -65,9 +86,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-    private fun fetchPosts() {
+    private fun fetchPosts(param: String) {
         viewModelScope.launch {
-            getLatestPostUseCase()
+            getLatestPostUseCase(param)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético
@@ -81,6 +102,11 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
                     _listPost.postValue(State.Success(it))
                 }
         }
+    }
+
+    fun fetchLatest(category: SpaceFlightNewsCategory) {
+        fetchPosts(category.value)
+        _category.value = category
     }
 
     /**

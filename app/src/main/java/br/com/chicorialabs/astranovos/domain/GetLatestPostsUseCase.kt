@@ -5,8 +5,8 @@ import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase.NoParam<List<Post>>() {
+class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase<String, List<Post>>() {
 
-    override suspend fun execute(): Flow<List<Post>> = repository.listPosts()
+    override suspend fun execute(param: String): Flow<List<Post>> = repository.listPosts(param)
 
 }
