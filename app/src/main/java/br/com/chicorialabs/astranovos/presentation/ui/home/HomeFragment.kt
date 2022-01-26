@@ -1,24 +1,23 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.chicorialabs.astranovos.R
+import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.core.State
-import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.dsl.module
 
 /**
  * Essa classe representa o fragmento da tela Home.
  */
+
+//TODO 003: Criar um menu overflow
+//TODO 004: Inflar o menu
+//TODO 019: Implementar os ClickListeners em initOptionMenu()
 class HomeFragment : Fragment() {
 
     /**

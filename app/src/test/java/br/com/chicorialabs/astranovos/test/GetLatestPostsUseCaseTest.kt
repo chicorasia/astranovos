@@ -36,7 +36,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
         }
     }
 
-
+//    TODO 016: Atualizar os testes da classe GetLatestPostsUseCaseTest
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
