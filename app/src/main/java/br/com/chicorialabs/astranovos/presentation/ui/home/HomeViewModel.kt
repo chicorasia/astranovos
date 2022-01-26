@@ -3,6 +3,7 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
@@ -67,10 +68,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-//    TODO 014: Modificar o método fetchPosts() do HomeViewModel
     private fun fetchPosts() {
         viewModelScope.launch {
-            getLatestPostUseCase()
+            getLatestPostUseCase(SpaceFlightNewsCategory.BLOGS.value)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético

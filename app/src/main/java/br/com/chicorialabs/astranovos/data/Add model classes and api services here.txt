@@ -1,1 +1,0 @@
-TODO 002: Criar uma enum SpaceFlightNewsCategory no pacote "data"

@@ -1,5 +1,0 @@
-TODO 003: Escrever uma classe de teste para o SpaceFlightNewsService
-TODO 004: Adicionar servidor e serviço mockados
-TODO 005: Instanciar o service usando o servidor mockado
-TODO 006: Criar um método stopService() para parar o servidor após cada teste
-TODO 007: Escrever o método de teste para verificar se está alcançando o endpoint correto

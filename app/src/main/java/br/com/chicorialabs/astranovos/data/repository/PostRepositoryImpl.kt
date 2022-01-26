@@ -17,8 +17,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
      * Essa função usa o construtor flow { } para emitir a lista de Posts
      * na forma de um fluxo de dados.
      */
-//    TODO 010: Atualizar o método listPosts() da classe concreta PostRepositoryImpl
-    override suspend fun listPosts(): Flow<List<Post>> = flow {
+    override suspend fun listPosts(category: String): Flow<List<Post>> = flow {
 
         /**
          * Tenta obter uma lista lista de Posts e emitir como um flow<List<Post>>
@@ -26,7 +25,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
          * Essa exceção precisa ser tratada no ViewModel.
          */
         try {
-            val postList = service.listPosts()
+            val postList = service.listPosts(category)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")
