@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.MainActivity">
 
-<!--    TODO 002: Mover a Toolbar para o home_fragment.xml-->
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/main_toolbar"
         style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"

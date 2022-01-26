@@ -15,9 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Essa classe representa o fragmento da tela Home.
  */
 
-//TODO 003: Criar um menu overflow
-//TODO 004: Inflar o menu
-//TODO 019: Implementar os ClickListeners em initOptionMenu()
 class HomeFragment : Fragment() {
 
     /**

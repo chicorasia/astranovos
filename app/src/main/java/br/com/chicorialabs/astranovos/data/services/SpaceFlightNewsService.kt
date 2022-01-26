@@ -16,7 +16,7 @@ interface SpaceFlightNewsService {
      * começar com uma chamada sem parâmetros. Usar uma função de suspensão
      * para que as chamadas à API ocorram fora da thread principal.
      */
-//    TODO 011: Modificar o método listPosts() da interface SpaceFlightNewsService
+//    TODO 008: Modificar o método listPosts() da interface SpaceFlightNewsService
     @GET("articles")
     suspend fun listPosts() : List<Post>
 

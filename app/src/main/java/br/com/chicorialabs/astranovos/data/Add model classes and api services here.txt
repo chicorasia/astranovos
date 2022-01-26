@@ -1,2 +1,1 @@
-TODO 005: Criar uma enum SpaceFlightNewsCategory no pacote "data"
-TODO 006: Escrever uma classe de teste para o SpaceFlightNewsService
+TODO 002: Criar uma enum SpaceFlightNewsCategory no pacote "data"
