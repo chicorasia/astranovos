@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
-import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar

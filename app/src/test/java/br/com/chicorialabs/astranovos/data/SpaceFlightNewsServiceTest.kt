@@ -1,6 +1,5 @@
 package br.com.chicorialabs.astranovos.data
 
-import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -43,6 +42,7 @@ class SpaceFlightNewsServiceTest {
     fun stopService() {
         mockWebServer.shutdown()
     }
+
 
     @Test
     fun deve_AlcancarEndPointCorreto_AoReceberOsParametros() {

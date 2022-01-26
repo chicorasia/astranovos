@@ -2,8 +2,8 @@ package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.RemoteException
-import br.com.chicorialabs.astranovos.core.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.delay

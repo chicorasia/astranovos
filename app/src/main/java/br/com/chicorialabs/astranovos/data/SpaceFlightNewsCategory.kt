@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.core
+package br.com.chicorialabs.astranovos.data
 
 /**
  * Essa enum representa três categorias principais

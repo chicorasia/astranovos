@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.test
 
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.flow.Flow
@@ -41,7 +42,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase(ARTICLES)
+            val result = getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
 
             println(result.first().size)
 
