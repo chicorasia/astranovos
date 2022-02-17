@@ -22,6 +22,8 @@
             android:layout_height="match_parent"
             android:background="@color/medium_gray">
 
+<!--    TODO 009: Vincular o título da ToolBar ao campo toolBarTitle-->
+
             <TextView
                 android:id="@+id/home_hello_text"
                 android:layout_width="wrap_content"

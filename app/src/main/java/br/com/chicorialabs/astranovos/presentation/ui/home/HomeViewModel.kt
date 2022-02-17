@@ -34,6 +34,8 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         _progressBarVisible.value = false
     }
 
+//    TODO 006: Criar um campo _category no HomeViewModel
+//    TODO 008: Criar um campo toolBarTitle
 
     /**
      * Esse campo controla a exibição de um snackbar com mensagem de erro na
@@ -61,6 +63,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         fetchPosts()
     }
 
+//    TODO 004: Criar um método público fetchLatest()
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui

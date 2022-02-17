@@ -38,6 +38,9 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+//  TODO 003: Inflar o menu overflow
+//  TODO 005: Implementar os ClickListeners em initOptionMenu()
+
     /**
      * Essa função inicializa o Snackbar. O método onSnackBarShown()
      * reseta o valor do campo do ViewModel após a mensagem ter sido
