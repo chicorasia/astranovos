@@ -15,6 +15,12 @@ import kotlinx.coroutines.launch
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
+//  TODO 004: Modificar o método fetchPosts() para receber um parâmetro query do tipo String
+//  TODO 005: Criar um método público fetchLatest()
+//  TODO 007: Criar um campo _category no HomeViewModel
+//  TODO 008: Modificar o método init{ } para iniciar com notícias
+//  TODO 009: Criar um BindingAdapter para o título da ToolBar
+//  TODO 011: modificar o método fetchLatest() para atualizar _category
 
 class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : ViewModel() {
 
@@ -33,9 +39,6 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     fun hideProgressBar() {
         _progressBarVisible.value = false
     }
-
-//    TODO 006: Criar um campo _category no HomeViewModel
-//    TODO 008: Criar um campo toolBarTitle
 
     /**
      * Esse campo controla a exibição de um snackbar com mensagem de erro na
@@ -63,7 +66,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         fetchPosts()
     }
 
-//    TODO 004: Criar um método público fetchLatest()
+
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui

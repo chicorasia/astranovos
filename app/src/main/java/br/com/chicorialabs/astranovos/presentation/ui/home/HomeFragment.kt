@@ -14,7 +14,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Essa classe representa o fragmento da tela Home.
  */
-
+//  TODO 003: Criar um método initOptionMenu() para inflar o menu
+//  TODO 003a: Invocar o método initOptionMenu() no OnCreateView()
+//  TODO 006: Implementar os OnMenuItemClickListeners em initOptionMenu()
 class HomeFragment : Fragment() {
 
     /**
@@ -37,9 +39,6 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
-//  TODO 003: Inflar o menu overflow
-//  TODO 005: Implementar os ClickListeners em initOptionMenu()
 
     /**
      * Essa função inicializa o Snackbar. O método onSnackBarShown()
