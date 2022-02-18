@@ -22,7 +22,19 @@
             android:layout_height="match_parent"
             android:background="@color/medium_gray">
 
-<!--    TODO 010: Vincular o título da ToolBar ao campo category-->
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/home_toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/gradient_rectangle"
+                toolbarTitle="@{viewModel.category}"
+                tools:title="@string/latest_news"
+                />
+
 
             <TextView
                 android:id="@+id/home_hello_text"
@@ -48,7 +60,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_toolbar"
                 app:layout_constraintVertical_bias="0.0"
                 tools:listitem="@layout/item_post" />
 

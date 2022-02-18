@@ -15,12 +15,6 @@ import kotlinx.coroutines.launch
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
-//  TODO 004: Modificar o método fetchPosts() para receber um parâmetro query do tipo String
-//  TODO 005: Criar um método público fetchLatest()
-//  TODO 007: Criar um campo _category no HomeViewModel
-//  TODO 008: Modificar o método init{ } para iniciar com notícias
-//  TODO 009: Criar um BindingAdapter para o título da ToolBar
-//  TODO 011: modificar o método fetchLatest() para atualizar _category
 
 class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : ViewModel() {
 
@@ -48,6 +42,14 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     val snackbar: LiveData<String?>
         get() = _snackbar
 
+    private val _category = MutableLiveData<SpaceFlightNewsCategory>().apply {
+        value = SpaceFlightNewsCategory.ARTICLES
+    }
+    val category: LiveData<SpaceFlightNewsCategory>
+        get() = _category
+
+
+
     /**
      * Reseta o valor de _snackbar após a mensagem ter sido exibida
      */
@@ -63,10 +65,13 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         get() = _listPost
 
     init {
-        fetchPosts()
+        fetchLatest(_category.value ?: SpaceFlightNewsCategory.ARTICLES)
     }
 
 
+    fun fetchLatest(category: SpaceFlightNewsCategory) {
+        fetchPosts(category.value)
+    }
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui
@@ -74,9 +79,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-    private fun fetchPosts() {
+    private fun fetchPosts(query: String) {
         viewModelScope.launch {
-            getLatestPostUseCase(SpaceFlightNewsCategory.BLOGS.value)
+            getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético
@@ -88,6 +93,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.uppercase())
                 }
         }
     }

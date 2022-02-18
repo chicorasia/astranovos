@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
+import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -14,8 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Essa classe representa o fragmento da tela Home.
  */
-//  TODO 003: Criar um método initOptionMenu() para inflar o menu
-//  TODO 003a: Invocar o método initOptionMenu() no OnCreateView()
 //  TODO 006: Implementar os OnMenuItemClickListeners em initOptionMenu()
 class HomeFragment : Fragment() {
 
@@ -35,9 +35,34 @@ class HomeFragment : Fragment() {
         initBinding()
         initSnackbar()
         initRecyclerView()
+        initOptionMenu()
 
 
         return binding.root
+    }
+
+    private fun initOptionMenu(){
+        with(binding.homeToolbar) {
+
+            this.inflateMenu(R.menu.options_menu)
+
+            menu.findItem(R.id.action_get_articles).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsCategory.ARTICLES)
+                true
+            }
+
+            menu.findItem(R.id.action_get_blogs).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsCategory.BLOGS)
+                true
+            }
+
+            menu.findItem(R.id.action_get_reports).setOnMenuItemClickListener {
+                viewModel.fetchLatest(SpaceFlightNewsCategory.REPORTS)
+                true
+            }
+
+        }
+
     }
 
     /**
