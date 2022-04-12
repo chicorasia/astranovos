@@ -41,18 +41,8 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     private val _category = MutableLiveData<SpaceFlightNewsCategory>().apply {
         value = SpaceFlightNewsCategory.ARTICLES
     }
-    private val category: LiveData<SpaceFlightNewsCategory>
+    val category: LiveData<SpaceFlightNewsCategory>
         get() = _category
-
-    /**
-     * Esse campo usa uma transformação para gerar o título
-     * da toolbar concatenando Latest e a descrição
-     * da categoria.
-     * TODO: extrair a string hardcoded para um resource
-     */
-    val toolbarTitle = Transformations.map(category){
-        "Latest ${it.description}"
-    }
 
     /**
      * Esse campo controla a exibição de um snackbar com mensagem de erro na
@@ -77,7 +67,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         get() = _listPost
 
     init {
-        fetchPosts("articles")
+        fetchLatest(category.value ?: SpaceFlightNewsCategory.ARTICLES)
     }
 
     /**
@@ -86,9 +76,9 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-    private fun fetchPosts(param: String) {
+    private fun fetchPosts(query: String) {
         viewModelScope.launch {
-            getLatestPostUseCase(param)
+            getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     delay(800) //apenas cosmético
@@ -100,13 +90,13 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.uppercase())
                 }
         }
     }
 
     fun fetchLatest(category: SpaceFlightNewsCategory) {
         fetchPosts(category.value)
-        _category.value = category
     }
 
     /**
