@@ -20,6 +20,7 @@ import kotlin.test.assertEquals
  * Essa classe mantém testes para o SpaceFlightNewsService
  * usando MockWebServer. Eles rodam de maneira independente
  * e complementar aos testes em GetLatestPostsUseCaseTest
+ * e GetLatestPostsTitleContaisUseCase
  */
 @RunWith(JUnit4::class)
 class SpaceFlightNewsServiceTest {
@@ -45,7 +46,7 @@ class SpaceFlightNewsServiceTest {
 
 
     @Test
-    fun deve_AlcancarEndPointCorreto_AoReceberOsParametros() {
+    fun deve_AlcancarEndPointCorreto_AoReceberParametroArticles() {
         runBlocking {
 
             /**
@@ -56,6 +57,14 @@ class SpaceFlightNewsServiceTest {
             val request1 = mockWebServer.takeRequest()
             assertEquals(request1.path, "/articles")
 
+        }
+
+    }
+
+    @Test
+    fun deve_AlcancarEndPointCorreto_AoReceberParametroBlogs() {
+        runBlocking {
+
             /**
              * Testa o endpoint /blogs
              */
@@ -63,6 +72,14 @@ class SpaceFlightNewsServiceTest {
             val result2 = service.listPosts(SpaceFlightNewsCategory.BLOGS.value)
             val request2 = mockWebServer.takeRequest()
             assertEquals(request2.path, "/blogs")
+
+        }
+
+    }
+
+    @Test
+    fun deve_AlcancarEndPointCorreto_AoReceberParametroReports() {
+        runBlocking {
 
             /**
              * Testa o endpoint /reports
@@ -75,17 +92,18 @@ class SpaceFlightNewsServiceTest {
 
     }
 
+
+
     /**
      * Cenários de teste:
      * - está gerando o path correto ao receber uma Query com busca?
-     * - está recebendo os conteúdos esperados ao realizar a query com busca (integração)
      * - a classe Query continua funcionando corretamente ao fazer as listagens básicas?
      */
     @Test
     fun deve_AlcancarEndpointCorreto_AoReceberQueryComOption() {
         runBlocking {
             mockWebServer.enqueue(MockResponse().setBody("[]"))
-            service.searchPosts("articles", "spacex")
+            service.listPostsTitleContains("articles", "spacex")
             val request = mockWebServer.takeRequest()
             println(request.path)
             assertEquals(request.path, "/articles?title_contains=spacex")

@@ -6,7 +6,7 @@ import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
-import br.com.chicorialabs.astranovos.domain.SearchLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -15,10 +15,12 @@ import kotlinx.coroutines.launch
 
 /**
  * Essa classe dá suporte à tela principal (Home).
+ * Possui dois casos de uso: recuperar as últimas postagens
+ * e efetuar buscas com palavras chave na API.
  */
 
 class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
-                    private val searchLatestPostsUseCase: SearchLatestPostsUseCase) : ViewModel() {
+                    private val getLatestPostsTitleContaisUseCase: GetLatestPostsTitleContaisUseCase) : ViewModel() {
 
     /**
     * Esse campo e as respectivas funções controlam a visibilidade
@@ -97,9 +99,15 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
         }
     }
 
+    /**
+     * Esse método executa queries de busca segundo a categoria
+     * ativa (campo _category) por meio do GetLatestPostsTitleContaisUseCase.
+     * Usa a mesma estrutura do método fetchPosts().
+     * TODO: Usar uma classe Query
+     */
     private fun searchPosts(query: Array<String>) {
         viewModelScope.launch {
-            searchLatestPostsUseCase(query)
+            getLatestPostsTitleContaisUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     //delay(800) //apenas cosmético
@@ -116,10 +124,18 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
         }
     }
 
+    /**
+     * Esse método público busca as últimas publicações
+     * da categoria recebida como parâmetro.
+     */
     fun fetchLatest(category: SpaceFlightNewsCategory) {
         fetchPosts(category.value)
     }
 
+    /**
+     * Um método público para executar queries com busca nos títulos.
+     * TODO: Adotar uma classe Query
+     */
     fun doSearch(search: String) {
         searchPosts(arrayOf(category.value.toString(), search))
     }

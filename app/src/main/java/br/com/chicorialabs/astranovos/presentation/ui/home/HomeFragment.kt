@@ -61,6 +61,10 @@ class HomeFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initQueryHintObserver()
+    }
+
+    private fun initQueryHintObserver() {
         viewModel.category.observe(viewLifecycleOwner) {
             searchView.queryHint = "${getString(R.string.search_in)} " + when (it) {
                 SpaceFlightNewsCategory.ARTICLES -> getString(R.string.news)
@@ -97,8 +101,6 @@ class HomeFragment : Fragment() {
 
             val searchItem = menu.findItem(R.id.action_search)
             searchView = searchItem.actionView as SearchView
-
-
 
             searchView.isIconified = false
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

@@ -1,7 +1,7 @@
 package br.com.chicorialabs.astranovos.test
 
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.domain.SearchLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -15,9 +15,12 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class SearchLatestPostsUseCaseTest : KoinTest {
+/**
+ * Essa classe mantém os testes de integração do GetLatestPostsTitleContaisUseCase.
+ */
+class GetLatestPostsTitleContaisUseCaseTest : KoinTest {
 
-    val searchLatestPostsUseCase : SearchLatestPostsUseCase by inject()
+    val getLatestPostsTitleContaisUseCase: GetLatestPostsTitleContaisUseCase by inject()
     val type = "articles"
     val search = "SpaceX"
 
@@ -40,9 +43,9 @@ class SearchLatestPostsUseCaseTest : KoinTest {
 
 
     @Test
-    fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
+    fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio() {
         runBlocking {
-            val result = searchLatestPostsUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
 
             println(result.first().size)
 
@@ -57,7 +60,7 @@ class SearchLatestPostsUseCaseTest : KoinTest {
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
         runBlocking {
-            val result = searchLatestPostsUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
 
             println(result.first().size)
             assertTrue(result is Flow<List<Post>>)
@@ -65,9 +68,9 @@ class SearchLatestPostsUseCaseTest : KoinTest {
     }
 
     @Test
-    fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio()  {
+    fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio() {
         runBlocking {
-            val result = searchLatestPostsUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
 
             println(result.first().size)
 
@@ -76,10 +79,14 @@ class SearchLatestPostsUseCaseTest : KoinTest {
 
     }
 
+    /**
+     * Cenário de teste:
+     * - está recebendo os conteúdos esperados ao realizar a query com busca (integração)
+     */
     @Test
     fun deve_RetornarResultadosValidos_AoExecutarABusca() {
         runBlocking {
-            val result = searchLatestPostsUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
             var assertion = true
             result.first().forEach {
                 println(it.title)

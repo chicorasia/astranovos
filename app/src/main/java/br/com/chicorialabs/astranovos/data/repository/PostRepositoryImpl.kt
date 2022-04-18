@@ -40,10 +40,10 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
      * @param category Categoria de postagem (article, blog ou post) no formato de String.
      * @param search String de busca nos títulos de publicação
      */
-    override suspend fun searchPosts(category: String, search: String): Flow<List<Post>> = flow {
+    override suspend fun listPostsTitleContains(category: String, search: String): Flow<List<Post>> = flow {
 
         try {
-            val postList = service.searchPosts(category, search)
+            val postList = service.listPostsTitleContains(category, search)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")

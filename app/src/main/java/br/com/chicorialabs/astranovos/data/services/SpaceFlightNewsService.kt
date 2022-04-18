@@ -25,7 +25,7 @@ interface SpaceFlightNewsService {
      * Um método de busca avançada com dois parâmetros
      */
     @GET("{type}")
-    suspend fun searchPosts(@Path("type") type: String,
-                            @Query("title_contains") search: String?) : List<Post>
+    suspend fun listPostsTitleContains(@Path("type") type: String,
+                                       @Query("title_contains") search: String?) : List<Post>
 
 }

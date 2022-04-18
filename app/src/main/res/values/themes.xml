@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!-- Personaliza a cor do campo de busca na ToolBar-->
+        <item name="android:editTextColor">@color/off_white</item>
     </style>
 </resources>
