@@ -6,6 +6,7 @@ import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.SearchLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
  * Essa classe dá suporte à tela principal (Home).
  */
 
-class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : ViewModel() {
+class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
+                    private val searchLatestPostsUseCase: SearchLatestPostsUseCase) : ViewModel() {
 
     /**
     * Esse campo e as respectivas funções controlam a visibilidade
@@ -95,8 +97,31 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
         }
     }
 
+    private fun searchPosts(query: Array<String>) {
+        viewModelScope.launch {
+            searchLatestPostsUseCase(query)
+                .onStart {
+                    _listPost.postValue(State.Loading)
+                    //delay(800) //apenas cosmético
+                }.catch {
+                    with(RemoteException("Could not connect to SpaceFlightNews API")) {
+                        _listPost.postValue(State.Error(this))
+                        _snackbar.value = this.message
+                    }
+                }
+                .collect {
+                    _listPost.postValue(State.Success(it))
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query[0].uppercase())
+                }
+        }
+    }
+
     fun fetchLatest(category: SpaceFlightNewsCategory) {
         fetchPosts(category.value)
+    }
+
+    fun doSearch(search: String) {
+        searchPosts(arrayOf(category.value.toString(), search))
     }
 
     /**

@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos.domain.di
 
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.SearchLatestPostsUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -25,6 +26,7 @@ object DomainModule {
     private fun useCaseModule(): Module {
         return module {
             factory { GetLatestPostsUseCase(get()) }
+            factory { SearchLatestPostsUseCase(get()) }
         }
     }
 

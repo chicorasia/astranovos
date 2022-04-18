@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Esse arquivo XML define os itens do menu overflow na tela de Home-->
+
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item android:id="@+id/action_get_articles"
         android:title="@string/news"
         app:showAsAction="never"
@@ -14,10 +17,10 @@
         android:title="@string/reports"
         app:showAsAction="never"
         />
-<!--    To be implemented -->
-<!--    <item android:id="@+id/action_search"-->
-<!--        android:title="Search"-->
-<!--        android:icon="@drawable/ic_search"-->
-<!--        app:showAsAction="collapseActionView|ifRoom"-->
-<!--        app:actionViewClass="android.widget.SearchView" />-->
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.widget.SearchView"
+        />
 </menu>

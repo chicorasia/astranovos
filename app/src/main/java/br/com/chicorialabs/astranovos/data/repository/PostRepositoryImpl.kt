@@ -33,4 +33,21 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
         }
 
     }
+
+    /**
+     * Essa função usa o construtor flow { } para emitir a lista de Posts
+     * na forma de um fluxo de dados.
+     * @param category Categoria de postagem (article, blog ou post) no formato de String.
+     * @param search String de busca nos títulos de publicação
+     */
+    override suspend fun searchPosts(category: String, search: String): Flow<List<Post>> = flow {
+
+        try {
+            val postList = service.searchPosts(category, search)
+            emit(postList)
+        } catch (ex: HttpException) {
+            throw RemoteException("Unable to retrieve posts")
+        }
+
+    }
 }

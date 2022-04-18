@@ -75,4 +75,21 @@ class SpaceFlightNewsServiceTest {
 
     }
 
+    /**
+     * Cenários de teste:
+     * - está gerando o path correto ao receber uma Query com busca?
+     * - está recebendo os conteúdos esperados ao realizar a query com busca (integração)
+     * - a classe Query continua funcionando corretamente ao fazer as listagens básicas?
+     */
+    @Test
+    fun deve_AlcancarEndpointCorreto_AoReceberQueryComOption() {
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody("[]"))
+            service.searchPosts("articles", "spacex")
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles?title_contains=spacex")
+        }
+    }
+
 }

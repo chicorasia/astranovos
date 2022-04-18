@@ -10,4 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface PostRepository {
 
     suspend fun listPosts(category: String) : Flow<List<Post>>
+
+    suspend fun searchPosts(category: String, search: String) : Flow<List<Post>>
 }

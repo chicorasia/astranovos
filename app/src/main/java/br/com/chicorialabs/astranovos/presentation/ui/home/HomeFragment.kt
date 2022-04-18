@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
@@ -27,6 +28,13 @@ class HomeFragment : Fragment() {
     }
 
     /**
+     * Cria um objeto SearchView como uma variável
+     * de inicialização tardia para permitir a vinculação
+     * com um campo observável
+     */
+    private lateinit var searchView: SearchView
+
+    /**
      * Inicializa e infla o option menu no momento
      * da criação do fragmento.
      */
@@ -44,6 +52,22 @@ class HomeFragment : Fragment() {
         initSnackbar()
         initRecyclerView()
         return binding.root
+    }
+
+    /**
+     * Vincula o "hint" de busca a um campo do tipo LiveData
+     * no ViewModel; faço isso depois que a view é criada
+     * para evitar problemas durante a inflação.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.category.observe(viewLifecycleOwner) {
+            searchView.queryHint = "${getString(R.string.search_in)} " + when (it) {
+                SpaceFlightNewsCategory.ARTICLES -> getString(R.string.news)
+                SpaceFlightNewsCategory.BLOGS -> getString(R.string.blogs)
+                SpaceFlightNewsCategory.REPORTS -> getString(R.string.reports)
+            }
+        }
     }
 
     /**
@@ -70,6 +94,28 @@ class HomeFragment : Fragment() {
                 viewModel.fetchLatest(SpaceFlightNewsCategory.REPORTS)
                 true
             }
+
+            val searchItem = menu.findItem(R.id.action_search)
+            searchView = searchItem.actionView as SearchView
+
+
+
+            searchView.isIconified = false
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val searchString = searchView.query.toString()
+                    viewModel.doSearch(searchString)
+                    searchView.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    newText?.let { viewModel.doSearch(it) }
+                    return true
+                }
+
+            })
+
         }
     }
 
@@ -100,7 +146,7 @@ class HomeFragment : Fragment() {
          * UI conforme o seu estado.
          */
         viewModel.listPost.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 State.Loading -> {
                     viewModel.showProgressBar()
                 }
