@@ -99,19 +99,27 @@ class HomeFragment : Fragment() {
                 true
             }
 
+            // Recupera o item do menu como uma SearchView para dar acesso ao campo query
             val searchItem = menu.findItem(R.id.action_search)
             searchView = searchItem.actionView as SearchView
 
+            // Abre o campo de busca por padrão
             searchView.isIconified = false
+
+            // Configura o listener de mudança no campo
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    // extrai a string de busca
                     val searchString = searchView.query.toString()
+                    // faz a busca na API
                     viewModel.doSearch(searchString)
+                    // esconde o teclado virtual
                     searchView.clearFocus()
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    // executa buscas a cada modificação no campo
                     newText?.let { viewModel.doSearch(it) }
                     return true
                 }
