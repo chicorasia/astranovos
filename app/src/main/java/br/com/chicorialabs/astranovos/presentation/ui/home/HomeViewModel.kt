@@ -1,12 +1,13 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import androidx.lifecycle.*
+import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -80,7 +81,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-    private fun fetchPosts(query: String) {
+    private fun fetchPosts(query: Query) {
         viewModelScope.launch {
             getLatestPostUseCase(query)
                 .onStart {
@@ -94,7 +95,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
-                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.uppercase())
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
                 }
         }
     }
@@ -105,7 +106,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * Usa a mesma estrutura do método fetchPosts().
      * TODO: Usar uma classe Query
      */
-    private fun searchPosts(query: Array<String>) {
+    private fun searchPosts(query: Query) {
         viewModelScope.launch {
             getLatestPostsTitleContaisUseCase(query)
                 .onStart {
@@ -119,7 +120,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
-                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query[0].uppercase())
+                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
                 }
         }
     }
@@ -129,7 +130,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * da categoria recebida como parâmetro.
      */
     fun fetchLatest(category: SpaceFlightNewsCategory) {
-        fetchPosts(category.value)
+        fetchPosts(Query(category.value))
     }
 
     /**
@@ -137,7 +138,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * TODO: Adotar uma classe Query
      */
     fun doSearch(search: String) {
-        searchPosts(arrayOf(category.value.toString(), search))
+        searchPosts(Query(category.value.toString(), search))
     }
 
     /**

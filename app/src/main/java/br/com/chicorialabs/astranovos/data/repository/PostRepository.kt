@@ -11,5 +11,5 @@ interface PostRepository {
 
     suspend fun listPosts(category: String) : Flow<List<Post>>
 
-    suspend fun listPostsTitleContains(category: String, search: String) : Flow<List<Post>>
+    suspend fun listPostsTitleContains(category: String, search: String?) : Flow<List<Post>>
 }

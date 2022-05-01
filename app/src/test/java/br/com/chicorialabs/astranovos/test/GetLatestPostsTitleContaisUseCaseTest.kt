@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.test
 
+import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
 import kotlinx.coroutines.flow.Flow
@@ -45,7 +46,7 @@ class GetLatestPostsTitleContaisUseCaseTest : KoinTest {
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(Query(type, search))
 
             println(result.first().size)
 
@@ -60,7 +61,7 @@ class GetLatestPostsTitleContaisUseCaseTest : KoinTest {
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(Query(type, search))
 
             println(result.first().size)
             assertTrue(result is Flow<List<Post>>)
@@ -70,7 +71,7 @@ class GetLatestPostsTitleContaisUseCaseTest : KoinTest {
     @Test
     fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(Query(type, search))
 
             println(result.first().size)
 
@@ -86,7 +87,7 @@ class GetLatestPostsTitleContaisUseCaseTest : KoinTest {
     @Test
     fun deve_RetornarResultadosValidos_AoExecutarABusca() {
         runBlocking {
-            val result = getLatestPostsTitleContaisUseCase(arrayOf(type, search))
+            val result = getLatestPostsTitleContaisUseCase(Query(type, search))
             var assertion = true
             result.first().forEach {
                 println(it.title)

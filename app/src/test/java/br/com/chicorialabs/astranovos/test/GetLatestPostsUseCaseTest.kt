@@ -1,6 +1,6 @@
 package br.com.chicorialabs.astranovos.test
 
-import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
+import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.flow.Flow
@@ -42,7 +42,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
+            val result = getLatestPostsUseCase(Query(ARTICLES))
 
             println(result.first().size)
 
@@ -57,7 +57,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsUseCase(ARTICLES)
+            val result = getLatestPostsUseCase(Query(ARTICLES))
 
             println(result.first().size)
             assertTrue(result is Flow<List<Post>>)
@@ -67,7 +67,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase(ARTICLES)
+            val result = getLatestPostsUseCase(Query(ARTICLES))
 
             println(result.first().size)
 
@@ -79,7 +79,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_ParsearCorretamente_UmObjetoRecebido() {
         runBlocking {
-            val response = getLatestPostsUseCase(ARTICLES)
+            val response = getLatestPostsUseCase(Query(ARTICLES))
             val result = response.first().first()
 
             assertTrue(result is Post)
