@@ -6,7 +6,7 @@ import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetLatestPostsTitleContaisUseCase(private val repository: PostRepository) :
+class GetLatestPostsTitleContainsUseCase(private val repository: PostRepository) :
     UseCase<Query, List<Post>>() {
 
     override suspend fun execute(param: Query): Flow<List<Post>> =

@@ -20,7 +20,7 @@ import kotlin.test.assertEquals
  * Essa classe mantém testes para o SpaceFlightNewsService
  * usando MockWebServer. Eles rodam de maneira independente
  * e complementar aos testes em GetLatestPostsUseCaseTest
- * e GetLatestPostsTitleContaisUseCase
+ * e GetLatestPostsTitleContainsUseCase
  */
 @RunWith(JUnit4::class)
 class SpaceFlightNewsServiceTest {
@@ -107,6 +107,17 @@ class SpaceFlightNewsServiceTest {
             val request = mockWebServer.takeRequest()
             println(request.path)
             assertEquals(request.path, "/articles?title_contains=spacex")
+        }
+    }
+
+    @Test
+    fun deve_AlcancarEndpointCorreto_AoReceberQueryComOptionNull() {
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody("[]"))
+            service.listPostsTitleContains("articles", null)
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles")
         }
     }
 

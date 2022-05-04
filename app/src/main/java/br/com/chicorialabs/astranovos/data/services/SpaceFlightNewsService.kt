@@ -26,6 +26,6 @@ interface SpaceFlightNewsService {
      */
     @GET("{type}")
     suspend fun listPostsTitleContains(@Path("type") type: String,
-                                       @Query("title_contains") search: String?) : List<Post>
+                                       @Query("title_contains") titleContains: String?) : List<Post>
 
 }

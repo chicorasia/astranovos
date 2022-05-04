@@ -26,7 +26,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
          * Essa exceção precisa ser tratada no ViewModel.
          */
         try {
-            val postList = service.listPosts(category)
+            val postList = service.listPosts(type = category)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")
@@ -38,12 +38,14 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
      * Essa função usa o construtor flow { } para emitir a lista de Posts
      * na forma de um fluxo de dados.
      * @param category Categoria de postagem (article, blog ou post) no formato de String.
-     * @param search String de busca nos títulos de publicação
+     * @param titleContains String de busca nos títulos de publicação
      */
-    override suspend fun listPostsTitleContains(category: String, search: String?): Flow<List<Post>> = flow {
+    override suspend fun listPostsTitleContains(category: String, titleContains: String?): Flow<List<Post>> = flow {
 
         try {
-            val postList = service.listPostsTitleContains(category, search)
+            val postList = service.listPostsTitleContains(
+                type = category,
+                titleContains = titleContains)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")

@@ -4,7 +4,7 @@ import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import br.com.chicorialabs.astranovos.data.repository.PostRepositoryImpl
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
-import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.dsl.module
@@ -30,7 +30,7 @@ fun configureDataModuleForTest(baseUrl: String) = module {
  */
 fun configureDomainModuleForTest() = module {
     factory<GetLatestPostsUseCase> { GetLatestPostsUseCase(get()) }
-    factory<GetLatestPostsTitleContaisUseCase> { GetLatestPostsTitleContaisUseCase(get()) }
+    factory<GetLatestPostsTitleContainsUseCase> { GetLatestPostsTitleContainsUseCase(get()) }
 }
 
 /**

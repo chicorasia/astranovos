@@ -6,7 +6,7 @@ import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContaisUseCase
+import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  */
 
 class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
-                    private val getLatestPostsTitleContaisUseCase: GetLatestPostsTitleContaisUseCase) : ViewModel() {
+                    private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase) : ViewModel() {
 
     /**
     * Esse campo e as respectivas funções controlam a visibilidade
@@ -102,13 +102,13 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
 
     /**
      * Esse método executa queries de busca segundo a categoria
-     * ativa (campo _category) por meio do GetLatestPostsTitleContaisUseCase.
+     * ativa (campo _category) por meio do GetLatestPostsTitleContainsUseCase.
      * Usa a mesma estrutura do método fetchPosts().
      * TODO: Usar uma classe Query
      */
     private fun searchPosts(query: Query) {
         viewModelScope.launch {
-            getLatestPostsTitleContaisUseCase(query)
+            getLatestPostsTitleContainsUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
                     //delay(800) //apenas cosmético
@@ -135,7 +135,6 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
 
     /**
      * Um método público para executar queries com busca nos títulos.
-     * TODO: Adotar uma classe Query
      */
     fun doSearch(search: String) {
         searchPosts(Query(category.value.toString(), search))
