@@ -23,6 +23,9 @@ Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGv
 - Basic functionality: retrieve latest Articles, Blog Posts and Mission Reports from the SpaceFlightNewsAPI
 - Branded Aesthetics
 
+### Version 0.2
+- Search Articles, Blog Posts and Mission Reports by title
+
 ## Screenshots:
 
 ![Screnshot_1](Screenshot_1.png)
