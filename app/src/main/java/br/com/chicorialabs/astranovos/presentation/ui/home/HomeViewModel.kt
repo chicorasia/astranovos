@@ -104,7 +104,6 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * Esse método executa queries de busca segundo a categoria
      * ativa (campo _category) por meio do GetLatestPostsTitleContainsUseCase.
      * Usa a mesma estrutura do método fetchPosts().
-     * TODO: Usar uma classe Query
      */
     private fun searchPosts(query: Query) {
         viewModelScope.launch {

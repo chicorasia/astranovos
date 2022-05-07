@@ -40,7 +40,10 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
      * @param category Categoria de postagem (article, blog ou post) no formato de String.
      * @param titleContains String de busca nos títulos de publicação
      */
-    override suspend fun listPostsTitleContains(category: String, titleContains: String?): Flow<List<Post>> = flow {
+    override suspend fun listPostsTitleContains(
+        category: String,
+        titleContains: String?
+    ): Flow<List<Post>> = flow {
 
         try {
             val postList = service.listPostsTitleContains(
