@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">AstraNovos</string>
     <string name="HomeToolbarTitle">Latest news</string>
-    <string name="home_fragment_placeholder">This is home fragment</string>
+    <string name="home_fragment_placeholder">🚀 Loading news from server...</string>
+    <string name="news">News</string>
+    <string name="blogs">Blogs</string>
+    <string name="reports">Reports</string>
+    <string name="latest_news">Latest News</string>
+    <string name="latest_blogs">Latest Blog Posts</string>
+    <string name="latest_reports">Latest Mission Reports</string>
+    <string name="search_in">Search in</string>
 </resources>

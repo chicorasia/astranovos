@@ -34,6 +34,7 @@ Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGv
 ![Screnshot_4](Screenshot_4.png)
 ![Screnshot_5](Screenshot_5.png)
 ![Screnshot_6](Screenshot_6.png)
+![Screnshot_7](Screenshot_7.png)
 
 ****
 :computer: chicorialabs.com.br/blog
