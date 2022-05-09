@@ -10,4 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface PostRepository {
 
     suspend fun listPosts(category: String) : Flow<List<Post>>
+
+    //TODO 003: Adicionar o método abstrato listPostTitleContains() na interface PostRepository
+
 }

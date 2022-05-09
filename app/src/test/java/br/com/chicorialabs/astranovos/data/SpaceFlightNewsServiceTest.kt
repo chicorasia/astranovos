@@ -39,29 +39,40 @@ class SpaceFlightNewsServiceTest {
     }
 
     @Test
-    fun deve_AlcancarOEndpointCorreto_AoReceberParametro() {
+    fun deve_AlcancarOEndpointCorreto_AoReceberParametroArticles() {
         runBlocking {
-            // testar o endpoint articles
             mockWebServer.enqueue(MockResponse().setBody("[]"))
             val result1 = service.listPosts(SpaceFlightNewsCategory.ARTICLES.value)
             val request1 = mockWebServer.takeRequest()
             assertEquals(request1.path, "/articles")
+        }
+    }
 
-
-            //testar o endpoint blogs
+    @Test
+    fun deve_AlcancarOEndpointCorreto_AoReceberParametroBlogs() {
+        runBlocking {
             mockWebServer.enqueue(MockResponse().setBody("[]"))
             val result2 = service.listPosts(SpaceFlightNewsCategory.BLOGS.value)
             val request2 = mockWebServer.takeRequest()
             assertEquals(request2.path, "/blogs")
+        }
+    }
 
-            //testar o endpoint reports
+    @Test
+    fun deve_AlcancarOEndpointCorreto_AoReceberParametroReports() {
+        runBlocking {
             mockWebServer.enqueue(MockResponse().setBody("[]"))
             val result3 = service.listPosts(SpaceFlightNewsCategory.REPORTS.value)
             val request3 = mockWebServer.takeRequest()
             assertEquals(request3.path, "/reports")
         }
-
     }
 
+    /** TODO 001: Adicionar testes para o SpaceFlightNewsService
+     * Verificar se ele alcança o endpoint correto.
+     * Considerar dois cenários:
+     * - recebe a query com string de busca
+     * - recebe a query com string null
+     */
 
 }

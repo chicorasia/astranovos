@@ -27,6 +27,8 @@ fun configureDataModuleForTest(baseUrl: String) = module {
 /**
  * Essa função configura os módulos da camada de domíno para teste
  */
+
+//TODO 006a: Adicionar GetLatestPostTitleContainsUseCase à lista de domínios
 fun configureDomainModuleForTest() = module {
     factory<GetLatestPostsUseCase> { GetLatestPostsUseCase(get()) }
 }

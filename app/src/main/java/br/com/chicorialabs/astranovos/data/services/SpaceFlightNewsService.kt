@@ -20,4 +20,6 @@ interface SpaceFlightNewsService {
     @GET("{type}")
     suspend fun listPosts(@Path("type") type: String) : List<Post>
 
+//    TODO 002: Criar o método listPostsTitleContains() no SpaceFlightNewsService
+
 }

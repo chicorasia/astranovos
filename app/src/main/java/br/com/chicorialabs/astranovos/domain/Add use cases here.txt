@@ -1,0 +1,4 @@
+TODO 005: Criar uma classe GetLatestPostsTitleContainsUseCase
+TODO 006: Criar uma classe GetLatestPostTitleContainsUseCaseTest e escrever testes de integração
+TODO 007: Implementar o método execute()
+TODO 009: Reescrever GetLatestPostTitleContainsUseCase para receber objetos do tipo Query como Param

@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
-
+//TODO 011: Adicionar o use case como dependência do HomeViewModel
 class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : ViewModel() {
 
     /**
@@ -72,6 +72,8 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase) : V
     fun fetchLatest(category: SpaceFlightNewsCategory) {
         fetchPosts(category.value)
     }
+
+    //TODO 014: Adicionar os métodos de busca ao HomeViewModel
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui

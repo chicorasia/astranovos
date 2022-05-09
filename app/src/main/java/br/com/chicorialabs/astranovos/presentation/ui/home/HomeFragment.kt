@@ -40,7 +40,8 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
+//    TODO 017: Modificar a hint do campo de busca dinamicamente
+    //TODO 016: Inicializar a SearchView e o OnQueryTextListener
     private fun initOptionMenu(){
         with(binding.homeToolbar) {
 

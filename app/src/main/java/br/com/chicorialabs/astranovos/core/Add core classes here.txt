@@ -1,0 +1,1 @@
+TODO 008: Criar uma data class Query

@@ -13,4 +13,5 @@
         android:title="@string/reports"
         app:showAsAction="never">
     </item>
+<!--    TODO 015: Adicionar o campo de busca ao options_menu.xml-->
 </menu>
