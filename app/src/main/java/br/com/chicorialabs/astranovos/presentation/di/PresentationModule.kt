@@ -25,10 +25,9 @@ object PresentationModule {
     /**
      * Instancia os Viewmodels da camada de apresentação
      */
-//    TODO 015: Atualizar a inicialização do HomeViewModel no PresentationModule
     private fun viewModelModule() : Module {
         return module {
-            factory { HomeViewModel(get()) }
+            factory { HomeViewModel(get(),get()) }
         }
     }
 

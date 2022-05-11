@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.test
 
+import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
@@ -40,7 +41,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoNulo_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
+            val result = getLatestPostsUseCase(Query(SpaceFlightNewsCategory.ARTICLES.value))
 
             println(result.first().size)
 
@@ -55,7 +56,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarObjetoDoTipoCorreto_AoConectarComRepositorio() {
         runBlocking {
-            val result = getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
+            val result = getLatestPostsUseCase(Query(SpaceFlightNewsCategory.ARTICLES.value))
 
             println(result.first().size)
             assertTrue(result is Flow<List<Post>>)
@@ -65,7 +66,7 @@ class GetLatestPostsUseCaseTest : KoinTest{
     @Test
     fun deve_RetornarResultadoNaoVazio_AoConectarComRepositorio()  {
         runBlocking {
-            val result = getLatestPostsUseCase(SpaceFlightNewsCategory.ARTICLES.value)
+            val result = getLatestPostsUseCase(Query(SpaceFlightNewsCategory.ARTICLES.value))
 
             println(result.first().size)
 
