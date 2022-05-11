@@ -13,5 +13,6 @@
         android:title="@string/reports"
         app:showAsAction="never">
     </item>
-<!--    TODO 015: Adicionar o campo de busca ao options_menu.xml-->
+<!--    TODO 018: Adicionar um ícone de busca à pasta drawable-->
+<!--    TODO 019: Adicionar o campo de busca ao options_menu.xml-->
 </menu>

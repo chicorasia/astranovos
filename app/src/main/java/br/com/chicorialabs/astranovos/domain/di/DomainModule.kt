@@ -22,7 +22,7 @@ object DomainModule {
     /**
      * Essa função cria os UseCases concretos
       */
-//    TODO 013: Adicionar o UseCase concreto ao DomainModule
+//    TODO 016: Adicionar o UseCase concreto ao DomainModule
     private fun useCaseModule(): Module {
         return module {
             factory { GetLatestPostsUseCase(get()) }

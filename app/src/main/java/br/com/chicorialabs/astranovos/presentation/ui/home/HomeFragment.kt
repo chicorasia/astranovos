@@ -16,7 +16,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Essa classe representa o fragmento da tela Home.
  */
-//  TODO 006: Implementar os OnMenuItemClickListeners em initOptionMenu()
 class HomeFragment : Fragment() {
 
     /**
@@ -40,8 +39,8 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-//    TODO 017: Modificar a hint do campo de busca dinamicamente
-    //TODO 016: Inicializar a SearchView e o OnQueryTextListener
+//    TODO 021: Modificar a hint do campo de busca dinamicamente
+    //TODO 020: Inicializar a SearchView e o OnQueryTextListener
     private fun initOptionMenu(){
         with(binding.homeToolbar) {
 
