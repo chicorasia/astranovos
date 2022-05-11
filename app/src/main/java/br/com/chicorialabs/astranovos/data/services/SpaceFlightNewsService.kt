@@ -3,6 +3,7 @@ package br.com.chicorialabs.astranovos.data.services
 import br.com.chicorialabs.astranovos.data.model.Post
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Essa interface define como o Retrofit vai conversar com a
@@ -18,8 +19,11 @@ interface SpaceFlightNewsService {
      * para que as chamadas à API ocorram fora da thread principal.
      */
     @GET("{type}")
-    suspend fun listPosts(@Path("type") type: String) : List<Post>
+    suspend fun listPosts(@Path("type") type: String): List<Post>
 
-//    TODO 002: Criar o método listPostsTitleContains() no SpaceFlightNewsService
+    @GET("{type}")
+    suspend fun listPostsTitleContains(
+        @Path("type") type: String,
+        @Query("title_contains") titleContains: String?) : List<Post>
 
 }

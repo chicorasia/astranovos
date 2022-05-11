@@ -68,11 +68,33 @@ class SpaceFlightNewsServiceTest {
         }
     }
 
-    /** TODO 001: Adicionar testes para o SpaceFlightNewsService
+    /**
      * Verificar se ele alcança o endpoint correto.
      * Considerar dois cenários:
      * - recebe a query com string de busca
      * - recebe a query com string null
      */
+
+    @Test
+    fun deve_AlcancarEndpointCorreto_AoReceberQueryComOption() {
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody("[]"))
+            service.listPostsTitleContains("articles", "mars")
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles?title_contains=mars")
+        }
+    }
+
+    @Test
+    fun deve_AlcancarEndpointCorreto_AoReceberQueryComOptionNull() {
+        runBlocking {
+            mockWebServer.enqueue(MockResponse().setBody("[]"))
+            service.listPostsTitleContains("articles", null)
+            val request = mockWebServer.takeRequest()
+            println(request.path)
+            assertEquals(request.path, "/articles")
+        }
+    }
 
 }

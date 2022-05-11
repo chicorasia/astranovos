@@ -33,5 +33,19 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
 
     }
 
-//    TODO 004: Implementar o método concreto listPostTitleContains() à classe PostRepositoryImpl
+    override suspend fun listPostTitleContains(
+        category: String,
+        titleContains: String
+    ): Flow<List<Post>> = flow {
+
+        try {
+            val postList = service.listPostsTitleContains(type = category,
+            titleContains = titleContains)
+            emit(postList)
+        } catch(ex: HttpException) {
+            throw RemoteException("Unable to retrieve posts!")
+        }
+    }
+
+
 }

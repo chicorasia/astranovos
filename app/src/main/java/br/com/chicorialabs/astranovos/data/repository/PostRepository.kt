@@ -11,6 +11,5 @@ interface PostRepository {
 
     suspend fun listPosts(category: String) : Flow<List<Post>>
 
-    //TODO 003: Adicionar o método abstrato listPostTitleContains() na interface PostRepository
-
+    suspend fun listPostTitleContains(category: String, titleContains: String) : Flow<List<Post>>
 }
