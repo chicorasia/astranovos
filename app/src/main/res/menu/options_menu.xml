@@ -13,6 +13,10 @@
         android:title="@string/reports"
         app:showAsAction="never">
     </item>
-<!--    TODO 018: Adicionar um ícone de busca à pasta drawable-->
-<!--    TODO 019: Adicionar o campo de busca ao options_menu.xml-->
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="android.widget.SearchView"
+        />
 </menu>

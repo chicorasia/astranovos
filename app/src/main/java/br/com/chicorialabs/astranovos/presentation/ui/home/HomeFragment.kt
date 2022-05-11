@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
@@ -26,6 +27,10 @@ class HomeFragment : Fragment() {
         HomeFragmentBinding.inflate(layoutInflater)
     }
 
+    private lateinit var searchView: SearchView
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,12 +40,30 @@ class HomeFragment : Fragment() {
         initSnackbar()
         initRecyclerView()
         initOptionMenu()
+        initSearchBar()
 
 
         return binding.root
     }
-//    TODO 021: Modificar a hint do campo de busca dinamicamente
-    //TODO 020: Inicializar a SearchView e o OnQueryTextListener
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initQueryHintObserver()
+    }
+
+    private fun initQueryHintObserver() {
+        viewModel.category.observe(viewLifecycleOwner) {
+            searchView.queryHint = "${getString(R.string.search_in)} " + when(it) {
+                SpaceFlightNewsCategory.ARTICLES -> getString(R.string.news)
+                SpaceFlightNewsCategory.BLOGS -> getString(R.string.blogs)
+                SpaceFlightNewsCategory.REPORTS -> getString(R.string.reports)
+            }
+        }
+
+    }
+
+
+
     private fun initOptionMenu(){
         with(binding.homeToolbar) {
 
@@ -60,6 +83,42 @@ class HomeFragment : Fragment() {
                 viewModel.fetchLatest(SpaceFlightNewsCategory.REPORTS)
                 true
             }
+
+        }
+
+    }
+
+    fun initSearchBar() {
+        with(binding.homeToolbar) {
+
+            //Recupera o item do menu como SearchView para dara acesso ao campo query
+            val searchItem = menu.findItem(R.id.action_search)
+            searchView = searchItem.actionView as SearchView
+
+            //abra o campo de busca por padrão
+            searchView.isIconified = false
+
+            //configura listener de mudança no texto
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    //extrai string de busca
+                    val searchString = searchView.query.toString()
+                    //faz busca na api
+                    viewModel.searchPostsTitleContains(searchString)
+                    //esconde o teclado virtual
+                    searchView.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    //executar busca a cada modificação no campo
+                    newText?.let { newText ->
+                        viewModel.searchPostsTitleContains(newText)
+                    }
+                    return true
+                }
+            })
+
 
         }
 
