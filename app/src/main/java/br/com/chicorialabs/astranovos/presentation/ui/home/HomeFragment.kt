@@ -11,6 +11,7 @@ import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -70,6 +71,7 @@ class HomeFragment : Fragment() {
                 SpaceFlightNewsCategory.ARTICLES -> getString(R.string.news)
                 SpaceFlightNewsCategory.BLOGS -> getString(R.string.blogs)
                 SpaceFlightNewsCategory.REPORTS -> getString(R.string.reports)
+                null -> throw IllegalArgumentException("Invalid category")
             }
         }
     }
@@ -99,15 +101,26 @@ class HomeFragment : Fragment() {
                 true
             }
 
-            // Recupera o item do menu como uma SearchView para dar acesso ao campo query
-            val searchItem = menu.findItem(R.id.action_search)
-            searchView = searchItem.actionView as SearchView
+            this.initSearchBar()
 
+        }
+    }
+
+    /**
+     * Essa função de extensão inicializa o campo de busca dentro da
+     * MaterialToolBar
+     */
+    private fun MaterialToolbar.initSearchBar() {
+        // Recupera o item do menu como uma SearchView para dar acesso ao campo query
+        val searchItem = menu.findItem(R.id.action_search)
+        searchView = searchItem.actionView as SearchView
+
+        with(searchView) {
             // Abre o campo de busca por padrão
-            searchView.isIconified = false
+            isIconified = false
 
             // Configura o listener de mudança no campo
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     // extrai a string de busca
                     val searchString = searchView.query.toString()
@@ -125,7 +138,6 @@ class HomeFragment : Fragment() {
                 }
 
             })
-
         }
     }
 

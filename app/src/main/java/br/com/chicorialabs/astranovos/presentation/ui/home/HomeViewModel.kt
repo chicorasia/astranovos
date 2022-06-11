@@ -105,12 +105,11 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * ativa (campo _category) por meio do GetLatestPostsTitleContainsUseCase.
      * Usa a mesma estrutura do método fetchPosts().
      */
-    private fun searchPosts(query: Query) {
+    private fun fetchPostsTitleContains(query: Query) {
         viewModelScope.launch {
             getLatestPostsTitleContainsUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
-                    //delay(800) //apenas cosmético
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
                         _listPost.postValue(State.Error(this))
@@ -136,7 +135,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * Um método público para executar queries com busca nos títulos.
      */
     fun doSearch(search: String) {
-        searchPosts(Query(category.value.toString(), search))
+        fetchPostsTitleContains(Query(category.value.toString(), search))
     }
 
     /**

@@ -6,6 +6,11 @@ import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Esse use case recebe uma Query com uma string de busca
+ * e retorna todas as postagens do tipo ativo que contenham
+ * a string de busca no título.
+ */
 class GetLatestPostsTitleContainsUseCase(private val repository: PostRepository) :
     UseCase<Query, List<Post>>() {
 
