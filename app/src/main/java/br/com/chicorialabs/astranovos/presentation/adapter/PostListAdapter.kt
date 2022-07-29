@@ -48,7 +48,7 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
         }
 
         /**
-         * Como estou usando um databainding layout, nesse método eu atribuo
+         * Como estou usando um databinding layout, nesse método eu atribuo
          * o objeto Post ao à varáivel "post" definida no XML. Eventualmente
          * vou precisar adicionar um campo clickListener para tratar os cliques
          * no item.
