@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.data.dao.PostDao
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.entities.network.toModel
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
@@ -9,10 +10,15 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 
 /**
- * Essa classe implementa a interface PostRepository, inicialmente
- * usando um serviço mockado. Os dados são retornados na forma de um flow.
+ * Essa classe implementa a interface PostRepository com duas
+ * dependências:
+ * - service: acesso à api web
+ * - dao: acesso ao repositório em disco (cache)
+ * Os dados são emitidos na forma de um flow.
  */
-class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepository {
+class PostRepositoryImpl(private val service: SpaceFlightNewsService,
+                         private val dao: PostDao
+) : PostRepository {
 
     /**
      * Essa função usa o construtor flow { } para emitir a lista de Posts
