@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.data.model
+package br.com.chicorialabs.astranovos.data.entities.model
 
 /**
  * Essa data class representa uma publicação; os artigos, postagens

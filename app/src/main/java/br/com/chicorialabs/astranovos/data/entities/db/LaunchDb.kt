@@ -1,8 +1,8 @@
-package br.com.chicorialabs.astranovos.data.db
+package br.com.chicorialabs.astranovos.data.entities.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import br.com.chicorialabs.astranovos.data.model.Launch
+import br.com.chicorialabs.astranovos.data.entities.model.Launch
 
 /**
  * Essa data class representa um objeto Launch para ser armazenado na database.

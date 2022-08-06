@@ -1,6 +1,6 @@
 package br.com.chicorialabs.astranovos.data.services
 
-import br.com.chicorialabs.astranovos.data.network.PostDTO
+import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

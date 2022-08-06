@@ -1,6 +1,6 @@
-package br.com.chicorialabs.astranovos.data.network
+package br.com.chicorialabs.astranovos.data.entities.network
 
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 
 /**
  * Essa classe representa um objeto recebido da API. Ela segue a estrutura

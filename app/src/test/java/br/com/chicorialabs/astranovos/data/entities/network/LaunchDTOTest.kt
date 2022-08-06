@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.data.network
+package br.com.chicorialabs.astranovos.data.entities.network
 
 import org.junit.Assert.assertTrue
 import org.junit.Test

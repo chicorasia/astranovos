@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.databinding.ItemPostBinding
 
 /**

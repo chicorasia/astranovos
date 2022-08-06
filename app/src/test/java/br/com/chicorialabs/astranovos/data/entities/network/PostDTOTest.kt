@@ -1,8 +1,6 @@
-package br.com.chicorialabs.astranovos.data.network
+package br.com.chicorialabs.astranovos.data.entities.network
 
-import br.com.chicorialabs.astranovos.data.model.Post
-import org.hamcrest.MatcherAssert
-import org.hamcrest.MatcherAssert.assertThat
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
