@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Essa interface define os métodos de acesso ao repositório em disco
@@ -23,7 +24,7 @@ interface PostDao {
      * Retorna todas as postagens armazenadas em disco
      */
     @Query("SELECT * FROM post")
-    fun listPosts() : List<PostDb>
+    fun listPosts() : Flow<List<PostDb>>
 
     /**
      * Limpa a database.

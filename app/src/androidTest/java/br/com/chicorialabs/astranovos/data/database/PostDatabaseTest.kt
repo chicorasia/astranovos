@@ -9,6 +9,7 @@ import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -42,40 +43,50 @@ class PostDatabaseTest : DbTest() {
     //testar se a Database é criada vazia
     @Test
     fun deve_InicializarDatabaseVazia() {
-        val result = dao.listPosts()
-        assertTrue(result.isEmpty())
+        runBlocking {
+            val result = dao.listPosts().first()
+            assertTrue(result.isEmpty())
+        }
     }
 
 
     @Test
     fun deve_GravarPostsNaDatabase_AoReceberListaDePosts() {
-        assertTrue(dao.listPosts().isEmpty())
+        lateinit var result: List<PostDb>
+        runBlocking {
+            result = dao.listPosts().first()
+        }
+        assertTrue(result.isEmpty())
         runBlocking {
             dao.saveAll(dbPosts)
+            result = dao.listPosts().first()
         }
-        assertFalse(dao.listPosts().isEmpty())
+        assertFalse(result.isEmpty())
     }
 
     //testar se o método clearDb() limpa a database
 
     @Test
     fun deve_RetornarPostsCorretamente_AoLerDaDatabase() {
-        assertTrue(dao.listPosts().isEmpty())
         //grava os posts na database
+        lateinit var result: PostDb
         runBlocking {
+            dao.clearDb()
             dao.saveAll(dbPosts)
+            result = dao.listPosts().first()[0]
         }
-        val result = dao.listPosts()[0]
         assertTrue(result.title == dbPosts[0].title)
     }
 
     @Test
     fun deve_LimparDatabase_AoInvocarClearDb() {
+        lateinit var result: List<PostDb>
         runBlocking {
             dao.saveAll(dbPosts)
             dao.clearDb()
+            result = dao.listPosts().first()
         }
-        assertTrue(dao.listPosts().isEmpty())
+        assertTrue(result.isEmpty())
     }
 
 }

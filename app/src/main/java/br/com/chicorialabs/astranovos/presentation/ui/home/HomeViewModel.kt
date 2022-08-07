@@ -8,11 +8,11 @@ import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -86,9 +86,14 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
             getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
-                    delay(800) //apenas cosmético
+//                    delay(800) //apenas cosmético
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
+                        _listPost.postValue(State.Error(this))
+                        _snackbar.value = this.message
+                    }
+                }.catch {
+                    with(IOException("Could not refresh local cache")) {
                         _listPost.postValue(State.Error(this))
                         _snackbar.value = this.message
                     }
