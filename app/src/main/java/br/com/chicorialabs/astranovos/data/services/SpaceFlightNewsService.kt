@@ -13,6 +13,8 @@ import retrofit2.http.Query
 
 interface SpaceFlightNewsService {
 
+    //TODO 005: Modificar SpaceFlightNewsService para retornar Post<DTO>
+
     /**
      * Esse endpoint acessa a lista de artigos (notícias); vamos
      * começar com uma chamada sem parâmetros. Usar uma função de suspensão

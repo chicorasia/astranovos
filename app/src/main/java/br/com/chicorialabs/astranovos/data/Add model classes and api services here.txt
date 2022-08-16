@@ -1,0 +1,3 @@
+TODO 002: Criar um objeto PostDTO e seus métodos de conveniência
+TODO 003: Escrever testes de unidade para PostDTO
+TODO 004: Criar um objeto LaunchDTO e seus métodos de conveniência
