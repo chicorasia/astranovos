@@ -1,6 +1,6 @@
 package br.com.chicorialabs.astranovos.data.repository
 
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import kotlinx.coroutines.flow.Flow
 
 /**

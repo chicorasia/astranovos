@@ -10,7 +10,7 @@
     <data>
         <variable
             name="post"
-            type="br.com.chicorialabs.astranovos.data.model.Post" />
+            type="br.com.chicorialabs.astranovos.data.entities.model.Post" />
 
     </data>
 

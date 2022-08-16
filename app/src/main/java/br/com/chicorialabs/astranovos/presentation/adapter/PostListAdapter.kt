@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.databinding.ItemPostBinding
 
 /**
@@ -48,7 +48,7 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
         }
 
         /**
-         * Como estou usando um databainding layout, nesse método eu atribuo
+         * Como estou usando um databinding layout, nesse método eu atribuo
          * o objeto Post ao à varáivel "post" definida no XML. Eventualmente
          * vou precisar adicionar um campo clickListener para tratar os cliques
          * no item.

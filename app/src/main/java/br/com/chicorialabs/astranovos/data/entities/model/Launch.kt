@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos.data.model
+package br.com.chicorialabs.astranovos.data.entities.model
 
 /**
  * Essa data class representa um evento de lançamento conforme
