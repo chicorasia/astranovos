@@ -92,11 +92,6 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                         _listPost.postValue(State.Error(this))
                         _snackbar.value = this.message
                     }
-                }.catch {
-                    with(IOException("Could not refresh local cache")) {
-                        _listPost.postValue(State.Error(this))
-                        _snackbar.value = this.message
-                    }
                 }
                 .collect {
                     _listPost.postValue(State.Success(it))
