@@ -71,7 +71,9 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService,
         }
 
         return dao.listPosts().map {
-            it.toModel()
+            it.toModel().sortedBy { post ->
+                post.publishedAt
+            }.reversed()
         }.flowOn(Dispatchers.Main)
 
     }
