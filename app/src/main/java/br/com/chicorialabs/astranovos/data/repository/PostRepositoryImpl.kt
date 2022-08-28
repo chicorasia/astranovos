@@ -2,7 +2,6 @@ package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.network.toModel
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,7 +29,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
          */
         try {
             //recebe uma List<PostDTO> e converte em List<Post> antes de emitir como fluxo
-            val postList = service.listPosts(type = category).toModel()
+            val postList = service.listPosts(type = category)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")
@@ -52,7 +51,7 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepo
         try {
             val postList = service.listPostsTitleContains(
                 type = category,
-                titleContains = titleContains).toModel()
+                titleContains = titleContains)
             emit(postList)
         } catch (ex: HttpException) {
             throw RemoteException("Unable to retrieve posts")
