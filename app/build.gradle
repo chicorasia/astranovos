@@ -35,7 +35,7 @@ android {
         viewBinding true
     }
 }
-
+// TODO 001: Adicionar dependências do Room e kapt
 dependencies {
     def nav_version = "2.3.5"
     def koin_version = "3.0.1"

@@ -1,4 +1,4 @@
-package br.com.chicorialabs.astranovos
+package br.com.chicorialabs.astranovos.data
 
 import br.com.chicorialabs.astranovos.data.model.Post
 import br.com.chicorialabs.astranovos.data.network.LaunchDTO

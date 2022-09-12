@@ -19,11 +19,12 @@ import retrofit2.http.Query
 interface SpaceFlightNewsService {
 
 
-    //TODO 005: Modificar SpaceFlightNewsService para retornar Post<DTO>
     /**
      * Esse endpoint acessa a lista de artigos (notícias); vamos
      * começar com uma chamada sem parâmetros. Usar uma função de suspensão
      * para que as chamadas à API ocorram fora da thread principal.
+     * Emprega o padrão Data Transfer Object para desvincular a camada de
+     * dados da API externa.
      */
     @GET("{type}")
     suspend fun listPosts(@Path("type") type: String) : List<PostDTO>

@@ -14,11 +14,10 @@ import retrofit2.HttpException
  */
 class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepository {
 
-
-    //TODO 006: Modificar PostRepositoryImpl para converter de DTO em Model
     /**
      * Essa função usa o construtor flow { } para emitir a lista de Posts
-     * na forma de um fluxo de dados.
+     * na forma de um fluxo de dados. Ele recebe os dados como PostDTO
+     * e invoca o método de conveniência para fazer a conversão em entidade de modelo.
      * @param category Categoria de postagem (article, blog ou post) no formato de String.
      */
     override suspend fun listPosts(category: String): Flow<List<Post>> = flow {
