@@ -1,8 +1,10 @@
+Parte A:
 TODO 002: Criar uma classe PostDatabaseTest no diretório androidTest
-TODO 003: Instanciar a database em memória para os testes
-TODO 004: Criar uma superclasse DbTest para organizar as entidades
-TODO 005: Criar objetos Post para testar a gravação na database
-TODO 006: Modificar a assinatura de PostDatabaseTest para extender DbTest
-TODO 007: Escrever um teste para gravar na database com saveAll()
-TODO 008: Escrever um teste para ler da database com listPosts()
-TODO 009: Escrever um teste para limpar a database com clearDb()
+TODO 003: Criar objetos PostDb para testar a gravação na database
+TODO 004: Escrever um teste para gravar na database com saveAll()
+TODO 005: Escrever um teste para ler da database com listPosts()
+TODO 006: Escrever um teste para limpar a database com clearDb()
+Parte D:
+TODO 020: Instanciar a database em memória para os testes
+TODO 021: [Refatoração] Criar uma superclasse DbTest para organizar as entidades
+TODO 022: [Refatoração] Modificar a assinatura de PostDatabaseTest para extender DbTest

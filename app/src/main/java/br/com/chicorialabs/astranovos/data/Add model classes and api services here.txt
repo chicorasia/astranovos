@@ -1,15 +1,16 @@
 Parte B
-TODO 010: Criar um pacote entities
-TODO 011: Criar uma data class PostDb
-TODO 012: Anotar PostDb com @Entity e definir uma @PrimaryKey
-TODO 013: Criar um método de conveniência para converter List<PostDb> em List<Post>
-TODO 014: Criar uma data class LaunchDb
-TODO 015: Anotar LaunchDb com @Entity e definir uma @PrimaryKey
+TODO 007: Criar um pacote entities
+TODO 008: Criar uma data class PostDb
+TODO 009: Anotar PostDb com @Entity e definir uma @PrimaryKey
+TODO 010: Criar um método de conveniência para converter List<PostDb> em List<Post>
+TODO 011: Criar uma data class LaunchDb
+TODO 012: Anotar LaunchDb com @Entity e definir uma @PrimaryKey
 Parte C
-TODO 016: Criar um pacote dao
-TODO 017: Criar uma interface PostDAO
-TODO 018: Implementar saveAll(), listPosts() e clearDb()
-TODO 019: Criar um pacote database
-TODO 020: Criar uma classe abstrata PostDatabase
-TODO 021: Escrever um TypeConverter
-TODO 022: Passar o TypeConverter para a classe database
+TODO 013: Criar um pacote dao
+TODO 014: Criar uma interface PostDAO
+TODO 015: Implementar saveAll(), listPosts() e clearDb()
+TODO 016: Criar um pacote database
+TODO 017: Criar uma classe abstrata PostDatabase
+Parte D
+TODO 018: Escrever um TypeConverter
+TODO 019: Atribuir o TypeConverter à classe PostDatabase
