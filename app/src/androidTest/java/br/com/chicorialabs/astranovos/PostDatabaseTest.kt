@@ -8,11 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-//TODO 002: Criar uma classe PostDatabaseTest no diretório androidTest ✅
-//TODO 003: Criar objetos PostDb para testar a gravação na database ✅
-//TODO 004: Escrever um teste para gravar na database com saveAll() ✅
-//TODO 005: Escrever um teste para ler da database com listPosts() ✅
-//TODO 006: Escrever um teste para limpar a database com clearDb() ✅
 //Parte D
 //TODO 020: Instanciar a database em memória para os testes
 //TODO 021: [Refatoração] Criar uma superclasse DbTest para organizar as entidades
