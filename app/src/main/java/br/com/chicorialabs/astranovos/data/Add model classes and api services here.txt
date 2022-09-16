@@ -1,10 +1,7 @@
 Parte B
-TODO 007: Criar um pacote entities
-TODO 008: Criar uma data class PostDb
-TODO 009: Anotar PostDb com @Entity e definir uma @PrimaryKey
-TODO 010: Criar um método de conveniência para converter List<PostDb> em List<Post>
-TODO 011: Criar uma data class LaunchDb
-TODO 012: Anotar LaunchDb com @Entity e definir uma @PrimaryKey
+TODO 007: Criar um pacote entities ✅
+
+
 Parte C
 TODO 013: Criar um pacote dao
 TODO 014: Criar uma interface PostDAO

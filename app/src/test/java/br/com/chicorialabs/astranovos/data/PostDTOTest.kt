@@ -1,8 +1,8 @@
 package br.com.chicorialabs.astranovos.data
 
-import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.network.LaunchDTO
-import br.com.chicorialabs.astranovos.data.network.PostDTO
+import br.com.chicorialabs.astranovos.data.entities.model.Post
+import br.com.chicorialabs.astranovos.data.entities.network.LaunchDTO
+import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
 import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith

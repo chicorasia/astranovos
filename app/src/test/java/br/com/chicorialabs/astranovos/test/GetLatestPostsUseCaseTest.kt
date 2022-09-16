@@ -1,7 +1,7 @@
 package br.com.chicorialabs.astranovos.test
 
 import br.com.chicorialabs.astranovos.core.Query
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first

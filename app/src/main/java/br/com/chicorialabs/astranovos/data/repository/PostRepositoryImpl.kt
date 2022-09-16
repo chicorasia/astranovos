@@ -1,8 +1,8 @@
 package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.core.RemoteException
-import br.com.chicorialabs.astranovos.data.model.Post
-import br.com.chicorialabs.astranovos.data.network.toModel
+import br.com.chicorialabs.astranovos.data.entities.model.Post
+import br.com.chicorialabs.astranovos.data.entities.network.toModel
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

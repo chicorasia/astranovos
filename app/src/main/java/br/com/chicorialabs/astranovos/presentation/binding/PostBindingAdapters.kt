@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.chicorialabs.astranovos.R
-import br.com.chicorialabs.astranovos.data.model.Post
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import java.time.Instant

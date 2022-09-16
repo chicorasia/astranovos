@@ -1,6 +1,6 @@
-package br.com.chicorialabs.astranovos.data.network
+package br.com.chicorialabs.astranovos.data.entities.network
 
-import br.com.chicorialabs.astranovos.data.model.Launch
+import br.com.chicorialabs.astranovos.data.entities.model.Launch
 
 
 /**

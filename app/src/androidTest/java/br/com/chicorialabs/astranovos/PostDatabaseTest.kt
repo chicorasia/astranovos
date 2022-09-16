@@ -1,6 +1,8 @@
 package br.com.chicorialabs.astranovos
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
+import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
