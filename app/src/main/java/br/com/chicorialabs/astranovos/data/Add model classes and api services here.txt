@@ -1,10 +1,10 @@
 Parte B
 Parte C
-TODO 013: Criar um pacote dao
-TODO 014: Criar uma interface PostDAO
-TODO 015: Implementar saveAll(), listPosts() e clearDb()
-TODO 016: Criar um pacote database
-TODO 017: Criar uma classe abstrata PostDatabase
+TODO 013: Criar um pacote dao ✅
+TODO 014: Criar uma interface PostDAO ✅
+TODO 015: Implementar saveAll(), listPosts() e clearDb() ✅
+TODO 016: Criar um pacote database ✅
+TODO 017: Criar uma classe abstrata PostDatabase ✅
 Parte D
 TODO 018: Escrever um TypeConverter
 TODO 019: Atribuir o TypeConverter à classe PostDatabase
