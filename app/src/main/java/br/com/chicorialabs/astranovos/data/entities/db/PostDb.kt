@@ -2,7 +2,10 @@ package br.com.chicorialabs.astranovos.data.entities.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import br.com.chicorialabs.astranovos.data.entities.model.Post
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 /**
  * Essa data class é usada para o armazenamento de postagens da database interna.
@@ -40,3 +43,21 @@ fun List<PostDb>.toModel() : List<Post> =
     this.map {
         it.toModel()
     }
+
+class PostDbConverters {
+
+    @TypeConverter
+    fun fromString(string: String): Array<LaunchDb>? {
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val jsonAdapter = moshi.adapter(Array<LaunchDb>::class.java)
+        return jsonAdapter.fromJson(string)
+    }
+
+    @TypeConverter
+    fun toString(array: Array<LaunchDb>) : String? {
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val jsonAdapter = moshi.adapter(Array<LaunchDb>::class.java)
+        return jsonAdapter.toJson(array)
+    }
+
+}

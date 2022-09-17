@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import br.com.chicorialabs.astranovos.data.dao.PostDao
 import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
+import br.com.chicorialabs.astranovos.data.entities.db.PostDbConverters
 
 /**
  * Essa classe abstrata declara uma database. A implementação concreta
@@ -17,6 +19,7 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDb
     version = 1,
     exportSchema = false
 )
+@TypeConverters(PostDbConverters::class)
 abstract class PostDatabase : RoomDatabase(){
     abstract val dao: PostDao
 
