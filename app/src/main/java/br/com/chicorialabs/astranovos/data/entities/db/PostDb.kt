@@ -7,9 +7,6 @@ import br.com.chicorialabs.astranovos.data.entities.model.Post
 /**
  * Essa data class é usada para o armazenamento de postagens da database interna.
  */
-//TODO 008: Criar uma data class PostDb ✅
-//TODO 009: Anotar PostDb com @Entity e definir uma @PrimaryKey ✅
-
 @Entity(tableName = "post")
 data class PostDb(
     @PrimaryKey
@@ -36,7 +33,6 @@ data class PostDb(
     )
 }
 
-//TODO 010: Criar um método de conveniência para converter List<PostDb> em List<Post> ✅
 /**
  * Uma função de extensão para converter uma lista de PostDb em lista de Post
  */

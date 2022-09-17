@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import br.com.chicorialabs.astranovos.data.entities.model.Launch
 
-//TODO 011: Criar uma data class LaunchDb ✅
-//TODO 012: Anotar LaunchDb com @Entity e definir uma @PrimaryKey ✅
 /**
  * Essa data class representa um evento de lançamento e se destina
  * ao armazenamento na database. Possui método de conveniência para conversão

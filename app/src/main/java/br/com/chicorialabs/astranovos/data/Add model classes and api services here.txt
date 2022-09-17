@@ -1,7 +1,4 @@
 Parte B
-TODO 007: Criar um pacote entities ✅
-
-
 Parte C
 TODO 013: Criar um pacote dao
 TODO 014: Criar uma interface PostDAO
