@@ -1,13 +1,11 @@
 package br.com.chicorialabs.astranovos
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import br.com.chicorialabs.astranovos.data.dao.PostDao
 import br.com.chicorialabs.astranovos.data.database.PostDatabase
-import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
@@ -18,12 +16,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import kotlin.jvm.Throws
-
-//Parte D
-//TODO 020: Instanciar a database em memória para os testes ✅
-//TODO 021: [Refatoração] Criar uma superclasse DbTest para organizar as entidades ✅
-//TODO 022: [Refatoração] Modificar a assinatura de PostDatabaseTest para extender DbTest ✅
 
 /**
  * Essa classe mantém testes de unidade para PostDatabase. O acesso à database é

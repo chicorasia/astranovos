@@ -11,7 +11,8 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDbConverters
 
 /**
- * Essa classe abstrata declara uma database. A implementação concreta
+ * Essa classe abstrata declara uma database e possui a organização
+ * recomendada pela Google. A implementação concreta
  * também fica sob responsabilidade do Room.
  */
 @Database(

@@ -4,6 +4,10 @@ import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import org.junit.Before
 
+/**
+ * Essa classe aberta ajuda a manter organizados os testes
+ * de unidade da PostDatabase.
+ */
 open class DbTest {
 
     //uma lista de objetos PostDb para testes de unidade
