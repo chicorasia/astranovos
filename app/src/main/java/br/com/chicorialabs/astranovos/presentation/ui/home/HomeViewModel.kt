@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
+import android.util.Log
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.core.RemoteException
@@ -8,7 +9,6 @@ import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -86,7 +86,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
             getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
-                    delay(800) //apenas cosmético
+                    //delay(800) //apenas cosmético
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
                         _listPost.postValue(State.Error(this))
@@ -94,10 +94,14 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                     }
                 }
                 .collect {
-                    _listPost.postValue(State.Success(it))
-                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
+                    val data: List<Post>? = it.data //extrai a lista de postagens do Resource
+                    data?.let { listPosts ->
+                        _listPost.postValue(State.Success(listPosts))
+                        _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
+                        Log.d("Astranovos", "fetchPosts - data: ${it.toString()}, ${it.error}")
+                    }
                 }
-        }
+            }
     }
 
     /**

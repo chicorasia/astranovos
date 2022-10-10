@@ -1,5 +1,1 @@
-Parte B
-Parte C
-Parte D
-TODO 018: Escrever um TypeConverter ✅
-TODO 019: Atribuir o TypeConverter à classe PostDatabase ✅
+
