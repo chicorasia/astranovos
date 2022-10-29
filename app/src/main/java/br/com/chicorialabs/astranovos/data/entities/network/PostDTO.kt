@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.data.entities.network
 
+import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 
 /**
@@ -10,6 +11,7 @@ import br.com.chicorialabs.astranovos.data.entities.model.Post
  * - como essa conversão unidirecional, não precisamos converter de modelo para DTO.
  * Ela é complementada por LaunchDTO.
  */
+
 data class PostDTO(
     val id: Int,
     val title: String,
@@ -31,6 +33,17 @@ data class PostDTO(
             updatedAt = updatedAt,
             launches = launches.toModel()
         )
+
+        fun toDb() : PostDb = PostDb(
+            id = id,
+            title = title,
+            url = url,
+            imageUrl = imageUrl,
+            summary = summary,
+            publishedAt = publishedAt,
+            updatedAt = updatedAt,
+            launches = launches.toDb()
+        )
 }
 
 /**
@@ -39,4 +52,9 @@ data class PostDTO(
 fun List<PostDTO>.toModel() : List<Post> =
     this.map {
         it.toModel()
+    }
+
+fun List<PostDTO>.toDb() : List<PostDb> =
+    this.map {
+        it.toDb()
     }
