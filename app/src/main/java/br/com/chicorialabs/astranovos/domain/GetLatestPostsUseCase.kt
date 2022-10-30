@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Esse use case retorna todas as postagens do tipo ativo
  */
-
+//TODO 006: Modificar GetLatestPostsUseCase para retornar um Flow<Resource<List<Post>>>
 class GetLatestPostsUseCase(private val repository: PostRepository) : UseCase<Query, List<Post>>() {
 
     override suspend fun execute(param: Query): Flow<List<Post>> =

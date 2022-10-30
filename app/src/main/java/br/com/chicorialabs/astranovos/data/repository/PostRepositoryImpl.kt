@@ -12,6 +12,18 @@ import retrofit2.HttpException
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
  * A responsabilidade de converter entre DTO e entidade de modelo cabe a esta classe.
  */
+//TODO 002: Adicionar o dao como dependência do PostRepositoryImpl
+//TODO 008: Escrever um novo método listPosts() em PostRepositoryImpl
+//TODO 009: Criar uma função networkBoundResource()
+//TODO 011: Extrair o bloco query()
+//TODO 012: Extrair o bloco fetch()
+//TODO 013: Extrair o bloco saveFetchResult()
+//TODO 014: Extrair uma função onError()
+//TODO 015: Adotar generics no networkBoundResource
+//TODO 016: transformar networkBoundResource em função inline
+//TODO 019: Modificar o método listPostsTitleContains() para empregar o networkBoundResource()
+//TODO 021: Refatorar listPosts() e listPostsTitleContains()
+//TODO 022: Mover networkBoundResource() para um arquivo à parte no pacote core
 class PostRepositoryImpl(private val service: SpaceFlightNewsService) : PostRepository {
 
     /**

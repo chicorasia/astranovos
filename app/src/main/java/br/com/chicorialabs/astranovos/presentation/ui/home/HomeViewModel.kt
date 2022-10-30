@@ -81,6 +81,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
+//    TODO 010: Modificar o método fetchPosts() para usar Resource<List<Post>>
     private fun fetchPosts(query: Query) {
         viewModelScope.launch {
             getLatestPostUseCase(query)
@@ -105,6 +106,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      * ativa (campo _category) por meio do GetLatestPostsTitleContainsUseCase.
      * Usa a mesma estrutura do método fetchPosts().
      */
+//    TODO 020: Modificar o método fetchPostsTitleContains()
     private fun fetchPostsTitleContains(query: Query) {
         viewModelScope.launch {
             getLatestPostsTitleContainsUseCase(query)
