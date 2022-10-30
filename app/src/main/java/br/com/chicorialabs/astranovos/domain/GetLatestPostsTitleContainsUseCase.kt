@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos.domain
 
 import br.com.chicorialabs.astranovos.core.Query
+import br.com.chicorialabs.astranovos.core.Resource
 import br.com.chicorialabs.astranovos.core.UseCase
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.repository.PostRepository
@@ -13,9 +14,9 @@ import kotlinx.coroutines.flow.Flow
  */
 //TODO 017: Modificar GetLatestPostsTitleContaisUseCase para retornar Flow<Resource<List<Post>>>
 class GetLatestPostsTitleContainsUseCase(private val repository: PostRepository) :
-    UseCase<Query, List<Post>>() {
+    UseCase<Query, Resource<List<Post>>>() {
 
-    override suspend fun execute(param: Query): Flow<List<Post>> =
+    override suspend fun execute(param: Query): Flow<Resource<List<Post>>> =
         repository.listPostsTitleContains(param.type, param.option)
 
 }
