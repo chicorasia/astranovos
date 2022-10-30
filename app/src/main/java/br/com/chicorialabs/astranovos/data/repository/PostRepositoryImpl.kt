@@ -1,87 +1,57 @@
 package br.com.chicorialabs.astranovos.data.repository
 
-import android.util.Log
+import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.core.RemoteException
+import br.com.chicorialabs.astranovos.core.Resource
+import br.com.chicorialabs.astranovos.core.networkBoundResource
 import br.com.chicorialabs.astranovos.data.dao.PostDao
-import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.toModel
 import br.com.chicorialabs.astranovos.data.entities.model.Post
+import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
 import br.com.chicorialabs.astranovos.data.entities.network.toDb
 import br.com.chicorialabs.astranovos.data.entities.network.toModel
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import java.io.IOException
-import java.net.UnknownHostException
-
-const val TAG = "Astranovos"
 
 /**
- * Essa classe implementa a interface PostRepository com duas
- * dependências:
- * - service: acesso à api web
- * - dao: acesso ao repositório em disco (cache)
- * Os dados são emitidos na forma de um flow.
+ * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
+ * A responsabilidade de converter entre DTO e entidade de modelo cabe a esta classe.
  */
-class PostRepositoryImpl(private val service: SpaceFlightNewsService,
-                         private val dao: PostDao
+class PostRepositoryImpl(
+    private val service: SpaceFlightNewsService,
+    private val dao: PostDao
 ) : PostRepository {
 
-    /**
-     * Essa função tenta atualizar a cache local com a categoria recebida
-     * via parâmetro e depois recebe um Flow<List<PostDb> do armazenamento
-     * local, transformando em Flow<List<Post>> para exibição
-     * na tela de Home.
-     * @param category: Categoria de postagem na forma de String
-     */
-    override suspend fun listPosts(category: String): Flow<List<Post>> {
-
-        runCatching {
-            refreshCache(category)
-        }.onFailure {
-            Log.d(TAG, it.toString())
-        }
-
-        return try {
-            dao.listPosts().map {
-                it.toModel().sortedBy { post ->
-                    post.publishedAt
-                }.reversed()
-            }.flowOn(Dispatchers.Main)
-        } catch (ex: IOException) {
-            throw IOException("Error loading from local cache.")
+    private val readFromDatabase = {
+        dao.listPosts().map {
+            it.sortedBy { postDb ->
+                postDb.publishedAt
+            }.reversed().toModel()
         }
     }
 
-    /**
-     * Essa função atualiza a cache com dados recebidos da API
-     * caso a requisição tenha sucesso, ou lança uma RemoteException
-     * caso ocorra alguma falha.
-     */
-    private suspend fun refreshCache(category: String) {
-        val repositoryScope = CoroutineScope(Dispatchers.IO)
-        var newPosts: List<PostDb>? = null
-
-        runCatching {
-            withContext(Dispatchers.Main) {
-                newPosts = service.listPosts(category).toDb()
-            }
-        }.onFailure {
-            throw RemoteException("Could not refresh cache.")
-        }.onSuccess {
-            newPosts?.let {
-                repositoryScope.launch {
-                    dao.clearDb()
-                    dao.saveAll(it)
-                }
-            }
-        }
+    private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = { list: List<PostDTO> ->
+        dao.clearDb()
+        dao.saveAll(list.toDb())
     }
 
+    /**
+     * Essa função usa o construtor flow { } para emitir a lista de Posts
+     * na forma de um fluxo de dados. Ele recebe os dados como PostDTO
+     * e invoca o método de conveniência para fazer a conversão em entidade de modelo.
+     * @param category Categoria de postagem (article, blog ou post) no formato de String.
+     */
+    override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
+        networkBoundResource(
+            //Query(category),
+            query = readFromDatabase,
+            fetch = { service.listPosts(category) },
+            saveFetchResult = { list ->
+                clearDbAndSave(list)
+            },
+            onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
+        )
 
     /**
      * Essa função usa o construtor flow { } para emitir a lista de Posts
@@ -92,16 +62,17 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService,
     override suspend fun listPostsTitleContains(
         category: String,
         titleContains: String?
-    ): Flow<List<Post>> = flow {
+    ): Flow<Resource<List<Post>>> = networkBoundResource(
+        query = readFromDatabase,
+        fetch = { service.listPostsTitleContains(category, titleContains) },
+        saveFetchResult = { list ->
+            clearDbAndSave(list)
+        },
+        onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
+    )
 
-        try {
-            val postList = service.listPostsTitleContains(
-                type = category,
-                titleContains = titleContains).toModel()
-            emit(postList)
-        } catch (ex: HttpException) {
-            throw RemoteException("Unable to retrieve posts")
-        }
-
-    }
 }
+
+
+
+

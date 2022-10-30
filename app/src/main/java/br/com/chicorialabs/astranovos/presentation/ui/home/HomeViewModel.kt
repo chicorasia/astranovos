@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -20,13 +19,15 @@ import java.io.IOException
  * e efetuar buscas com palavras chave na API.
  */
 
-class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
-                    private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase) : ViewModel() {
+class HomeViewModel(
+    private val getLatestPostUseCase: GetLatestPostsUseCase,
+    private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase
+) : ViewModel() {
 
     /**
-    * Esse campo e as respectivas funções controlam a visibilidade
-    * da ProgressBar
-    */
+     * Esse campo e as respectivas funções controlam a visibilidade
+     * da ProgressBar
+     */
     private val _progressBarVisible = MutableLiveData<Boolean>(false)
     val progressBarVisible: LiveData<Boolean>
         get() = _progressBarVisible
@@ -86,7 +87,7 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
             getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
-//                    delay(800) //apenas cosmético
+                    //delay(800) //apenas cosmético
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
                         _listPost.postValue(State.Error(this))
@@ -94,9 +95,14 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                     }
                 }
                 .collect {
-                    _listPost.postValue(State.Success(it))
-                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
+                    it.data?.let { list ->
+                        _listPost.postValue(State.Success(list))
+                    }
+                    it.error?.let { throwable ->
+                        _snackbar.value = throwable.message
+                    }
                 }
+            _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
         }
     }
 
@@ -112,12 +118,17 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
                     _listPost.postValue(State.Loading)
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
-                        _listPost.postValue(State.Error(this))
+                        _listPost.value = (State.Error(this))
                         _snackbar.value = this.message
                     }
                 }
                 .collect {
-                    _listPost.postValue(State.Success(it))
+                    it.data?.let { list ->
+                        _listPost.postValue(State.Success(list))
+                    }
+                    it.error?.let { throwable ->
+                        _snackbar.value = throwable.message
+                    }
                     _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
                 }
         }
@@ -144,10 +155,16 @@ class HomeViewModel(private val getLatestPostUseCase: GetLatestPostsUseCase,
      */
     val helloText = Transformations.map(listPost) {
         listPost.let {
-            when(it.value) {
-                State.Loading -> { "🚀 Loading latest news..."}
-                is State.Error -> { "Houston, we've had a problem! :'("}
-                else -> {""}
+            when (it.value) {
+                State.Loading -> {
+                    "🚀 Loading latest news..."
+                }
+                is State.Error -> {
+                    "Houston, we've had a problem! :'("
+                }
+                else -> {
+                    ""
+                }
             }
         }
     }

@@ -8,27 +8,21 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Essa interface define os métodos de acesso ao repositório em disco
+ * Essa interface declara os métodos de acesso à database. A implementação
+ * concreta fica a cargo do Room.
  */
 @Dao
 interface PostDao {
 
-    /**
-     * Grava uma lista de PostDb no armazenamento local,
-     * ignorando postagens repetidas.
-     */
+    //o método saveAll() recebe uma lista e salva na database
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveAll(list: List<PostDb>)
 
-    /**
-     * Retorna todas as postagens armazenadas em disco
-     */
+    //o método listPosts() retorna todos os registros da database
     @Query("SELECT * FROM post")
     fun listPosts() : Flow<List<PostDb>>
 
-    /**
-     * Limpa a database.
-     */
+    //clearDb() limpa a database
     @Query("DELETE FROM post")
     suspend fun clearDb()
 

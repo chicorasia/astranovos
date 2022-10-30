@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 import br.com.chicorialabs.astranovos.data.entities.model.Launch
 
 /**
- * Essa data class representa um objeto Launch para ser armazenado na database.
- * Possui um método de conveniência para conversão em entidade de model.
+ * Essa data class representa um evento de lançamento e se destina
+ * ao armazenamento na database. Possui método de conveniência para conversão
+ * em entidade de modelo.
  */
 @Entity(tableName = "launch")
 data class LaunchDb(
@@ -22,6 +23,9 @@ data class LaunchDb(
 
 }
 
+/**
+ * Uma função de extensão para converter Array<LaunchDb> em Array<Launch>
+ */
 fun Array<LaunchDb>.toModel() : Array<Launch> =
     this.map {
         it.toModel()

@@ -8,9 +8,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 /**
- * Essa data class representa a entidade Post para gravação na database.
- * Possui um método de conveniência para conversão de entidade de
- * database para uma entidade de modelo.
+ * Essa data class é usada para o armazenamento de postagens da database interna.
  */
 @Entity(tableName = "post")
 data class PostDb(
@@ -39,21 +37,14 @@ data class PostDb(
 }
 
 /**
- * Um método de conveniência para converter List<PostDb> em List<Post>
+ * Uma função de extensão para converter uma lista de PostDb em lista de Post
  */
 fun List<PostDb>.toModel() : List<Post> =
     this.map {
         it.toModel()
     }
 
-/**
- * Esses conversores permitem armazenar os objetos LaunchDb
- * desserializados como uma String.
- */
 class PostDbConverters {
-
-    //TODO: otimizar os campos como atributos de classe
-    //TODO: usar kotlinx-serialization para simplificar a conversão
 
     @TypeConverter
     fun fromString(string: String): Array<LaunchDb>? {

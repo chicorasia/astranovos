@@ -30,21 +30,12 @@ object DataModule {
         loadKoinModules(postsModule() + networkModule() + daoModule())
     }
 
-    /**
-     * Inicializa o repositório.
-     */
     private fun postsModule() : Module {
         return module {
-            single<PostRepository> { PostRepositoryImpl(
-                service = get(),
-                dao = get()
-            ) }
+            single<PostRepository> { PostRepositoryImpl(service = get(), dao = get()) }
         }
     }
 
-    /**
-     * Inicializa o dao.
-     */
     private fun daoModule() : Module {
         return module {
             single { PostDatabase.getInstance(androidContext()).dao }

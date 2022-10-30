@@ -11,8 +11,9 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.PostDbConverters
 
 /**
- * Essa classe abstrata configura o acesso à database.
- *
+ * Essa classe abstrata declara uma database e possui a organização
+ * recomendada pela Google. A implementação concreta
+ * também fica sob responsabilidade do Room.
  */
 @Database(
     entities = [PostDb::class, LaunchDb::class],
@@ -20,7 +21,7 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDbConverters
     exportSchema = false
 )
 @TypeConverters(PostDbConverters::class)
-abstract class PostDatabase : RoomDatabase() {
+abstract class PostDatabase : RoomDatabase(){
     abstract val dao: PostDao
 
     companion object {
@@ -40,9 +41,8 @@ abstract class PostDatabase : RoomDatabase() {
                         .build()
                     INSTANCE = instance
                 }
-            return instance
+                return instance
             }
         }
     }
-
 }
