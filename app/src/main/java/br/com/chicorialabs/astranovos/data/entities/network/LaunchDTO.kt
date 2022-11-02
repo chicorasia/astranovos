@@ -1,6 +1,5 @@
 package br.com.chicorialabs.astranovos.data.entities.network
 
-import br.com.chicorialabs.astranovos.data.entities.db.LaunchDb
 import br.com.chicorialabs.astranovos.data.entities.model.Launch
 
 
@@ -19,11 +18,6 @@ data class LaunchDTO(
         provider = provider
     )
 
-    fun toDb(): LaunchDb = LaunchDb(
-        id = id,
-        provider = provider
-    )
-
 }
 
 /**
@@ -35,7 +29,3 @@ fun Array<LaunchDTO>.toModel() : Array<Launch> =
         it.toModel()
     }.toTypedArray()
 
-fun Array<LaunchDTO>.toDb() : Array<LaunchDb> =
-    this.map {
-        it.toDb()
-    }.toTypedArray()

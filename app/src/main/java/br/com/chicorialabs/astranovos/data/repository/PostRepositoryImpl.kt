@@ -15,12 +15,14 @@ import retrofit2.HttpException
 //TODO 002: Adicionar o dao como dependência do PostRepositoryImpl
 //TODO 008: Escrever um novo método listPosts() em PostRepositoryImpl
 //TODO 009: Criar uma função networkBoundResource()
+//Parte B
 //TODO 011: Extrair o bloco query()
 //TODO 012: Extrair o bloco fetch()
 //TODO 013: Extrair o bloco saveFetchResult()
 //TODO 014: Extrair uma função onError()
 //TODO 015: Adotar generics no networkBoundResource
 //TODO 016: transformar networkBoundResource em função inline
+//Parte C
 //TODO 019: Modificar o método listPostsTitleContains() para empregar o networkBoundResource()
 //TODO 021: Refatorar listPosts() e listPostsTitleContains()
 //TODO 022: Mover networkBoundResource() para um arquivo à parte no pacote core
