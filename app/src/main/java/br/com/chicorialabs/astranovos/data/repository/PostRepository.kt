@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PostRepository {
 
-//    TODO 007: Modificar o retorno do método listPosts() para devolver um Flow<Resource<List<Post>>
     suspend fun listPosts(category: String) : Flow<Resource<List<Post>>>
 
 //    TODO 018: Modificar o retorno do método listPostsTitleContains() para devolver um Flow<Resource<List<Post>>

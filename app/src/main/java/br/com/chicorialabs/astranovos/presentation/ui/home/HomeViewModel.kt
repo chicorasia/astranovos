@@ -82,7 +82,6 @@ class HomeViewModel(
      * Simplesmente adicionar a chave catch { } já evita os crashes
      * da aplicação quando em modo avião.
      */
-//    TODO 010: Modificar o método fetchPosts() para usar Resource<List<Post>>
     private fun fetchPosts(query: Query) {
         viewModelScope.launch {
             getLatestPostUseCase(query)
@@ -96,11 +95,11 @@ class HomeViewModel(
                     }
                 }
                 .collect {
-                    it.data?.let{
-                        _listPost.postValue(State.Success(it))
+                    it.data?.let{ list ->
+                        _listPost.postValue(State.Success(list))
                     }
-                    it.error?.let {
-                        _snackbar.value = it.message
+                    it.error?.let { error ->
+                        _snackbar.value = error.message
                     }
                 }
             _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())

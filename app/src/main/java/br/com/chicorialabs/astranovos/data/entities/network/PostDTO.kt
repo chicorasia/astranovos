@@ -23,7 +23,6 @@ data class PostDTO(
     var launches: Array<LaunchDTO> = emptyArray()
 ) {
 
-//    TODO 001: Criar métodos de conveniência para converter entidades de rede em entidades db
     fun toModel() : Post = Post(
             id = id,
             title = title,

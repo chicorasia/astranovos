@@ -24,8 +24,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  */
 object DataModule {
 
-//    TODO 003: Adicionar a dependência na declaração do postsModule()
-//    TODO 004: Criar o daoModule
     private const val BASE_URL = "https://api.spaceflightnewsapi.net/v3/"
     private const val OK_HTTP = "Ok Http"
 
