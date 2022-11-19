@@ -18,13 +18,6 @@ import retrofit2.HttpException
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
  * A responsabilidade de converter entre DTO e entidade de modelo cabe a esta classe.
  */
-//Parte B
-//TODO 011: Extrair o bloco query()
-//TODO 012: Extrair o bloco fetch()
-//TODO 013: Extrair o bloco saveFetchResult()
-//TODO 014: Extrair uma função onError()
-//TODO 015: Adotar generics no networkBoundResource
-//TODO 016: transformar networkBoundResource em função inline
 //Parte C
 //TODO 019: Modificar o método listPostsTitleContains() para empregar o networkBoundResource()
 //TODO 021: Refatorar listPosts() e listPostsTitleContains()
