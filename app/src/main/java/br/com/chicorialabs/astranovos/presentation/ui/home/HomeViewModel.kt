@@ -124,9 +124,14 @@ class HomeViewModel(
                     }
                 }
                 .collect {
-                    _listPost.postValue(State.Success(it))
-                    _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
+                    it.data?.let{ list ->
+                        _listPost.postValue(State.Success(list))
+                    }
+                    it.error?.let { error ->
+                        _snackbar.value = error.message
+                    }
                 }
+            _category.value = enumValueOf<SpaceFlightNewsCategory>(query.type.uppercase())
         }
     }
 

@@ -13,5 +13,5 @@ interface PostRepository {
     suspend fun listPosts(category: String) : Flow<Resource<List<Post>>>
 
 //    TODO 018: Modificar o retorno do método listPostsTitleContains() para devolver um Flow<Resource<List<Post>>
-    suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<List<Post>>
+    suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<Resource<List<Post>>>
 }
