@@ -3,7 +3,6 @@ package br.com.chicorialabs.astranovos.data.repository
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.Resource
 import br.com.chicorialabs.astranovos.data.dao.PostDao
-import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.toModel
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.entities.network.toDb
@@ -12,6 +11,7 @@ import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 
 /**
@@ -34,7 +34,22 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService,
                          ) : PostRepository {
 
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
-        networkBoundResource(category)
+        networkBoundResource(
+            category,
+            query = {
+                dao.listPosts().map { list ->
+                    list.sortedBy { post ->
+                        post.publishedAt
+                    }.reversed().toModel()
+                }
+            },
+            fetch = { service.listPosts(category)},
+            saveFetchResult = { listPostDto ->
+                dao.clearDb()
+                dao.saveAll(listPostDto.toDb())
+            },
+            onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
+        )
 
 
 
@@ -82,27 +97,24 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService,
         }
 
     }
+}
 
-    private fun networkBoundResource(category: String): Flow<Resource<List<Post>>> = flow {
+inline fun <RequestType, ResultType>networkBoundResource(
+    category: String,
+    crossinline query: () -> Flow<ResultType>,
+    crossinline fetch: suspend (String) -> RequestType,
+    crossinline saveFetchResult: suspend (RequestType) -> Unit,
+    crossinline onError: (Throwable) -> Throwable =
+        { RemoteException("An error has occurred.") }
+): Flow<Resource<ResultType>> = flow {
 
-        var data: List<PostDb> = dao.listPosts().first()
+    var data: ResultType = query().first()
 
-        try {
-            with(service.listPosts(category)) {
-                if(this.isNotEmpty()) {
-                    dao.clearDb()
-                    dao.saveAll(this.toDb())
-                    data = dao.listPosts().first()
-                }
-            }
-        } catch (ex: Exception) {
-            val error = RemoteException("Error connecting to API. Displaying cached content.")
-            emit(Resource.Error<List<Post>>(data.toModel(), error))
-        }
-        emit(Resource.Success(data.toModel()))
+    try {
+        saveFetchResult(fetch(category))
+        data = query().first()
+    } catch (ex: Exception) {
+        emit(Resource.Error<ResultType>(data, onError(ex)))
     }
-
-
-
-
+    emit(Resource.Success<ResultType>(data))
 }
