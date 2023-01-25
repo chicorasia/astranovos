@@ -12,6 +12,7 @@ A SpaceFlightNews API client for Android. It was created for a series of instruc
 - **Automated Testing & TDD**. Automated unit and integration tests using JUnit4 and KoinTest.
 - **Flexible UseCase class**. Employ inheritance to create a flexible `UseCase<Param, Source>` class.
 - **Flexible State class**. The app uses a flexible `State<T>` wrapper class capable of handling responses with type safety.
+- **Data caching**. Local caching of data to improve performance and user experience.
 - **MockWebServer**. Use for mocking services.
 - **Dependency injection with Koin**. 
 - **Fragment-based navigation**.
