@@ -16,6 +16,8 @@ A SpaceFlightNews API client for Android. It was created for a series of instruc
 - **MockWebServer**. Use for mocking services.
 - **Dependency injection with Koin**. 
 - **Fragment-based navigation**.
+- **DTO and DB entities** for lower coupling and better resilience.
+- **Offline caching** using Room Database and `TypeConverters`.
 
 Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGvO3euBPoR7skowqtj-Q/featured
 
