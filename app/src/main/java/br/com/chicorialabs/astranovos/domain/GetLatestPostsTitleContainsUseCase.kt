@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
  * Esse use case recebe uma Query com uma string de busca
  * e retorna todas as postagens do tipo ativo que contenham
  * a string de busca no título.
+ * Os resultados são empacotados em um Resource<List<Post>> emitido como Flow.
  */
-//TODO 017: Modificar GetLatestPostsTitleContaisUseCase para retornar Flow<Resource<List<Post>>>
 class GetLatestPostsTitleContainsUseCase(private val repository: PostRepository) :
     UseCase<Query, Resource<List<Post>>>() {
 

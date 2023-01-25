@@ -87,7 +87,6 @@ class HomeViewModel(
             getLatestPostUseCase(query)
                 .onStart {
                     _listPost.postValue(State.Loading)
-                    //delay(800) //apenas cosmético
                 }.catch {
                     with(RemoteException("Could not connect to SpaceFlightNews API")) {
                         _listPost.postValue(State.Error(this))
@@ -95,6 +94,10 @@ class HomeViewModel(
                     }
                 }
                 .collect {
+                    /**
+                     * Desempacota o Resource e atribui data ao campo _listPost e exibe
+                     * error como mensagem no _snackbar
+                     */
                     it.data?.let{ list ->
                         _listPost.postValue(State.Success(list))
                     }
@@ -111,7 +114,6 @@ class HomeViewModel(
      * ativa (campo _category) por meio do GetLatestPostsTitleContainsUseCase.
      * Usa a mesma estrutura do método fetchPosts().
      */
-//    TODO 020: Modificar o método fetchPostsTitleContains()
     private fun fetchPostsTitleContains(query: Query) {
         viewModelScope.launch {
             getLatestPostsTitleContainsUseCase(query)
@@ -138,6 +140,9 @@ class HomeViewModel(
     /**
      * Esse método público busca as últimas publicações
      * da categoria recebida como parâmetro.
+     * Repare que embora o método receba um objeto do tipo SpaceFlightNewsCategory
+     * preferi passar adiante smente o seu value, que é do tipo String. Isso reduz
+     * o acoplamento e a dependência de objetos instáveis.
      */
     fun fetchLatest(category: SpaceFlightNewsCategory) {
         fetchPosts(Query(category.value))

@@ -6,12 +6,12 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * Essa interface abstrai a implementação de um repositório para
- * os objetos do tipo Post.
+ * os objetos do tipo Post, encapsulados em um Resource e emitidos
+ * como Flow.
  */
 interface PostRepository {
 
     suspend fun listPosts(category: String) : Flow<Resource<List<Post>>>
 
-//    TODO 018: Modificar o retorno do método listPostsTitleContains() para devolver um Flow<Resource<List<Post>>
     suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<Resource<List<Post>>>
 }

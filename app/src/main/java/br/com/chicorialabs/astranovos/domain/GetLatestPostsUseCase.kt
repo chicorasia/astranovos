@@ -8,9 +8,9 @@ import br.com.chicorialabs.astranovos.data.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Esse use case retorna todas as postagens do tipo ativo
+ * Esse use case retorna todas as postagens do tipo ativo, no formato de Flow
+ * com as respostas empacotadas em um Resource.
  */
-//TODO 006: Modificar GetLatestPostsUseCase para retornar um Flow<Resource<List<Post>>>
 class GetLatestPostsUseCase(private val repository: PostRepository) :
     UseCase<Query, Resource<List<Post>>>() {
 

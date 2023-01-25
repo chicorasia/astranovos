@@ -15,15 +15,19 @@ import kotlinx.coroutines.flow.map
 /**
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
  * A responsabilidade de converter entre DTO e entidade de modelo cabe a esta classe.
+ * O acesso à API é intermediado por um networkBoundResource.
  */
-//Parte C
-//TODO 019: Modificar o método listPostsTitleContains() para empregar o networkBoundResource()
-//TODO 021: Refatorar listPosts() e listPostsTitleContains()
-//TODO 022: Mover networkBoundResource() para um arquivo à parte no pacote core
-class PostRepositoryImpl(private val service: SpaceFlightNewsService,
-                         private val dao: PostDao
-                         ) : PostRepository {
 
+class PostRepositoryImpl(
+    private val service: SpaceFlightNewsService,
+    private val dao: PostDao
+) : PostRepository {
+
+    /**
+     * Esse bloco executa uma consulta ao armazenamento interno, retornando os resultados
+     * ordenados por data de publicação (mais novos no início). Ele é passado como parâmetro
+     * para o networkBoundResource.
+     */
     private val readFromDatabase = {
         dao.listPosts().map { list ->
             list.sortedBy { post ->
@@ -32,77 +36,49 @@ class PostRepositoryImpl(private val service: SpaceFlightNewsService,
         }
     }
 
+    /**
+     * Esse bloco executa uma limpeza da database para permitir o refresh da cache;
+     * ele é passado como parâmetro de networkBoundResource.
+     */
     private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = {
         dao.clearDb()
         dao.saveAll(it.toDb())
     }
 
+    /**
+     * Essa função de suspensão utiliza o networkboundresouurce para fazer uma consulta
+     * à API, retornando as postagens mais recentes da categoria informada. Retorna um Flow
+     * de Resource<List<Post>> ou lança uma RemoteException casa ocorra erro na requisição.
+     * @param category: categoria desejada (article, blog ou post) na forma de String
+     */
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
         networkBoundResource(
             query = readFromDatabase,
-            fetch = { service.listPosts(category)},
+            fetch = { service.listPosts(category) },
             saveFetchResult = { listPostDto ->
                 clearDbAndSave(listPostDto)
             },
             onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
         )
 
+    /**
+     * Essa função de suspensão realiza busca por categoria e string no título da postagem, também
+     * com o apoio do networkBoundResource. Retorna um Flow de Resource<List<Post>> para ser tratado
+     * no UseCase e ViewModel.
+     * @param category: categoria desejada (article, blog ou post) na forma de String
+     * @param titleContains: String a buscar no título da postagem
+     */
     override suspend fun listPostsTitleContains(
         category: String,
         titleContains: String?
     ): Flow<Resource<List<Post>>> = networkBoundResource(
         query = readFromDatabase,
-        fetch = { service.listPostsTitleContains(category, titleContains)},
+        fetch = { service.listPostsTitleContains(category, titleContains) },
         saveFetchResult = { listPostDto ->
             clearDbAndSave(listPostDto)
         },
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
 
-
-//    /**
-//     * Essa função usa o construtor flow { } para emitir a lista de Posts
-//     * na forma de um fluxo de dados. Ele recebe os dados como PostDTO
-//     * e invoca o método de conveniência para fazer a conversão em entidade de modelo.
-//     * @param category Categoria de postagem (article, blog ou post) no formato de String.
-//     */
-//    override suspend fun listPosts(category: String): Flow<List<Post>> = flow {
-//
-//        /**
-//         * Tenta obter uma lista lista de Posts e emitir como um flow<List<Post>>
-//         * Se ocorrer uma exceção no acesso Http joga uma NetworkException.
-//         * Essa exceção precisa ser tratada no ViewModel.
-//         */
-//        try {
-//            //recebe uma List<PostDTO> e converte em List<Post> antes de emitir como fluxo
-//            val postList = service.listPosts(type = category).toModel()
-//            emit(postList)
-//        } catch (ex: HttpException) {
-//            throw RemoteException("Unable to retrieve posts")
-//        }
-//
-//    }
-
-//    /**
-//     * Essa função usa o construtor flow { } para emitir a lista de Posts
-//     * na forma de um fluxo de dados.
-//     * @param category Categoria de postagem (article, blog ou post) no formato de String.
-//     * @param titleContains String de busca nos títulos de publicação
-//     */
-//    override suspend fun listPostsTitleContains(
-//        category: String,
-//        titleContains: String?
-//    ): Flow<List<Post>> = flow {
-//
-//        try {
-//            val postList = service.listPostsTitleContains(
-//                type = category,
-//                titleContains = titleContains).toModel()
-//            emit(postList)
-//        } catch (ex: HttpException) {
-//            throw RemoteException("Unable to retrieve posts")
-//        }
-//
-//    }
 }
 
