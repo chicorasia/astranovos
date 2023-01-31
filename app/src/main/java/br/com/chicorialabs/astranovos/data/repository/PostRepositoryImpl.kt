@@ -15,70 +15,63 @@ import kotlinx.coroutines.flow.map
 /**
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
  * A responsabilidade de converter entre DTO e entidade de modelo cabe a esta classe.
- * O acesso à API é intermediado por um networkBoundResource.
  */
-
 class PostRepositoryImpl(
     private val service: SpaceFlightNewsService,
     private val dao: PostDao
 ) : PostRepository {
 
-    /**
-     * Esse bloco executa uma consulta ao armazenamento interno, retornando os resultados
-     * ordenados por data de publicação (mais novos no início). Ele é passado como parâmetro
-     * para o networkBoundResource.
-     */
-    private val readFromDatabase = {
-        dao.listPosts().map { list ->
-            list.sortedBy { post ->
-                post.publishedAt
+    private val readFromDatabase: (String) -> Flow<List<Post>> = { category: String ->
+        dao.listPosts(category).map {
+            it.sortedBy { postDb ->
+                postDb.publishedAt
             }.reversed().toModel()
         }
     }
 
-    /**
-     * Esse bloco executa uma limpeza da database para permitir o refresh da cache;
-     * ele é passado como parâmetro de networkBoundResource.
-     */
-    private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = {
-        dao.clearDb()
-        dao.saveAll(it.toDb())
+    private val clearDbAndSave: suspend (List<PostDTO>, String) -> Unit = { list: List<PostDTO>,
+                                                                            category: String ->
+        dao.clearDb(category)
+        dao.saveAll(list.toDb(category))
     }
 
     /**
-     * Essa função de suspensão utiliza o networkboundresouurce para fazer uma consulta
-     * à API, retornando as postagens mais recentes da categoria informada. Retorna um Flow
-     * de Resource<List<Post>> ou lança uma RemoteException casa ocorra erro na requisição.
-     * @param category: categoria desejada (article, blog ou post) na forma de String
+     * Essa função usa o construtor flow { } para emitir a lista de Posts
+     * na forma de um fluxo de dados. Ele recebe os dados como PostDTO
+     * e invoca o método de conveniência para fazer a conversão em entidade de modelo.
+     * @param category Categoria de postagem (article, blog ou post) no formato de String.
      */
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
         networkBoundResource(
-            query = readFromDatabase,
+            //Query(category),
+            query = { readFromDatabase(category) },
             fetch = { service.listPosts(category) },
-            saveFetchResult = { listPostDto ->
-                clearDbAndSave(listPostDto)
+            saveFetchResult = { list ->
+                clearDbAndSave(list, category)
             },
             onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
         )
 
     /**
-     * Essa função de suspensão realiza busca por categoria e string no título da postagem, também
-     * com o apoio do networkBoundResource. Retorna um Flow de Resource<List<Post>> para ser tratado
-     * no UseCase e ViewModel.
-     * @param category: categoria desejada (article, blog ou post) na forma de String
-     * @param titleContains: String a buscar no título da postagem
+     * Essa função usa o construtor flow { } para emitir a lista de Posts
+     * na forma de um fluxo de dados.
+     * @param category Categoria de postagem (article, blog ou post) no formato de String.
+     * @param titleContains String de busca nos títulos de publicação
      */
     override suspend fun listPostsTitleContains(
         category: String,
         titleContains: String?
     ): Flow<Resource<List<Post>>> = networkBoundResource(
-        query = readFromDatabase,
+        query = { readFromDatabase(category) },
         fetch = { service.listPostsTitleContains(category, titleContains) },
-        saveFetchResult = { listPostDto ->
-            clearDbAndSave(listPostDto)
+        saveFetchResult = { list ->
+            clearDbAndSave(list, category)
         },
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
 
 }
+
+
+
 

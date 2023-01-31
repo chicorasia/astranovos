@@ -19,11 +19,11 @@ interface PostDao {
     suspend fun saveAll(list: List<PostDb>)
 
     //o método listPosts() retorna todos os registros da database
-    @Query("SELECT * FROM post")
-    fun listPosts() : Flow<List<PostDb>>
+    @Query("SELECT * FROM post WHERE category IS :category")
+    fun listPosts(category: String) : Flow<List<PostDb>>
 
     //clearDb() limpa a database
-    @Query("DELETE FROM post")
-    suspend fun clearDb()
+    @Query("DELETE FROM post WHERE category IS :category")
+    suspend fun clearDb(category: String)
 
 }

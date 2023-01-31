@@ -34,16 +34,17 @@ data class PostDTO(
             launches = launches.toModel()
         )
 
-    fun toDb() : PostDb = PostDb(
-        id = id,
-        title = title,
-        url = url,
-        imageUrl = imageUrl,
-        summary = summary,
-        publishedAt = publishedAt,
-        updatedAt = updatedAt,
-        launches = launches.toDb()
-    )
+        fun toDb(category: String) : PostDb = PostDb(
+            id = id,
+            title = title,
+            url = url,
+            imageUrl = imageUrl,
+            summary = summary,
+            publishedAt = publishedAt,
+            updatedAt = updatedAt,
+            launches = launches.toDb(),
+        category = category
+        )
 }
 
 /**
@@ -54,7 +55,7 @@ fun List<PostDTO>.toModel() : List<Post> =
         it.toModel()
     }
 
-fun List<PostDTO>.toDb() : List<PostDb> =
+fun List<PostDTO>.toDb(category: String) : List<PostDb> =
     this.map {
-        it.toDb()
+        it.toDb(category)
     }

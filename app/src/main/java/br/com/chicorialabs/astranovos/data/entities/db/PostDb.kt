@@ -21,7 +21,8 @@ data class PostDb(
     val publishedAt: String,
     val updatedAt: String?,
     //Preciso resolver o armazenamento desse array...
-    var launches: Array<LaunchDb> = emptyArray()
+    var launches: Array<LaunchDb> = emptyArray(),
+    val category: String
 ) {
 
     fun toModel() : Post = Post(

@@ -17,7 +17,7 @@ A SpaceFlightNews API client for Android. It was created for a series of instruc
 - **Dependency injection with Koin**. 
 - **Fragment-based navigation**.
 - **DTO and DB entities** for lower coupling and better resilience.
-- **Offline caching** using Room Database and `TypeConverters`.
+- **Offline caching** using Room Database and `TypeConverters`; keeps local results for all post categories in the API.
 
 Follow the project on my YouTube channel: https://www.youtube.com/channel/UCUtGvO3euBPoR7skowqtj-Q/featured
 
