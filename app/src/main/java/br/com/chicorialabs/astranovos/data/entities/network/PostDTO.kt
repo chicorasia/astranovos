@@ -23,18 +23,7 @@ data class PostDTO(
     var launches: Array<LaunchDTO> = emptyArray()
 ) {
 
-    fun toModel() : Post = Post(
-            id = id,
-            title = title,
-            url = url,
-            imageUrl = imageUrl,
-            summary = summary,
-            publishedAt = publishedAt,
-            updatedAt = updatedAt,
-            launches = launches.toModel()
-        )
-//    TODO 009: Adicionar uma category na conversão de PostDTO em PostDb
-    fun toDb() : PostDb = PostDb(
+    fun toModel(): Post = Post(
         id = id,
         title = title,
         url = url,
@@ -42,19 +31,32 @@ data class PostDTO(
         summary = summary,
         publishedAt = publishedAt,
         updatedAt = updatedAt,
-        launches = launches.toDb()
+        launches = launches.toModel()
+    )
+
+    //    TODO 009: Adicionar uma category na conversão de PostDTO em PostDb
+    fun toDb(category: String): PostDb = PostDb(
+        id = id,
+        title = title,
+        url = url,
+        imageUrl = imageUrl,
+        summary = summary,
+        publishedAt = publishedAt,
+        updatedAt = updatedAt,
+        launches = launches.toDb(),
+        category = category
     )
 }
 
 /**
  * Um método de conveniência para converter uma lista inteira de PostDTO.
  */
-fun List<PostDTO>.toModel() : List<Post> =
+fun List<PostDTO>.toModel(): List<Post> =
     this.map {
         it.toModel()
     }
 
-fun List<PostDTO>.toDb() : List<PostDb> =
+fun List<PostDTO>.toDb(category: String): List<PostDb> =
     this.map {
-        it.toDb()
+        it.toDb(category)
     }

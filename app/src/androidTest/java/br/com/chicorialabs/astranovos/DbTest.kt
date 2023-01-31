@@ -10,11 +10,12 @@ import org.junit.Before
  */
 open class DbTest {
 
-//    TODO 001: Adicionar uma lista de posts no DbTest
+    //    TODO 001: Adicionar uma lista de posts no DbTest
     //uma lista de objetos PostDb para testes de unidade
-    lateinit var dbPosts: List<PostDb>
+    lateinit var articles: List<PostDb>
+    lateinit var blogPosts: List<PostDb>
 
-//    TODO 002: Adicionar um campo `category` aos posts de teste
+    //    TODO 002: Adicionar um campo `category` aos posts de teste
 //    TODO 003: Criar um objeto blogPost com categoria "blogs"
     //esse método cria objetos do tipo PostDb para povoar a lista
     @Before
@@ -29,6 +30,7 @@ open class DbTest {
             publishedAt = "2021-11-10T10:07:44.000Z",
             updatedAt = "2021-11-10T10:08:01.340Z",
             launches = emptyArray(),
+            category = "articles"
         )
 
         //um post com eventos de lançamento
@@ -40,6 +42,7 @@ open class DbTest {
             summary = "NASA and SpaceX are ready to proceed with the launch of a commercial crew mission Nov. 10 after overcoming weather and astronaut health issues as well as concerns about the spacecraft’s parachutes.",
             publishedAt = "2021-11-10T09:27:02.000Z",
             updatedAt = "2021-11-10T09:38:23.654Z",
+            category = "articles",
             launches = arrayOf(
                 LaunchDb(
                     id = "0d779392-1a36-4c1e-b0b8-ec11e3031ee6",
@@ -49,9 +52,22 @@ open class DbTest {
 
         )
 
+        val blogPost = PostDb(
+            id = 12781,
+            title = "NASA delays Moon landings, says Blue Origin legal tactics partly to blame",
+            url = "https://arstechnica.com/science/2021/11/nasa-delays-moon-landings-says-blue-origin-legal-tactics-partly-to-blame/",
+            imageUrl = "https://cdn.arstechnica.net/wp-content/uploads/2021/10/51614473753_88c81a224f_k.jpg",
+            summary = "\"We've lost nearly seven months in litigation.\"",
+            publishedAt = "2021-11-10T00:34:02.000Z",
+            updatedAt = "2021-11-10T05:47:30.161Z",
+            launches = emptyArray(),
+            category = "blogs"
+        )
+
         //    TODO 004: povoar as listas de postagens
         //cria uma lista com os dois objetos e atribui a dbPosts
-        dbPosts = listOf(postWithLaunches, postNoLaunches)
+        articles = listOf(postWithLaunches, postNoLaunches)
+        blogPosts = listOf(blogPost)
 
     }
 

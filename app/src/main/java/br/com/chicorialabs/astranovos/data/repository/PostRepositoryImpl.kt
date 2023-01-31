@@ -29,10 +29,10 @@ class PostRepositoryImpl(
      * para o networkBoundResource.
      */
 //    TODO 011: Modificar o bloco readFromDatabase
-    private val readFromDatabase = {
-        dao.listPosts().map { list ->
-            list.sortedBy { post ->
-                post.publishedAt
+    private val readFromDatabase: (category: String) -> Flow<List<Post>> = { category ->
+        dao.listPosts(category).map {
+            it.sortedBy { postDb ->
+                postDb.publishedAt
             }.reversed().toModel()
         }
     }
@@ -42,9 +42,10 @@ class PostRepositoryImpl(
      * ele é passado como parâmetro de networkBoundResource.
      */
 //    TODO 012: Adicionar um segundo parâmetro ao bloco clearDbAndSave
-    private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = {
-        dao.clearDb()
-        dao.saveAll(it.toDb())
+    private val clearDbAndSave: suspend (List<PostDTO>, String) -> Unit = { list: List<PostDTO>,
+                                                                            category: String ->
+        dao.clearDb(category)
+        dao.saveAll(list.toDb(category))
     }
 
     /**
@@ -56,10 +57,12 @@ class PostRepositoryImpl(
 //    TODO 013: modificar a invocação de readFromDatabase e saveFetchResult em ListPosts()
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
         networkBoundResource(
-            query = readFromDatabase,
+            //Query(category)
+            query = { readFromDatabase(category) },
             fetch = { service.listPosts(category) },
-            saveFetchResult = { listPostDto ->
-                clearDbAndSave(listPostDto)
+            //passar category aqui também...
+            saveFetchResult = { list ->
+                clearDbAndSave(list, category)
             },
             onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
         )
@@ -76,10 +79,10 @@ class PostRepositoryImpl(
         category: String,
         titleContains: String?
     ): Flow<Resource<List<Post>>> = networkBoundResource(
-        query = readFromDatabase,
+        query = { readFromDatabase(category) },
         fetch = { service.listPostsTitleContains(category, titleContains) },
-        saveFetchResult = { listPostDto ->
-            clearDbAndSave(listPostDto)
+        saveFetchResult = { list ->
+            clearDbAndSave(list, category)
         },
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
