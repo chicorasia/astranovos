@@ -10,12 +10,13 @@ import org.junit.Before
  */
 open class DbTest {
 
-    //uma lista de objetos PostDb para testes de unidade
-    lateinit var dbPosts: List<PostDb>
+    lateinit var articles: List<PostDb>
+    lateinit var blogPosts: List<PostDb>
 
     //esse método cria objetos do tipo PostDb para povoar a lista
     @Before
     fun createPostsForTest() {
+
         //um Post sem eventos de lançamento
         val postNoLaunches = PostDb(
             id = 12783,
@@ -26,6 +27,7 @@ open class DbTest {
             publishedAt = "2021-11-10T10:07:44.000Z",
             updatedAt = "2021-11-10T10:08:01.340Z",
             launches = emptyArray(),
+            category = "articles"
         )
 
         //um post com eventos de lançamento
@@ -42,12 +44,25 @@ open class DbTest {
                     id = "0d779392-1a36-4c1e-b0b8-ec11e3031ee6",
                     provider = "Launch Library 2"
                 )
-            )
+            ),
+            category = "articles"
+        )
 
+        val blogPost = PostDb(
+                id = 12781,
+                title = "NASA delays Moon landings, says Blue Origin legal tactics partly to blame",
+                url = "https://arstechnica.com/science/2021/11/nasa-delays-moon-landings-says-blue-origin-legal-tactics-partly-to-blame/",
+                imageUrl = "https://cdn.arstechnica.net/wp-content/uploads/2021/10/51614473753_88c81a224f_k.jpg",
+                summary = "\"We've lost nearly seven months in litigation.\"",
+                publishedAt = "2021-11-10T00:34:02.000Z",
+                updatedAt = "2021-11-10T05:47:30.161Z",
+                launches = emptyArray(),
+                category = "blogs"
         )
 
         //cria uma lista com os dois objetos e atribui a dbPosts
-        dbPosts = listOf(postWithLaunches, postNoLaunches)
+        articles = listOf(postWithLaunches, postNoLaunches)
+        blogPosts = listOf(blogPost)
 
     }
 

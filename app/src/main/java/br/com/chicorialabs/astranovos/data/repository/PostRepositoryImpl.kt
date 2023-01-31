@@ -1,6 +1,5 @@
 package br.com.chicorialabs.astranovos.data.repository
 
-import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.Resource
 import br.com.chicorialabs.astranovos.core.networkBoundResource
@@ -9,10 +8,9 @@ import br.com.chicorialabs.astranovos.data.entities.db.toModel
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
 import br.com.chicorialabs.astranovos.data.entities.network.toDb
-import br.com.chicorialabs.astranovos.data.entities.network.toModel
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
-import kotlinx.coroutines.flow.*
-import retrofit2.HttpException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
@@ -23,17 +21,18 @@ class PostRepositoryImpl(
     private val dao: PostDao
 ) : PostRepository {
 
-    private val readFromDatabase = {
-        dao.listPosts().map {
+    private val readFromDatabase: (String) -> Flow<List<Post>> = { category: String ->
+        dao.listPosts(category).map {
             it.sortedBy { postDb ->
                 postDb.publishedAt
             }.reversed().toModel()
         }
     }
 
-    private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = { list: List<PostDTO> ->
-        dao.clearDb()
-        dao.saveAll(list.toDb())
+    private val clearDbAndSave: suspend (List<PostDTO>, String) -> Unit = { list: List<PostDTO>,
+                                                                            category: String ->
+        dao.clearDb(category)
+        dao.saveAll(list.toDb(category))
     }
 
     /**
@@ -45,10 +44,10 @@ class PostRepositoryImpl(
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
         networkBoundResource(
             //Query(category),
-            query = readFromDatabase,
+            query = { readFromDatabase(category) },
             fetch = { service.listPosts(category) },
             saveFetchResult = { list ->
-                clearDbAndSave(list)
+                clearDbAndSave(list, category)
             },
             onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
         )
@@ -63,10 +62,10 @@ class PostRepositoryImpl(
         category: String,
         titleContains: String?
     ): Flow<Resource<List<Post>>> = networkBoundResource(
-        query = readFromDatabase,
+        query = { readFromDatabase(category) },
         fetch = { service.listPostsTitleContains(category, titleContains) },
         saveFetchResult = { list ->
-            clearDbAndSave(list)
+            clearDbAndSave(list, category)
         },
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )

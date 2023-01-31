@@ -62,12 +62,12 @@ class PostDatabaseTest : DbTest() {
         lateinit var result: List<PostDb>
 
         runBlocking {
-            result = dao.listPosts().first()
+            result = dao.listPosts("articles").first()
         }
         assertTrue(result.isEmpty())
         runBlocking {
-            dao.saveAll(dbPosts)
-            result = dao.listPosts().first()
+            dao.saveAll(articles)
+            result = dao.listPosts("articles").first()
         }
         assertFalse(result.isEmpty())
     }
@@ -79,22 +79,32 @@ class PostDatabaseTest : DbTest() {
     fun deve_RetornarPostsCorretamente_AoLerDaDatabase() {
        lateinit var result: PostDb
         runBlocking {
-            dao.saveAll(dbPosts)
-            result = dao.listPosts().first()[0]
+            dao.saveAll(articles)
+            result = dao.listPosts("articles").first()[0]
         }
-        assertTrue(result.title == dbPosts[0].title)
+        assertTrue(result.title == articles[0].title)
 
     }
 
     @Test
     fun deve_LimparDatabase_AoInvocarClearDb() {
-        lateinit var result: List<PostDb>
+        lateinit var articlesResult: List<PostDb>
+        lateinit var blogsResult: List<PostDb>
+
         runBlocking {
-            dao.saveAll(dbPosts)
-            dao.clearDb()
-            result = dao.listPosts().first()
+            dao.saveAll(articles)
+            //grava os blog posts na db
+            dao.saveAll(blogPosts)
+            //apaga postagens da categoria "articles"
+            dao.clearDb("articles")
+            //recupera buscas na db
+            articlesResult = dao.listPosts("articles").first()
+            blogsResult = dao.listPosts("blogs").first()
         }
-        assertTrue(result.isEmpty())
+        //testa se a db foi parcialmente apagada de maneira correta
+        assertTrue(articlesResult.isEmpty())
+        assertFalse(blogsResult.isEmpty())
+
     }
 
 
