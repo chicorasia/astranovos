@@ -56,6 +56,7 @@ class PostDatabaseTest : DbTest() {
     /**
      * Testa gravação na database.
      */
+//    TODO 005: Modificar o teste de gravação na db
     @Test
     fun deve_GravarPostsNaDatabase_AoReceberListaDePosts() {
         //declara um resultado do tipo List<PostDb>
@@ -75,6 +76,7 @@ class PostDatabaseTest : DbTest() {
     /**
      * Testa a busca de postagens na database.
      */
+//    TODO 006: Modificar o teste de leitura da Db
     @Test
     fun deve_RetornarPostsCorretamente_AoLerDaDatabase() {
        lateinit var result: PostDb
@@ -86,6 +88,7 @@ class PostDatabaseTest : DbTest() {
 
     }
 
+//    TODO 007: Modificar o teste de limpeza da Db
     @Test
     fun deve_LimparDatabase_AoInvocarClearDb() {
         lateinit var result: List<PostDb>

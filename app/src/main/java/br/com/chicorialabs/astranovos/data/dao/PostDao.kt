@@ -18,6 +18,7 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveAll(list: List<PostDb>)
 
+//    TODO 010: Adicionar um parâmetro category: String aos métodos da interface PostDao
     //o método listPosts() retorna todos os registros da database
     @Query("SELECT * FROM post")
     fun listPosts() : Flow<List<PostDb>>

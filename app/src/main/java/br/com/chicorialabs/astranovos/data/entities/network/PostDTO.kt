@@ -33,7 +33,7 @@ data class PostDTO(
             updatedAt = updatedAt,
             launches = launches.toModel()
         )
-
+//    TODO 009: Adicionar uma category na conversão de PostDTO em PostDb
     fun toDb() : PostDb = PostDb(
         id = id,
         title = title,

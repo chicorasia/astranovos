@@ -10,6 +10,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 /**
  * Essa data class é usada para o armazenamento de postagens da database interna.
  */
+//TODO 008: Adicionar um campo ´category´ ao PostDb
 @Entity(tableName = "post")
 data class PostDb(
     @PrimaryKey

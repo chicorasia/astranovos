@@ -10,9 +10,12 @@ import org.junit.Before
  */
 open class DbTest {
 
+//    TODO 001: Adicionar uma lista de posts no DbTest
     //uma lista de objetos PostDb para testes de unidade
     lateinit var dbPosts: List<PostDb>
 
+//    TODO 002: Adicionar um campo `category` aos posts de teste
+//    TODO 003: Criar um objeto blogPost com categoria "blogs"
     //esse método cria objetos do tipo PostDb para povoar a lista
     @Before
     fun createPostsForTest() {
@@ -46,6 +49,7 @@ open class DbTest {
 
         )
 
+        //    TODO 004: povoar as listas de postagens
         //cria uma lista com os dois objetos e atribui a dbPosts
         dbPosts = listOf(postWithLaunches, postNoLaunches)
 

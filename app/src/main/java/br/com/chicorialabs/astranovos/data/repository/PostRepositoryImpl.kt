@@ -28,6 +28,7 @@ class PostRepositoryImpl(
      * ordenados por data de publicação (mais novos no início). Ele é passado como parâmetro
      * para o networkBoundResource.
      */
+//    TODO 011: Modificar o bloco readFromDatabase
     private val readFromDatabase = {
         dao.listPosts().map { list ->
             list.sortedBy { post ->
@@ -40,6 +41,7 @@ class PostRepositoryImpl(
      * Esse bloco executa uma limpeza da database para permitir o refresh da cache;
      * ele é passado como parâmetro de networkBoundResource.
      */
+//    TODO 012: Adicionar um segundo parâmetro ao bloco clearDbAndSave
     private val clearDbAndSave: suspend (List<PostDTO>) -> Unit = {
         dao.clearDb()
         dao.saveAll(it.toDb())
@@ -51,6 +53,7 @@ class PostRepositoryImpl(
      * de Resource<List<Post>> ou lança uma RemoteException casa ocorra erro na requisição.
      * @param category: categoria desejada (article, blog ou post) na forma de String
      */
+//    TODO 013: modificar a invocação de readFromDatabase e saveFetchResult em ListPosts()
     override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
         networkBoundResource(
             query = readFromDatabase,
@@ -68,6 +71,7 @@ class PostRepositoryImpl(
      * @param category: categoria desejada (article, blog ou post) na forma de String
      * @param titleContains: String a buscar no título da postagem
      */
+//    TODO 014: modificar a invocação de readFromDatabase e saveFetchResult em ListPostsTitleContains()
     override suspend fun listPostsTitleContains(
         category: String,
         titleContains: String?
