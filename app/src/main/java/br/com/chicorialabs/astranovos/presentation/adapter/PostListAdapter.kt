@@ -9,19 +9,20 @@ import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.databinding.ItemPostBinding
 
 /**
- * Essa classe define um adaptaer para a RecyclerView de Posts. Optei por
+ * Essa classe define um adapter para a RecyclerView de Posts. Optei por
  * usar um ListAdapter para melhorar o desempenho visual da lista.
  * Como é um ListAdapter eu também não preciso manter um campo list
  * na classe Adapter.
+ * @param clickListener : Um listener de cliques nos itens da Recyclerview
  */
-class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffCallback()){
+class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
     /**
@@ -49,12 +50,13 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
 
         /**
          * Como estou usando um databinding layout, nesse método eu atribuo
-         * o objeto Post ao à varáivel "post" definida no XML. Eventualmente
-         * vou precisar adicionar um campo clickListener para tratar os cliques
-         * no item.
+         * o objeto Post ao à varáivel "post" definida no XML.
+         * @param item: um objeto do tipo Post
+         * @param clickListener: uma instância de PostItemListener
          */
-        fun bind(item: Post) {
+        fun bind(item: Post, clickListener: PostItemListener) {
             binding.post = item
+            binding.clickListener = clickListener
         }
 
     }
@@ -74,4 +76,17 @@ class PostListAdapter : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDi
 
     }
 
+}
+
+/**
+ * Essa classe encapsula os métodos de clique no item e seus elementos
+ * internos. O corpo das funções clickListener e favButtonClickListener
+ * deve ser definido na instanciação do adapter.
+ */
+class PostItemListener(val clickListener: (postId: Int) -> Unit,
+                        val favButtonCLickListener: (postId: Int) -> Unit
+                       ) {
+    fun onClick(post: Post) = clickListener(post.id)
+
+    fun onFavButtonClick(post: Post) = favButtonCLickListener(post.id)
 }

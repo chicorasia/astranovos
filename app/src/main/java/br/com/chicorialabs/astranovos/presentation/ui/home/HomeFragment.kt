@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
+import br.com.chicorialabs.astranovos.presentation.adapter.PostItemListener
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
@@ -160,7 +162,16 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerView() {
 
-        val adapter = PostListAdapter()
+        /**
+         * O corpo das funções clickListener e favButtonClickListener precisa ser passado
+         * no momento da instanciação do adapter. Nada impede de refatorar esse trecho do
+         * código, extraindo essas funções para facilitar a manutenção (lembrando que
+         * elas vão precisar ter acesso ao ViewModel).
+         */
+        val adapter = PostListAdapter(PostItemListener(
+         clickListener = { postId -> Log.i("AstraNovos", "Clicou no item com id $postId") },
+         favButtonCLickListener = { postId -> Log.i("AstraNovos", "Clicou no favButton para item com id $postId") }
+        ))
         binding.homeRv.adapter = adapter
 
         /**
