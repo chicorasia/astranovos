@@ -27,7 +27,7 @@ object PresentationModule {
      */
     private fun viewModelModule() : Module {
         return module {
-            factory { HomeViewModel(get(), get()) }
+            factory { HomeViewModel(get(), get(), get()) }
         }
     }
 

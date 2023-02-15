@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -102,10 +103,73 @@ class PostDatabaseTest : DbTest() {
             blogsResult = dao.listPosts("blogs").first()
         }
         //testa se a db foi parcialmente apagada de maneira correta
-        assertTrue(articlesResult.isEmpty())
+        assertFalse(articlesResult.isEmpty())
         assertFalse(blogsResult.isEmpty())
 
     }
 
+    @Test
+    fun deve_AlternarIsFavourite_AoReceverUmPostId() {
+
+        runBlocking {
+            dao.saveAll(blogPosts)
+            var post = dao.listPosts("blogs").first()[0]
+            println("Post with id ${post.id} is favourite? ${post.isFavourite}")
+            assertTrue(!post.isFavourite)
+            //recarregue o post da db
+            dao.toggleIsFavourite(post.id)
+            println("Post with id ${post.id} is favourite? ${post.isFavourite}")
+            post = dao.listPosts("blogs").first()[0]
+            assertTrue(post.isFavourite)
+        }
+    //lê um valor da db
+        //tentar alterar o isFavourite
+        //verifica se foi alterado
+    }
+
+    @Test
+    fun deve_ApagarApenasPostsNaoFavoritos_AoInvocarClearDb() {
+
+        runBlocking {
+            dao.saveAll(articles)
+            var result = dao.listPosts("articles").first()
+            assertFalse(result.isEmpty())
+            dao.clearDb("articles")
+            result = dao.listPosts("articles").first()
+            assertFalse(result.isEmpty())
+        }
+    }
+
+    @Test
+    fun deve_IgnorarPostPreviamenteGravado_AoAtualizarCache() {
+
+        val postNotFavourite = PostDb(
+            id = 12783,
+            title = "SpaceX ready for back to back astronaut, Starlink launches",
+            url = "https://www.teslarati.com/spacex-back-to-back-starlink-astronaut-launches-crew-3/",
+            imageUrl = "https://www.teslarati.com/wp-content/uploads/2021/11/Crew-3-Dragon-C210-F9-B1067-39A-110921-Richard-Angle-feature-2-c.jpg",
+            summary = "Two SpaceX Falcon 9 rockets remain on track to attempt back-to-back astronaut and Starlink satellite launches later this week. Both SpaceX East...",
+            publishedAt = "2021-11-10T10:07:44.000Z",
+            updatedAt = "2021-11-10T10:08:01.340Z",
+            launches = emptyArray(),
+            category = "articles",
+            isFavourite = false
+        )
+
+        runBlocking {
+            //grava na db
+            dao.saveAll(listOf(postNotFavourite))
+            val post = dao.listPosts("articles").first().first()
+            dao.toggleIsFavourite(post.id) //isFavourite == true
+//            dao.clearDb("articles") //limpa todos não-favoritos
+            assertTrue(dao.listPosts("articles").first().isNotEmpty())
+            dao.saveAll(articles) //salva artigos de teste da classe mãe
+            val result = dao.listPosts("articles").first()
+            assertTrue(result.size == articles.size) //tem que ter dois itens
+            assertTrue(result[0].isFavourite != postNotFavourite.isFavourite)
+            val postModified = dao.listPosts("articles").first().first()
+            assertTrue(postModified.isFavourite)
+        }
+    }
 
 }

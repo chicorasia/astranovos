@@ -27,7 +27,8 @@ open class DbTest {
             publishedAt = "2021-11-10T10:07:44.000Z",
             updatedAt = "2021-11-10T10:08:01.340Z",
             launches = emptyArray(),
-            category = "articles"
+            category = "articles",
+            isFavourite = false
         )
 
         //um post com eventos de lançamento
@@ -45,7 +46,8 @@ open class DbTest {
                     provider = "Launch Library 2"
                 )
             ),
-            category = "articles"
+            category = "articles",
+            isFavourite = true
         )
 
         val blogPost = PostDb(
@@ -57,7 +59,8 @@ open class DbTest {
                 publishedAt = "2021-11-10T00:34:02.000Z",
                 updatedAt = "2021-11-10T05:47:30.161Z",
                 launches = emptyArray(),
-                category = "blogs"
+                category = "blogs",
+            isFavourite = false
         )
 
         //cria uma lista com os dois objetos e atribui a dbPosts

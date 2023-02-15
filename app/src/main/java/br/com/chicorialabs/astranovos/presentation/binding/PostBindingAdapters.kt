@@ -2,10 +2,13 @@ package br.com.chicorialabs.astranovos.presentation.binding
 
 import android.os.Build
 import android.view.View
+import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.data.entities.model.Post
@@ -94,3 +97,12 @@ fun Chip.setUpdate(post: Post?) {
         }
     }
 }
+
+@BindingAdapter("postIsFavourite")
+fun CheckBox.setChecked(post: Post?) {
+    isChecked = false
+    post?.let { post ->
+        isChecked = post.isFavourite
+    }
+}
+

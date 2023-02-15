@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
+import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostItemListener
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
@@ -169,8 +170,17 @@ class HomeFragment : Fragment() {
          * elas vão precisar ter acesso ao ViewModel).
          */
         val adapter = PostListAdapter(PostItemListener(
-         clickListener = { postId -> Log.i("AstraNovos", "Clicou no item com id $postId") },
-         favButtonCLickListener = { postId -> Log.i("AstraNovos", "Clicou no favButton para item com id $postId") }
+            clickListener = { postId: Int ->
+                Log.i(
+                    "AstraNovos",
+                    "Clicou no item com id $postId"
+                )
+            },
+            favButtonCLickListener = { postId: Int, item: Post->
+                viewModel.toggleIsFavourite(postId)
+                item.toggleIsFavourite()
+                Log.i("AstraNovos", "Clicou no favButton para item com id $postId; isFavourite = ${item.isFavourite}.")
+            }
         ))
         binding.homeRv.adapter = adapter
 

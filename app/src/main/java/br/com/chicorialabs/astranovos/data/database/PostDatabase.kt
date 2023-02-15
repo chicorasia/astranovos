@@ -17,7 +17,7 @@ import br.com.chicorialabs.astranovos.data.entities.db.PostDbConverters
  */
 @Database(
     entities = [PostDb::class, LaunchDb::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(PostDbConverters::class)

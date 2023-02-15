@@ -8,10 +8,14 @@ import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.ToggleIsFavouriteUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -21,7 +25,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getLatestPostUseCase: GetLatestPostsUseCase,
-    private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase
+    private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase,
+    private val toggleIsFavouriteUseCase: ToggleIsFavouriteUseCase
 ) : ViewModel() {
 
     /**
@@ -75,6 +80,11 @@ class HomeViewModel(
     init {
         fetchLatest(category.value ?: SpaceFlightNewsCategory.ARTICLES)
     }
+
+    /**
+     * Um escopo de execução de corrotinas apenas para gravação na db
+     */
+    private val databaseScope = CoroutineScope(Dispatchers.IO)
 
     /**
      * Esse método coleta o fluxo do repositorio e atribui
@@ -172,6 +182,12 @@ class HomeViewModel(
                     ""
                 }
             }
+        }
+    }
+
+    fun toggleIsFavourite(postId: Int) {
+        viewModelScope.launch {
+            toggleIsFavouriteUseCase.execute(postId)
         }
     }
 

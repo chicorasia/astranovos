@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.data.entities.network
 
+import androidx.lifecycle.MutableLiveData
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 
@@ -23,16 +24,17 @@ data class PostDTO(
     var launches: Array<LaunchDTO> = emptyArray()
 ) {
 
-    fun toModel() : Post = Post(
-            id = id,
-            title = title,
-            url = url,
-            imageUrl = imageUrl,
-            summary = summary,
-            publishedAt = publishedAt,
-            updatedAt = updatedAt,
-            launches = launches.toModel()
-        )
+//    fun toModel() : Post = Post(
+//            id = id,
+//            title = title,
+//            url = url,
+//            imageUrl = imageUrl,
+//            summary = summary,
+//            publishedAt = publishedAt,
+//            updatedAt = updatedAt,
+//            launches = launches.toModel(),
+//            _isFavourite = false
+//        )
 
         fun toDb(category: String) : PostDb = PostDb(
             id = id,
@@ -43,17 +45,18 @@ data class PostDTO(
             publishedAt = publishedAt,
             updatedAt = updatedAt,
             launches = launches.toDb(),
-        category = category
+            category = category,
+            isFavourite = false
         )
 }
 
 /**
  * Um método de conveniência para converter uma lista inteira de PostDTO.
  */
-fun List<PostDTO>.toModel() : List<Post> =
-    this.map {
-        it.toModel()
-    }
+//fun List<PostDTO>.toModel() : List<Post> =
+//    this.map {
+//        it.toModel()
+//    }
 
 fun List<PostDTO>.toDb(category: String) : List<PostDb> =
     this.map {
