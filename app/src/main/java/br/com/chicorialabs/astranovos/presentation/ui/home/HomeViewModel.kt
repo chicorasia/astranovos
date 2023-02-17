@@ -1,5 +1,6 @@
 package br.com.chicorialabs.astranovos.presentation.ui.home
 
+import android.util.Log
 import androidx.lifecycle.*
 import br.com.chicorialabs.astranovos.core.Query
 import br.com.chicorialabs.astranovos.core.RemoteException
@@ -11,6 +12,7 @@ import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
 import br.com.chicorialabs.astranovos.domain.ToggleIsFavouriteUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -186,8 +188,12 @@ class HomeViewModel(
     }
 
     fun toggleIsFavourite(postId: Int) {
-        viewModelScope.launch {
-            toggleIsFavouriteUseCase.execute(postId)
+        databaseScope.launch {
+            Log.d("AstraNovos", "toggleIsFavourite is called for post id $postId!")
+            toggleIsFavouriteUseCase(postId).collect {
+                if(it)
+                    Log.d("AstraNovos", "toggleIsFavourite: is succesful!")
+            }
         }
     }
 

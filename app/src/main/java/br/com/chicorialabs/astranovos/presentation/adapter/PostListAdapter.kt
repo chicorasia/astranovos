@@ -84,9 +84,9 @@ class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, P
  * deve ser definido na instanciação do adapter.
  */
 class PostItemListener(val clickListener: (postId: Int) -> Unit,
-                        val favButtonCLickListener: (postId: Int, item: Post) -> Unit
+                        val favButtonCLickListener: (postId: Int) -> Unit
                        ) {
     fun onClick(post: Post) = clickListener(post.id)
 
-    fun onFavButtonClick(post: Post) = favButtonCLickListener(post.id, post)
+    fun onFavButtonClick(post: Post) = favButtonCLickListener(post.id)
 }

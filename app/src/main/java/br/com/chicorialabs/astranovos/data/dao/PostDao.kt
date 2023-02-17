@@ -19,7 +19,7 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveAll(list: List<PostDb>)
 
-    //aplciando a regra de resolução de conflito post a post,
+    //aplicando a regra de resolução de conflito post a post,
     //e não à lista inteira
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun save(post: PostDb)

@@ -16,6 +16,10 @@ interface PostRepository {
 
     suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<Resource<List<Post>>>
 
-    suspend fun toggleIsFavourite(postId: Int) : Unit
+//    suspend fun toggleIsFavourite(postId: Int) : Unit
+
+    fun getPostWithId(postId: Int) : PostDb
+
+    suspend fun updatePost(postDb: PostDb)
 
 }

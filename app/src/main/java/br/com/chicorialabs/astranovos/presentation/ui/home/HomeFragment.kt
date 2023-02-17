@@ -176,10 +176,9 @@ class HomeFragment : Fragment() {
                     "Clicou no item com id $postId"
                 )
             },
-            favButtonCLickListener = { postId: Int, item: Post->
+            favButtonCLickListener = { postId: Int ->
                 viewModel.toggleIsFavourite(postId)
-                item.toggleIsFavourite()
-                Log.i("AstraNovos", "Clicou no favButton para item com id $postId; isFavourite = ${item.isFavourite}.")
+                Log.i("AstraNovos", "Clicou no favButton para item com id $postId")
             }
         ))
         binding.homeRv.adapter = adapter
