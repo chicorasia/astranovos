@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import kotlinx.coroutines.flow.Flow
 
@@ -32,20 +31,14 @@ interface PostDao {
     @Query("DELETE FROM post WHERE category IS :category AND isFavourite == 0")
     suspend fun clearDb(category: String)
 
-    @Query("UPDATE post SET isFavourite = NOT isFavourite WHERE id = :postId ")
+    @Query("UPDATE post SET isFavourite = NOT isFavourite WHERE id = :postId")
     suspend fun toggleIsFavourite(postId: Int)
 
-    @Query("SELECT * FROM post WHERE id is :postId")
-    fun getPostWithId(postId: Int) : PostDb
-
-//    suspend fun toggleIsFavourite(postId: Int) {
-//        val retrievedPost = getPostWithId(postId)
-//        retrievedPost.isFavourite = !retrievedPost.isFavourite
-//        up(retrievedPost)
-//    }
-
-    @Update
-    suspend fun updatePost(post: PostDb)
+//    @Query("SELECT * FROM post WHERE id is :postId")
+//    fun getPostWithId(postId: Int) : PostDb
+//
+//    @Update
+//    suspend fun updatePost(post: PostDb)
 
 
 }

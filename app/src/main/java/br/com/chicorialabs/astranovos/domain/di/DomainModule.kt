@@ -26,9 +26,9 @@ object DomainModule {
       */
     private fun useCaseModule(): Module {
         return module {
-            factory { GetLatestPostsUseCase(get()) }
-            factory { GetLatestPostsTitleContainsUseCase(get()) }
-            factory { ToggleIsFavouriteUseCase(get()) }
+            factory { GetLatestPostsUseCase(repository = get()) }
+            factory { GetLatestPostsTitleContainsUseCase(repository = get()) }
+            factory { ToggleIsFavouriteUseCase(repository = get()) }
         }
     }
 

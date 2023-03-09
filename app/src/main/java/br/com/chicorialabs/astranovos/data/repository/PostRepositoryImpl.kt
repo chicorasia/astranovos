@@ -4,7 +4,6 @@ import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.Resource
 import br.com.chicorialabs.astranovos.core.networkBoundResource
 import br.com.chicorialabs.astranovos.data.dao.PostDao
-import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.toModel
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
@@ -33,10 +32,10 @@ class PostRepositoryImpl(
     private val clearDbAndSave: suspend (List<PostDTO>, String) -> Unit = { list: List<PostDTO>,
                                                                             category: String ->
         dao.clearDb(category)
-        list.forEach {
-            dao.save(it.toDb(category))
-        }
-//        dao.saveAll(list.toDb(category))
+//        list.forEach {
+//            dao.save(it.toDb(category))
+//        }
+        dao.saveAll(list.toDb(category))
     }
 
     /**
@@ -74,14 +73,18 @@ class PostRepositoryImpl(
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
 
-    /**
-     * TODO: métodos adicionados
-     */
-    override fun getPostWithId(postId: Int): PostDb = dao.getPostWithId(postId)
-
-    override suspend fun updatePost(postDb: PostDb) {
-        dao.updatePost(postDb)
+    override suspend fun toggleIsFavourite(postId: Int) {
+        dao.toggleIsFavourite(postId)
     }
+
+    /**
+     * Ao menos o primeiro método vai ser útil para o caso de uso de leitura da postagem.
+     */
+//    override fun getPostWithId(postId: Int): PostDb = dao.getPostWithId(postId)
+//
+//    override suspend fun updatePost(postDb: PostDb) {
+//        dao.updatePost(postDb)
+//    }
 
 
 }

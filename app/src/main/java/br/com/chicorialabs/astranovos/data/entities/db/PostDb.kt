@@ -1,6 +1,5 @@
 package br.com.chicorialabs.astranovos.data.entities.db
 
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
@@ -24,7 +23,7 @@ data class PostDb(
     //Preciso resolver o armazenamento desse array...
     var launches: Array<LaunchDb> = emptyArray(),
     val category: String,
-    var isFavourite: Boolean = true
+    var isFavourite: Boolean = false
 ) {
 
     fun toModel() : Post = Post(

@@ -25,9 +25,15 @@ object PresentationModule {
     /**
      * Instancia os Viewmodels da camada de apresentação
      */
-    private fun viewModelModule() : Module {
+    private fun viewModelModule(): Module {
         return module {
-            factory { HomeViewModel(get(), get(), get()) }
+            factory {
+                HomeViewModel(
+                    getLatestPostUseCase = get(),
+                    getLatestPostsTitleContainsUseCase = get(),
+                    toggleIsFavouriteUseCase = get()
+                )
+            }
         }
     }
 
