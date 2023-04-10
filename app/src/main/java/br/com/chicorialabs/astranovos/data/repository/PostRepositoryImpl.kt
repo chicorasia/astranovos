@@ -11,6 +11,7 @@ import br.com.chicorialabs.astranovos.data.entities.network.toDb
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 
 /**
  * Essa classe implementa a interface PostRepository. Os dados são retornados na forma de um flow.
@@ -73,8 +74,13 @@ class PostRepositoryImpl(
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
 
-    override suspend fun toggleIsFavourite(postId: Int) {
-        dao.toggleIsFavourite(postId)
+    override suspend fun toggleIsFavourite(postId: Int) : Boolean {
+        try {
+            dao.toggleIsFavourite(postId)
+        } catch (ex: IOException) {
+            throw IOException("Could not set favourite for this post. Sorry.")
+        }
+        return true
     }
 
     /**

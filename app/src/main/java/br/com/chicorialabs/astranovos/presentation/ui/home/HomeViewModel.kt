@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.io.IOException
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -190,7 +191,11 @@ class HomeViewModel(
     fun toggleIsFavourite(postId: Int) {
         databaseScope.launch {
             Log.d("AstraNovos", "toggleIsFavourite is called for post id $postId!")
-            toggleIsFavouriteUseCase(postId).collect {
+            toggleIsFavouriteUseCase(postId)
+                .catch { ioException ->
+                    _snackbar.value = ioException.message
+                }
+                .collect {
                 if(it)
                     Log.d("AstraNovos", "toggleIsFavourite: is succesful!")
             }

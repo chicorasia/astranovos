@@ -15,7 +15,6 @@ class ToggleIsFavouriteUseCase(private val repository: PostRepository) : UseCase
      * @param param: id do Post no formato Int
      */
     override suspend fun execute(param: Int): Flow<Boolean> = flow {
-        repository.toggleIsFavourite(param)
-        emit(true)
+        emit(repository.toggleIsFavourite(param))
     }
 }

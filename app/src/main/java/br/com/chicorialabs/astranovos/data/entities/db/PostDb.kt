@@ -46,6 +46,7 @@ data class PostDb(
 
         if (id != other.id) return false
         if (title != other.title) return false
+        if (isFavourite != other.isFavourite) return false
 
         return true
     }

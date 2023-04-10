@@ -15,7 +15,7 @@ interface PostRepository {
 
     suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<Resource<List<Post>>>
 
-    suspend fun toggleIsFavourite(postId: Int)
+    suspend fun toggleIsFavourite(postId: Int) : Boolean
 
     /**
      * Esse método ainda vai ser útil para o caso de uso de leitura de uma postagem
