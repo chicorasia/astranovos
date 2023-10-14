@@ -15,7 +15,8 @@ import br.com.chicorialabs.astranovos.databinding.ItemPostBinding
  * na classe Adapter.
  * @param clickListener : Um listener de cliques nos itens da Recyclerview
  */
-class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffCallback()){
+class PostListAdapter(private val clickListener: PostItemListener) :
+    ListAdapter<Post, PostListAdapter.PostViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder.from(parent)
@@ -38,11 +39,11 @@ class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, P
              * Esse método infla o layout e retorna o ViewHolder. É uma boa prática
              * que reduz o acoplamento do código do adapter.
              */
-            fun from(parent: ViewGroup) : PostViewHolder {
+            fun from(parent: ViewGroup): PostViewHolder {
                 val binding: ItemPostBinding = ItemPostBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
-                false
+                    false
                 )
                 return PostViewHolder(binding)
             }
@@ -65,7 +66,7 @@ class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, P
      * Essa classe mantém os métodos obrigatórios para o DiffUtil
      * e é praticamente boilerplate.
      */
-    private class PostDiffCallback : DiffUtil.ItemCallback<Post>(){
+    private class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
         override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem.id == newItem.id
         }
@@ -83,10 +84,12 @@ class PostListAdapter(val clickListener: PostItemListener) : ListAdapter<Post, P
  * internos. O corpo das funções clickListener e favButtonClickListener
  * deve ser definido na instanciação do adapter.
  */
-class PostItemListener(val clickListener: (postId: Int) -> Unit,
-                        val favButtonCLickListener: (postId: Int) -> Unit
-                       ) {
+class PostItemListener(
+    val clickListener: (postId: Int) -> Unit,
+    val favButtonCLickListener: (postId: Int) -> Unit
+) {
     fun onClick(post: Post) = clickListener(post.id)
 
     fun onFavButtonClick(post: Post) = favButtonCLickListener(post.id)
+
 }

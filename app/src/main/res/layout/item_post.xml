@@ -13,7 +13,7 @@
             type="br.com.chicorialabs.astranovos.data.entities.model.Post" />
         <variable
             name="clickListener"
-            type="br.com.chicorialabs.astranovos.presentation.adapter.PostItemListener" />
+            type="br.com.chicorialabs.astranovos.presentation.adapter.PostItemListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +46,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     postImage="@{post}"
                     tools:src="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@null"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -97,12 +98,23 @@
                     app:layout_constraintEnd_toStartOf="@id/item_favourite_btn" />
 
 
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/item_favourite_btn"-->
+<!--                    android:layout_width="@dimen/image_button_size"-->
+<!--                    android:layout_height="@dimen/image_button_size"-->
+<!--                    setFavIcon="@{post}"-->
+<!--                    app:iconTint="@color/design_default_color_on_primary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:onClick="@{() -> clickListener.onFavButtonClick(post)}"-->
+<!--                    />-->
+
                 <CheckBox
                     android:id="@+id/item_favourite_btn"
                     android:layout_width="@dimen/image_button_size"
                     android:layout_height="@dimen/image_button_size"
                     android:clickable="true"
-                    postIsFavourite="@{post}"
+                    app:postIsFavourite="@{post.isFavourite}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:tint="@color/design_default_color_on_primary"

@@ -1,8 +1,5 @@
 package br.com.chicorialabs.astranovos.data.entities.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
 /**
  * Essa data class representa uma publicação; os artigos, postagens
  * em blog e relatórios possuem a mesma estrutura, então deve
@@ -17,7 +14,7 @@ data class Post(
     val publishedAt: String,
     val updatedAt: String?,
     var launches: Array<Launch> = emptyArray(),
-    var _isFavourite: Boolean
+    var _isFavourite: Boolean = false
 ) {
     /**
      * A função hasLaunch() é um método de conveniência para
@@ -27,14 +24,11 @@ data class Post(
 
     fun getLaunchCount() : Int = launches.size
 
-    val isFavourite: Boolean
-        get() = _isFavourite
-
-
     /**
      * Sobrescrevi os métodos equals() e hashCode() para melhorar o
      * desempenho da DiffUtil
      */
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -43,7 +37,7 @@ data class Post(
 
         if (id != other.id) return false
         if (title != other.title) return false
-        if (_isFavourite != other.isFavourite) return false
+        if (_isFavourite != other._isFavourite) return false
 
         return true
     }
@@ -51,11 +45,13 @@ data class Post(
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + title.hashCode()
+        result = 31 * result + _isFavourite.hashCode()
         return result
     }
 
-    fun toggleIsFavourite() {
-        _isFavourite = !_isFavourite
-    }
+    val isFavourite: Boolean
+        get() = _isFavourite
+
+
 
 }

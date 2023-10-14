@@ -4,12 +4,14 @@ import br.com.chicorialabs.astranovos.core.RemoteException
 import br.com.chicorialabs.astranovos.core.Resource
 import br.com.chicorialabs.astranovos.core.networkBoundResource
 import br.com.chicorialabs.astranovos.data.dao.PostDao
+import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.db.toModel
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.data.entities.network.PostDTO
 import br.com.chicorialabs.astranovos.data.entities.network.toDb
 import br.com.chicorialabs.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -33,9 +35,6 @@ class PostRepositoryImpl(
     private val clearDbAndSave: suspend (List<PostDTO>, String) -> Unit = { list: List<PostDTO>,
                                                                             category: String ->
         dao.clearDb(category)
-//        list.forEach {
-//            dao.save(it.toDb(category))
-//        }
         dao.saveAll(list.toDb(category))
     }
 
@@ -45,10 +44,9 @@ class PostRepositoryImpl(
      * e invoca o método de conveniência para fazer a conversão em entidade de modelo.
      * @param category Categoria de postagem (article, blog ou post) no formato de String.
      */
-    override suspend fun listPosts(category: String): Flow<Resource<List<Post>>> =
+    override suspend fun listPosts(category: String): Flow<Resource<Flow<List<Post>>>> =
         networkBoundResource(
-            //Query(category),
-            query = { readFromDatabase(category) },
+            query = { flow { emit(readFromDatabase(category)) } },
             fetch = { service.listPosts(category) },
             saveFetchResult = { list ->
                 clearDbAndSave(list, category)
@@ -65,8 +63,8 @@ class PostRepositoryImpl(
     override suspend fun listPostsTitleContains(
         category: String,
         titleContains: String?
-    ): Flow<Resource<List<Post>>> = networkBoundResource(
-        query = { readFromDatabase(category) },
+    ): Flow<Resource<Flow<List<Post>>>> = networkBoundResource(
+        query = { flow { emit(readFromDatabase(category)) } },
         fetch = { service.listPostsTitleContains(category, titleContains) },
         saveFetchResult = { list ->
             clearDbAndSave(list, category)
@@ -74,24 +72,34 @@ class PostRepositoryImpl(
         onError = { RemoteException("Could not connect to SpaceFlightNews. Displaying cached content.") }
     )
 
-    override suspend fun toggleIsFavourite(postId: Int) : Boolean {
+    override suspend fun toggleIsFavourite(postId: Int): Boolean {
         try {
             dao.toggleIsFavourite(postId)
+            // uma tentativa desesperada de fazer o update que estava funcionando e parou...
         } catch (ex: IOException) {
             throw IOException("Could not set favourite for this post. Sorry.")
         }
+        // Retorna verdadeiro para indicar o sucesso da operação
         return true
     }
+
+    override suspend fun getPostById(param: Int): PostDb =
+        dao.getPostWithId(param)
+
 
     /**
      * Ao menos o primeiro método vai ser útil para o caso de uso de leitura da postagem.
      */
-//    override fun getPostWithId(postId: Int): PostDb = dao.getPostWithId(postId)
-//
-//    override suspend fun updatePost(postDb: PostDb) {
-//        dao.updatePost(postDb)
-//    }
+    override fun getPostWithId(postId: Int): PostDb = dao.getPostWithId(postId)
 
+    override suspend fun updatePost(postDb: PostDb): Boolean {
+        try {
+            dao.updatePost(postDb)
+        } catch (ex: IOException) {
+            throw IOException("Could not update post in the database.")
+        }
+        return true
+    }
 
 }
 

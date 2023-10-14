@@ -31,7 +31,8 @@ object PresentationModule {
                 HomeViewModel(
                     getLatestPostUseCase = get(),
                     getLatestPostsTitleContainsUseCase = get(),
-                    toggleIsFavouriteUseCase = get()
+                    toggleIsFavouriteUseCase = get(),
+                    //getSinglePostByIdUseCase = get()
                 )
             }
         }

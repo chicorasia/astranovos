@@ -17,8 +17,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.io.IOException
 
 /**
  * Essa classe dá suporte à tela principal (Home).
@@ -29,7 +27,8 @@ import java.io.IOException
 class HomeViewModel(
     private val getLatestPostUseCase: GetLatestPostsUseCase,
     private val getLatestPostsTitleContainsUseCase: GetLatestPostsTitleContainsUseCase,
-    private val toggleIsFavouriteUseCase: ToggleIsFavouriteUseCase
+    private val toggleIsFavouriteUseCase: ToggleIsFavouriteUseCase,
+    // private val getSinglePostByIdUseCase: GetSinglePostByIdUseCase
 ) : ViewModel() {
 
     /**
@@ -74,10 +73,10 @@ class HomeViewModel(
     }
 
     /**
-     * O campo _listPost agora recebe um objeto do tipo State<List<Post>>
+     * O campo _listPost agora recebe um objeto do tipo State<FLow<List<Post>>>
      */
-    private val _listPost = MutableLiveData<State<List<Post>>>()
-    val listPost: LiveData<State<List<Post>>>
+    private val _listPost = MutableLiveData<State<Flow<List<Post>>>>()
+    val listPost: LiveData<State<Flow<List<Post>>>>
         get() = _listPost
 
     init {
@@ -96,6 +95,7 @@ class HomeViewModel(
      * da aplicação quando em modo avião.
      */
     private fun fetchPosts(query: Query) {
+
         viewModelScope.launch {
             getLatestPostUseCase(query)
                 .onStart {
@@ -111,7 +111,7 @@ class HomeViewModel(
                      * Desempacota o Resource e atribui data ao campo _listPost e exibe
                      * error como mensagem no _snackbar
                      */
-                    it.data?.let{ list ->
+                    it.data?.let { list ->
                         _listPost.postValue(State.Success(list))
                     }
                     it.error?.let { error ->
@@ -139,7 +139,7 @@ class HomeViewModel(
                     }
                 }
                 .collect {
-                    it.data?.let{ list ->
+                    it.data?.let { list ->
                         _listPost.postValue(State.Success(list))
                     }
                     it.error?.let { error ->
@@ -196,10 +196,9 @@ class HomeViewModel(
                     _snackbar.value = ioException.message
                 }
                 .collect {
-                if(it)
-                    Log.d("AstraNovos", "toggleIsFavourite: is succesful!")
-            }
+                    if (it)
+                        Log.d("AstraNovos", "toggleIsFavourite: is succesful!")
+                }
         }
     }
-
 }

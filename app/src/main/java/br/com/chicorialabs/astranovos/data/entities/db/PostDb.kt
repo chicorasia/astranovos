@@ -26,7 +26,7 @@ data class PostDb(
     var isFavourite: Boolean = false
 ) {
 
-    fun toModel() : Post = Post(
+    fun toModel(): Post = Post(
         id = id,
         title = title,
         url = url,
@@ -54,14 +54,16 @@ data class PostDb(
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + title.hashCode()
+        result = 31 * result + isFavourite.hashCode()
         return result
     }
+
 }
 
 /**
  * Uma função de extensão para converter uma lista de PostDb em lista de Post
  */
-fun List<PostDb>.toModel() : List<Post> =
+fun List<PostDb>.toModel(): List<Post> =
     this.map {
         it.toModel()
     }
@@ -76,7 +78,7 @@ class PostDbConverters {
     }
 
     @TypeConverter
-    fun toString(array: Array<LaunchDb>) : String? {
+    fun toString(array: Array<LaunchDb>): String? {
         val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         val jsonAdapter = moshi.adapter(Array<LaunchDb>::class.java)
         return jsonAdapter.toJson(array)

@@ -7,15 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.core.State
 import br.com.chicorialabs.astranovos.data.SpaceFlightNewsCategory
-import br.com.chicorialabs.astranovos.data.entities.model.Post
 import br.com.chicorialabs.astranovos.databinding.HomeFragmentBinding
 import br.com.chicorialabs.astranovos.presentation.adapter.PostItemListener
 import br.com.chicorialabs.astranovos.presentation.adapter.PostListAdapter
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -46,6 +53,8 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         initOptionMenu()
     }
+
+    val databaseScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -178,7 +187,6 @@ class HomeFragment : Fragment() {
             },
             favButtonCLickListener = { postId: Int ->
                 viewModel.toggleIsFavourite(postId)
-                Log.i("AstraNovos", "Clicou no favButton para item com id $postId")
             }
         ))
         binding.homeRv.adapter = adapter
@@ -197,11 +205,17 @@ class HomeFragment : Fragment() {
                 }
                 is State.Success -> {
                     viewModel.hideProgressBar()
-                    adapter.submitList(it.result)
+                    lifecycleScope.launch {
+                        it.result.distinctUntilChanged()
+                            .debounce(100)
+                            .collect { list ->
+                                Log.d("Astranovos", "initRecyclerView: submitting ${list.hashCode()}")
+                                adapter.submitList(list)
+                        }
+                    }
                 }
             }
         }
-
     }
 
     /**
@@ -225,4 +239,11 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
+    /**
+     * Encerrar o escopo para evitar vazamentos de memória
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        databaseScope.cancel()
+    }
 }

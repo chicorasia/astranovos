@@ -1,14 +1,10 @@
 package br.com.chicorialabs.astranovos.presentation.binding
 
-import android.os.Build
 import android.view.View
 import android.widget.CheckBox
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.chicorialabs.astranovos.R
 import br.com.chicorialabs.astranovos.data.entities.model.Post
@@ -36,7 +32,6 @@ fun TextView.setPostSummary(post: Post?) {
         text = post.summary
     }
 }
-
 
 /**
  * Esse adapter usa a biblioteca Glide para carregar uma imagem
@@ -80,12 +75,10 @@ fun Chip.setHasLaunch(post: Post?) {
 }
 
 
-
 /**
  * Esse adapter converte a data em formato String usando a classe Instant
  * e depois formata para o padrão dd-mm-aaaa.
  */
-@RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("postPublishedDate")
 fun Chip.setUpdate(post: Post?) {
     val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
@@ -99,10 +92,6 @@ fun Chip.setUpdate(post: Post?) {
 }
 
 @BindingAdapter("postIsFavourite")
-fun CheckBox.setChecked(post: Post?) {
-    isChecked = false
-    post?.let { post ->
-        isChecked = post.isFavourite
-    }
+fun CheckBox.checked(isFavourite: Boolean) {
+    this.isChecked = isFavourite
 }
-

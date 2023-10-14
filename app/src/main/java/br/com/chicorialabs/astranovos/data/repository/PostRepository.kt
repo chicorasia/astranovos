@@ -1,6 +1,7 @@
 package br.com.chicorialabs.astranovos.data.repository
 
 import br.com.chicorialabs.astranovos.core.Resource
+import br.com.chicorialabs.astranovos.data.entities.db.PostDb
 import br.com.chicorialabs.astranovos.data.entities.model.Post
 import kotlinx.coroutines.flow.Flow
 
@@ -11,17 +12,20 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PostRepository {
 
-    suspend fun listPosts(category: String) : Flow<Resource<List<Post>>>
+    suspend fun listPosts(category: String) : Flow<Resource<Flow<List<Post>>>>
 
-    suspend fun listPostsTitleContains(category: String, titleContains: String?) : Flow<Resource<List<Post>>>
+    suspend fun listPostsTitleContains(category: String, titleContains: String?) :
+            Flow<Resource<Flow<List<Post>>>>
 
     suspend fun toggleIsFavourite(postId: Int) : Boolean
+
+    suspend fun getPostById(param: Int): PostDb
 
     /**
      * Esse método ainda vai ser útil para o caso de uso de leitura de uma postagem
      */
-//    fun getPostWithId(postId: Int) : PostDb
-//
-//    suspend fun updatePost(postDb: PostDb)
+    fun getPostWithId(postId: Int) : PostDb
+
+    suspend fun updatePost(postDb: PostDb) : Boolean
 
 }

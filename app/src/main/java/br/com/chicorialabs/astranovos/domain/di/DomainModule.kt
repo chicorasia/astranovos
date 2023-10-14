@@ -2,6 +2,7 @@ package br.com.chicorialabs.astranovos.domain.di
 
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsTitleContainsUseCase
 import br.com.chicorialabs.astranovos.domain.GetLatestPostsUseCase
+import br.com.chicorialabs.astranovos.domain.GetSinglePostByIdUseCase
 import br.com.chicorialabs.astranovos.domain.ToggleIsFavouriteUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
@@ -29,6 +30,9 @@ object DomainModule {
             factory { GetLatestPostsUseCase(repository = get()) }
             factory { GetLatestPostsTitleContainsUseCase(repository = get()) }
             factory { ToggleIsFavouriteUseCase(repository = get()) }
+
+            //adicionar a dependência do novo use case
+            factory { GetSinglePostByIdUseCase(repository = get()) }
         }
     }
 
